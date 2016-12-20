@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp" ng-controller="loginCtrl">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<title>Login</title>
+	 	<link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
+	 	<link rel="stylesheet" href="css/app.css">
+ 	</head>
+	<body>
+		<!-- Top content -->
+			<div>
+				<h1 class="align-center">Login Page</h1>
+			</div>
+		<div class="limitWidth">
+			<form role="form" action="" method="post" class="login-form">
+				<div class="align-center">
+					<input type="text" name="username" placeholder="Username" class="username form-control" id="username" ng-model="user.login">
+				</div>
+				<div class="align-center">
+					<input type="password" name="password" placeholder="Password" class="password form-control" id="password" ng-model="user.pwd">
+				</div>
+				<br>
+				<button type="button" class="btn btn-primary btn-block" ngclick="logAuth()">Login</button>
+		 	</form>
+		</div> 
+		<!-- Javascript -->
+		<script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+		<script src="librairies/bootstrap/js/bootstrap.min.js"></script>
+		<!--<script src="librairies/angular/angular.min.js"></script>-->
+	</body>
+</html>
