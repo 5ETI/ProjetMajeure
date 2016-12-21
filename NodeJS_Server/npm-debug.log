@@ -21,7 +21,7 @@
 9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 10 verbose pkgid ad_panels_node_server@1.0.0
 11 verbose cwd /home/maxime/Documents/5ETI/ProjetMajeure/NodeJS_Server
-12 error Linux 3.13.0-103-generic
+12 error Linux 3.13.0-106-generic
 13 error argv "/opt/node-v4.5.0-linux-x64/bin/node" "/opt/node-v4.5.0-linux-x64/bin/npm" "start"
 14 error node v4.5.0
 15 error npm  v2.15.9
