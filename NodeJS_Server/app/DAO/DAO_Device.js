@@ -21,3 +21,22 @@ var list = function(deviceList){
 	});
 }
 module.exports.list = list;
+
+var getDevice = function (id, device){
+	DAO_Connection.connect(function(conn){
+		conn.query("SELECT * FROM device WHERE iddevice = '" + id + "';", function(err, Device) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return device(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('The solution is: ', Device);
+			return device(null, DeviceList);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.getDevice = getDevice,

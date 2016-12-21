@@ -21,3 +21,16 @@ var list = function(DAO_Device_list){
 
 }
 module.exports.list = list;
+
+var getDevice = function(id, DAO_Device_info){
+	DAO_Device.getDevice(id, function(err, device){
+		if(err)
+		{
+			return DAO_Device_info(err);
+		}
+		else{
+			console.log(device);
+			return DAO_Device_info(null, device);
+		}
+
+	});
