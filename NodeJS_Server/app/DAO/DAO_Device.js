@@ -33,10 +33,10 @@ var getDevice = function (id, device){
 			{
 			//console.log('type of : ', typeof(DeviceList));
 			console.log('The solution is: ', Device);
-			return device(null, DeviceList);
+			return device(null, Device);
 			}
 		});
 		conn.end();
 	});
 }
-module.exports.getDevice = getDevice,
+module.exports.getDevice = getDevice;

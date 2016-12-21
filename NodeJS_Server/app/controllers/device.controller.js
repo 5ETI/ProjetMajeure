@@ -34,3 +34,5 @@ var getDevice = function(id, DAO_Device_info){
 		}
 
 	});
+};
+module.exports.getDevice = getDevice;
