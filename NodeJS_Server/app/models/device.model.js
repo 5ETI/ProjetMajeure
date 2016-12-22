@@ -1,18 +1,20 @@
 'use strict';
 var CONFIG = require("../../config.json");
-var DAO_Device = require("./../DAO/DAO_Device.js");
+var DAO_Device = require("./../DAO/DAO.js");
 
 var DeviceModel=function(smodel){
 	smodel=check_attr(smodel);
 	this.id = smodel.id;
 	this.orientation = smodel.orientation;
-	this.taille = smodel.taille;
+	this.longueur = smodel.longueur;
+	this.hauteur = smodel.hauteur;
 	this.latitude = smodel.latitude;
 	this.longitude = smodel.longitude;
 
-	this.setParameters = function(orientation, taille, latitude, longitude){
+	this.setParameters = function(orientation,longueur, hauteur, latitude, longitude){
 		this.orientation = smodel.orientation;
-		this.taille = smodel.taille;
+		this.longueur = smodel.longueur;
+		this.hauteur = smodel.hauteur;		
 		this.latitude = smodel.latitude;
 		this.longitude = smodel.longitude;
 	}
@@ -20,7 +22,7 @@ var DeviceModel=function(smodel){
 	function check_attr(smodel){
 		if(typeof smodel === "undefined")
 		{
-			smodel={ id: null, orientation: null, taille: null, latitude: null, longitude: null};
+			smodel={ id: null, orientation: null, longueur: null,hauteur: null, latitude: null, longitude: null};
 		}
 		return smodel;
 	}
@@ -50,4 +52,4 @@ var DeviceModel=function(smodel){
 
 
 
-module.exports.DeviceModel = DeviceModel;
+	module.exports.DeviceModel = DeviceModel;

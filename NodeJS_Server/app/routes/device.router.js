@@ -5,7 +5,7 @@ var  router  =  express.Router();
 module.exports  =  router;
 var DeviceController = require("./../controllers/device.controller.js");
 
-router.route("/Device")
+router.route("/device/all")
     .get(function (request, response) {
     	DeviceController.list(function(err, deviceList){
     		if(err){
@@ -18,9 +18,8 @@ router.route("/Device")
 
     	});
 });
-router.route("/Device/:id")
+router.route("/device/:id")
 	.get(function(request, response) {
-
 	var params = request.url.split("/");
 	var id = params[2];
 	DeviceController.getDevice(id, function(err, device){
