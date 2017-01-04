@@ -1,8 +1,8 @@
-DROP TABLE `ProjetMajeure`.`device`;
-DROP TABLE `ProjetMajeure`.`user`;
+DROP TABLE IF EXISTS `ProjetMajeure`.`device`;
+DROP TABLE IF EXISTS `ProjetMajeure`.`user`;
 
 CREATE TABLE `ProjetMajeure`.`device` (
- `id` INT NOT NULL,
+ `id` INT NOT NULL AUTO_INCREMENT,
  `orientation` VARCHAR(45) NOT NULL,
  `longueur` INT NOT NULL,
  `hauteur` INT NOT NULL,
@@ -10,20 +10,25 @@ CREATE TABLE `ProjetMajeure`.`device` (
  `longitude` FLOAT NOT NULL,
  PRIMARY KEY (`id`));
 
-INSERT INTO `ProjetMajeure`.`device` (`id`, `orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) VALUES ('0', 'portrait', '1256','3256', '3.14957', '4.124569');
-INSERT INTO `ProjetMajeure`.`device` (`id`, `orientation`, `longueur`,`hauteur`, `latitude`,`longitude`) VALUES ('1', 'paysage', '1256','3256', '9.145797','3.14957');
+INSERT INTO `ProjetMajeure`.`device` (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) 
+VALUES 	('portrait', '1256','3256', '3.14957', '4.124569'),
+		('paysage', '1256','3256', '9.145797','3.14957');
 
 CREATE TABLE `ProjetMajeure`.`user` (
- `id` VARCHAR(45) CHARACTER SET 'dec8' COLLATE 'dec8_swedish_ci' NOT NULL,
- `email` VARCHAR(45) NULL,
+ `id` INT NOT NULL AUTO_INCREMENT,
+ `email` VARCHAR(45) NOT NULL,
+ `password` VARCHAR(45) NOT NULL,
  `name` VARCHAR(45) NULL,
- `role` VARCHAR(45) NULL,
+ `role` INT,
  `timestamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`id`));
 
 
-
-INSERT INTO `ProjetMajeure`.`user` (`id`, `email`, `name`, `role`) VALUES ('328bacc3', 'blop@blop.com', 'bloppy','manager');
-INSERT INTO `ProjetMajeure`.`user` (`id`, `email`, `name`, `role`) VALUES ('5679GQ3R', 'john@doe.com', 'John Doe', 'manager');
-INSERT INTO `ProjetMajeure`.`user` (`id`, `email`, `name`, `role`) VALUES ('124FGU98', 'tada@tada.com', 'tada','administrateur');
-INSERT INTO `ProjetMajeure`.`user` (`id`, `email`, `name`, `role`) VALUES ('987HJAL', 'qiuh@.com', 'kqjsb', 'administrateur');
+INSERT INTO `ProjetMajeure`.`user` ( `email`, `password`, `name`, `role`) 
+VALUES 	('admin@admin.com', 'admin', 'Admin', '0'),
+		('manager@manager.com', 'manager', 'Manager', '1'),
+		('device@device.com', 'device', 'Device', '2'),
+        ('blop@blop.com', 'blop', 'bloppy', '1'),
+		('john@doe.com', 'john', 'John Doe', '1'),
+		('tada@tada.com', 'tada', 'tada','0'),
+		('qiuh@.com', 'sqsq', 'kqjsb', '0');
