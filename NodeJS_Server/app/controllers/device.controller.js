@@ -41,8 +41,8 @@ module.exports.getDevice = getDevice;
 
 
 var addDevice = function(device, Dao_add_device){
-	 	if (device.id === "undefined"){
-	 		return new Error("device id cannot be undfined");
+	if (device.id === "undefined"){
+		return new Error("device id cannot be undfined");
 	 		//return console.error("L'id d'un Device ne peut pas être nul");
 	 	}
 	 	if (device.orientation === "undefined"){
@@ -66,12 +66,12 @@ var addDevice = function(device, Dao_add_device){
 	 		//return console.error("L'orientation d'un Device ne peut pas être nul");
 	 	}
 	 	DAO.addDevice(device, function(err, device){
-		if(err)
-		{
-			console.log(err);
-			return Dao_add_device(err);
-		}
-		else{
+	 		if(err)
+	 		{
+	 			console.log(err);
+	 			return Dao_add_device(err);
+	 		}
+	 		else{
 			//console.log(device);
 			return Dao_add_device(null, device);
 		}
@@ -83,3 +83,24 @@ var addDevice = function(device, Dao_add_device){
 
 };
 module.exports.addDevice = addDevice;
+
+var delDevice = function(id, DAO_Device_info){
+	if (id != null){
+		DAO.deleteData("device", "id", id, function(err, device){
+			if(err)
+			{
+				console.log(err);
+				return DAO_Device_info(err);
+			}
+			else{
+			//console.log(device);
+			return DAO_Device_info(null, device);
+		}
+
+	});
+	}
+	else{
+		
+	}
+};
+module.exports.delDevice = delDevice;
