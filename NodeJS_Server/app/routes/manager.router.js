@@ -5,7 +5,7 @@ var  router  =  express.Router();
 module.exports  =  router;
 var ManagerController = require("./../controllers/manager.controller.js");
 
-router.route("/managers")
+router.route("/managers/all")
     .get(function (request, response) {
     	ManagerController.list(function(err, managerList){
     		if(err){

@@ -42,9 +42,32 @@ var list = function(datatype, whereFilter, value, intemList){
 module.exports.list = list;
 
 
-var getData = function (id, datatype, callback){
+// var getData = function (id, datatype, callback){
+// 	connect(function(conn){
+// 		conn.query("SELECT * FROM " + datatype + " WHERE id = '" + id + "';", function(err, Data) {
+// 			if (err){
+// 				console.log('Error while performing Query.  ' + err);
+// 				return callback(err);
+// 			}
+// 			else
+// 			{
+// 			//console.log('type of : ', typeof(DeviceList));
+// 			console.log(datatype + " of id : " + id +" : \n" , Data);
+// 			return callback(null, Data);
+// 			}
+// 		});
+// 		conn.end();
+// 	});
+// }
+// module.exports.getData = getData;
+
+
+var addDevice = function (device, callback)
+{
 	connect(function(conn){
-		conn.query("SELECT * FROM " + datatype + " WHERE id = '" + id + "';", function(err, Data) {
+		var query = "INSERT INTO device (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) VALUES('"  + device.orientation +"','" +device.longueur + "','" + device.hauteur + "','" + device.latitude + "','" + device.longitude + "')";
+		console.log(query);
+		conn.query(query, function(err, Data) {
 			if (err){
 				console.log('Error while performing Query.  ' + err);
 				return callback(err);
@@ -52,17 +75,11 @@ var getData = function (id, datatype, callback){
 			else
 			{
 			//console.log('type of : ', typeof(DeviceList));
-			console.log(datatype + " of id : " + id +" : \n" , Data);
-			return callback(null, Data);
+			//console.log(datatype + " of id : " + id +" : \n" , Data);
+			return callback(null, device);
 			}
 		});
 		conn.end();
 	});
 }
-module.exports.getData = getData;
-
-
-var addDevice = function (device, callback)
-{
-
-}
+module.exports.addDevice = addDevice;
