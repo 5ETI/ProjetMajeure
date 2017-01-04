@@ -46,6 +46,8 @@ html,body {
 	border: 0.2em solid;
 	padding: 0.5em;
 	margin:0.3em;
+	cursor:pointer;
+	border-radius: 5px;
 
 }
 

@@ -17,8 +17,8 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
           {
             "id": 1,
             "orientation": "paysage",
-            "longueur": 1256,
-            "hauteur": 3256,
+            "longueur": 345,
+            "hauteur": 555,
             "latitude": 9.1458,
             "longitude": 3.14957
           }
@@ -95,11 +95,12 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
         $log.info('Scope Event Controller => Slide ID', $scope.currentSlide.id);
 
     }
-    
-    $scope.selectCurrentSlid=function(slide){
-        $scope.currentSlide=slide;
+    */
+    $scope.selectCurrentDevice=function(deviceId){
+        var device = factory.deviceCreation(devices[deviceId].id,devices[deviceId].orientation,devices[deviceId].hauteur,devices[deviceId].longueur,devices[deviceId].longitude,devices[deviceId].latitude);
+        $scope.currentDevice=device;
     }
-    
+    /*
     
     $scope.onDragComplete=function(data,evt){
        console.log("drag success, data:", data);
