@@ -12,11 +12,11 @@ public class Device {
     private String orientation;
     private int longueur;
     private int hauteur;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
     private String ville;
 
-    public Device(int id,String orientation, int longueur, int hauteur, float latitude, float longitude, String ville) {
+    public Device(int id,String orientation, int longueur, int hauteur, double latitude, double longitude, String ville) {
         this.id = id;
         this.orientation = orientation;
         this.longueur = longueur;
@@ -66,7 +66,7 @@ public class Device {
         this.hauteur = hauteur;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
@@ -74,7 +74,7 @@ public class Device {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

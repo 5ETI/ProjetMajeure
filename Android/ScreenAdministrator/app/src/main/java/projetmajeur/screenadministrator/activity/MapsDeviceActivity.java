@@ -1,11 +1,14 @@
 package projetmajeur.screenadministrator.activity;
 
+import android.content.Intent;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -18,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -29,8 +33,12 @@ import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.enumeration.EnumRecherche;
 import projetmajeur.screenadministrator.entity.enumeration.EnumVille;
 import projetmajeur.screenadministrator.entity.enumeration.Recherche;
+import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.RechercheDevice;
+import projetmajeur.screenadministrator.tasks.DeviceTask;
 
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker;
 import static projetmajeur.screenadministrator.R.id.latitude;
 import static projetmajeur.screenadministrator.R.id.longitude;
 
@@ -77,55 +85,102 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
 
         mMap = googleMap;
 
+        final TextView id = (TextView) findViewById(R.id.identifiant);
         final TextView orientation = (TextView) findViewById(R.id.orientation);
         final TextView longueur = (TextView) findViewById(R.id.longueur);
         final TextView hauteur = (TextView) findViewById(R.id.hauteur);
         final TextView longitude = (TextView) findViewById(R.id.longitude);
         final TextView latitude = (TextView) findViewById(R.id.latitude);
 
-        if(RechercheDevice.getInstance().getTyperecherche().toString().equals("Par ville")){
+        Double typeRecherche = 0.0;
+        Double latUser = 0.0;
+        Double longUser = 0.0;
+        Marker marUser = null;
 
-                LatLng lyon = new LatLng(45.764043,4.835);
-                LatLng paris = new LatLng(48.862725,2.287592000000018);
-                LatLng londres = new LatLng(51.5073509,-0.12775829999998223);
-                LatLng newyork = new LatLng(40.7127837,-74.00594130000002);
 
-                if(RechercheDevice.getInstance().getVillerecherche().toString().equals("Lyon")){
-                    city = lyon;
-                }
-                if(RechercheDevice.getInstance().getVillerecherche().toString().equals("Paris")){
-                    city = paris;
-                }
-                if(RechercheDevice.getInstance().getVillerecherche().toString().equals("Londres")){
-                    city = londres;
-                 }
-                 if(RechercheDevice.getInstance().getVillerecherche().toString().equals("New York")){
-                     city = newyork;
-                 }
+        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("Par ville")) {
+
+            typeRecherche = 1.0;
+            LatLng lyon = new LatLng(45.764043, 4.835);
+            LatLng paris = new LatLng(48.862725, 2.287592000000018);
+            LatLng londres = new LatLng(51.5073509, -0.12775829999998223);
+            LatLng newyork = new LatLng(40.7127837, -74.00594130000002);
+
+            if (RechercheDevice.getInstance().getVillerecherche().toString().equals("Lyon")) {
+                city = lyon;
+            }
+            if (RechercheDevice.getInstance().getVillerecherche().toString().equals("Paris")) {
+                city = paris;
+            }
+            if (RechercheDevice.getInstance().getVillerecherche().toString().equals("Londres")) {
+                city = londres;
+            }
+            if (RechercheDevice.getInstance().getVillerecherche().toString().equals("New York")) {
+                city = newyork;
+            }
             mMap.addMarker(new MarkerOptions().position(city).title("Cherche ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(city));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city,12));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 12));
         }
-        if(RechercheDevice.getInstance().getTyperecherche().toString().equals("Par geolocalisation")){
-                Log.i("dans la boucle ","a");
-                Bundle bundle = this.getIntent().getExtras();
-                longUser = bundle.getDouble("longUser");
-                latUser = bundle.getDouble("latUser");
+        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("Par geolocalisation")) {
+            typeRecherche = 2.0;
+            Log.i("dans la boucle ", "a");
+            Bundle bundle = this.getIntent().getExtras();
+            longUser = bundle.getDouble("longUser");
+            latUser = bundle.getDouble("latUser");
 
-                LatLng user = new LatLng(latUser,longUser);
+            LatLng user = new LatLng(latUser, longUser);
             mMap.addMarker(new MarkerOptions().position(user).title("Vous etes ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(user));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,12));
+
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user, 12));
         }
 
-            mMap.getUiSettings().setZoomControlsEnabled(true);
 
+
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        DeviceTask deviceTask = new DeviceTask();
+        DeviceTask.DeviceListener deviceListener = new DeviceTask.DeviceListener() {
+            @Override
+            public void onDevice(ArrayList<Device> result) {
+                for (int i = 0; i < result.size(); i++) {
+                    LatLng lt = new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude());
+                    Marker marke = mMap.addMarker(new MarkerOptions().position(lt).title("Screen n° : " + result.get(i).getId()).icon(defaultMarker(HUE_GREEN)));
+                    marke.setTag(result.get(i));
+                }
+            }
+        };
+
+        deviceTask.setDeviceListener(deviceListener);
+        deviceTask.execute(typeRecherche, latUser, longUser);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker arg0) {
+
+                    Device pl = (Device) arg0.getTag();
+
+                    id.setText("Id du screen : " + pl.getId());
+                    orientation.setText("Orientation du screen : " + pl.getOrientation());
+                    longueur.setText("Longueur du screen" + pl.getLongueur());
+                    hauteur.setText("Hauteur du screen : " + pl.getHauteur());
+                    longitude.setText("Longitude du screen" + pl.getLongitude());
+                    latitude.setText("Latitude du screen: " + pl.getLatitude());
+                    return true;
+
+
+
+            }
+
+
+        });
     }
+        /**
+         * ATTENTION: This was auto-generated to implement the App Indexing API.
+         * See https://g.co/AppIndexing/AndroidStudio for more information.
+         */
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("MapsDevice Page") // TODO: Define a title for the content shown.
@@ -158,3 +213,4 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
         client.disconnect();
     }
 }
+

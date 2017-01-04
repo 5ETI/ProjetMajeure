@@ -124,7 +124,6 @@ public class DeviceActivity extends GoogleLocationActivity {
                // Bundle extras = intent.getExtras();
                 intent.putExtra("longUser",longUser);
                 intent.putExtra("latUser",latUser);
-                intent.put
                 //intent.putExtras(extras);
                 startActivity(intent);
             }
@@ -134,7 +133,6 @@ public class DeviceActivity extends GoogleLocationActivity {
 
     @Override
     protected void updateUI() {
-        longUser = mLastLocation.getLatitude();
 
 
     }
