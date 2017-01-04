@@ -3,6 +3,8 @@ console.log("it works !!!");
 
 var http = require("http");
 var express = require("express");
+var bodyParser = require('body-parser')
+
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
 var path = require("path");
@@ -14,6 +16,7 @@ var managerRoute  = require("./app/routes/manager.router.js");
 
 
 var app = express();
+app.use(bodyParser.json());
 //app.use(defaultRoute); 
 app.use(deviceRoute);
 app.use(managerRoute);
