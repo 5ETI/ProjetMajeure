@@ -65,9 +65,9 @@ module.exports.list = list;
 var addDevice = function (device, callback)
 {
 	connect(function(conn){
-		var query = "INSERT INTO device (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) VALUES('"  + device.orientation +"','" +device.longueur + "','" + device.hauteur + "','" + device.latitude + "','" + device.longitude + "')";
-		console.log(query);
-		conn.query(query, function(err, Data) {
+		var Query = "INSERT INTO device (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) VALUES('"  + device.orientation +"','" +device.longueur + "','" + device.hauteur + "','" + device.latitude + "','" + device.longitude + "')";
+		// console.log(Query);
+		conn.query(Query, function(err, Data) {
 			if (err){
 				console.log('Error while performing Query.  ' + err);
 				return callback(err);
@@ -83,3 +83,33 @@ var addDevice = function (device, callback)
 	});
 }
 module.exports.addDevice = addDevice;
+
+
+var deleteData = function(datatype, whereFilter, value, ret)
+{
+
+	var Query = "DELETE from " + datatype;
+	if (whereFilter != null)
+	{
+		Query += " WHERE `" +  whereFilter + "` = '" + value + "'"
+		// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
+	}
+	console.log(Query);
+	connect(function(conn){
+
+		conn.query(Query, function(err, retval) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return ret(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of ' + datatype + ' : ', retval);
+			return ret(null, retval);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.deleteData = deleteData;
