@@ -4,14 +4,16 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "ngtweet": "^0.6.1",
+    "oauth": "^0.9.14"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "private":true,
+  "private": true,
   "author": "maxime thomasson",
   "license": "ISC"
 }
