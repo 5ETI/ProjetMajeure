@@ -48,7 +48,10 @@ html,body {
 	margin:0.3em;
 	cursor:pointer;
 	border-radius: 5px;
+}
 
+.floatright{
+	float:right;
 }
 
 .infoDevice{

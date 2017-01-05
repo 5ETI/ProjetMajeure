@@ -44,7 +44,8 @@ function commFnc($http, $q, factory){
         var devices = [
           {
             "id": 0,
-            "orientation": "portrait",
+            "type": "desktop",
+            "orientation": "paysage",
             "longueur": 1256,
             "hauteur": 3256,
             "latitude": 3.14957,
@@ -52,11 +53,30 @@ function commFnc($http, $q, factory){
           },
           {
             "id": 1,
+            "type": "television",
             "orientation": "paysage",
+            "longueur": 2023,
+            "hauteur": 1451,
+            "latitude": 43.5353,
+            "longitude": 41.12457
+          },
+          {
+            "id": 2,
+            "type": "smartphone",
+            "orientation": "portrait",
             "longueur": 345,
             "hauteur": 555,
             "latitude": 9.1458,
             "longitude": 3.14957
+          },
+          {
+            "id": 3,
+            "type": "tablet",
+            "orientation": "portrait",
+            "longueur": 1522,
+            "hauteur": 887,
+            "latitude": 192.1458,
+            "longitude": 178.14957
           }
         ];
 
@@ -100,9 +120,10 @@ function commFnc($http, $q, factory){
 
 
 
-        function loadDevice(deviceId,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
+        function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
             var device1 = {};
             device1.id = deviceId;
+            device1.type = deviceType;
             device1.orientation = deviceOrientation;
             device1.hauteur = deviceHauteur;
             device1.longueur = deviceLongueur;
