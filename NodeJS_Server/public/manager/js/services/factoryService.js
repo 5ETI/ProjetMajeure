@@ -49,7 +49,7 @@ function factoryFnc(){
      };
     
     
-     function deviceCreation(id,type,orientation,latitude,longitude,hauteur,longueur){
+     function deviceCreation(id,type,orientation,latitude,longitude,hauteur,longueur,template){
         var device={};
         device.id=id;
         device.type=type;
@@ -58,6 +58,7 @@ function factoryFnc(){
         device.longitude=longitude;
         device.hauteur=hauteur;
         device.longueur=longueur;
+        device.template=template;
         return device;
      };
     
