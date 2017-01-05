@@ -4,4 +4,13 @@
     <string name="Sign">Sign in</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="Devices">Devices</string>
+    <string name="Managers">Managers</string>
+    <string name="Liste">Afficher une liste des devices</string>
+    <string name="Maps">Afficher une map des devices</string>
+    <string name="ParamRecherche">Parametres de recherches</string>
+    <string name="Save">Sauvegarder les parametres</string>
+    <string name="TypeRecherche">Selectionner le type de recherche</string>
+    <string name="title_activity_maps_device">Map</string>
+
 </resources>
