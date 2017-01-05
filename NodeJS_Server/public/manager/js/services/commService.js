@@ -49,7 +49,8 @@ function commFnc($http, $q, factory){
             "longueur": 1256,
             "hauteur": 3256,
             "latitude": 3.14957,
-            "longitude": 4.12457
+            "longitude": 4.12457,
+            "template": 1
           },
           {
             "id": 1,
@@ -58,7 +59,8 @@ function commFnc($http, $q, factory){
             "longueur": 2023,
             "hauteur": 1451,
             "latitude": 43.5353,
-            "longitude": 41.12457
+            "longitude": 41.12457,
+            "template": 2
           },
           {
             "id": 2,
@@ -67,7 +69,8 @@ function commFnc($http, $q, factory){
             "longueur": 345,
             "hauteur": 555,
             "latitude": 9.1458,
-            "longitude": 3.14957
+            "longitude": 3.14957,
+            "template": 3
           },
           {
             "id": 3,
@@ -76,7 +79,8 @@ function commFnc($http, $q, factory){
             "longueur": 1522,
             "hauteur": 887,
             "latitude": 192.1458,
-            "longitude": 178.14957
+            "longitude": 178.14957,
+            "template": 4
           }
         ];
 

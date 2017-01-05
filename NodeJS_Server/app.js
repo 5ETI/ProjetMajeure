@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(deviceRoute);
 app.use(managerRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
+app.use("/manager", express.static(path.join(__dirname, "public/manager")));
 //init server
 var server = http.createServer(app);
 server.listen(CONFIG.port);
