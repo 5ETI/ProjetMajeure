@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_device"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="projetmajeur.screenadministrator.activity.DeviceActivity"
+    android:weightSum="1">
+
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/button_liste"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/Liste"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorNormal="@color/blue_normal"
+        custom:pb_colorPressed="@color/blue_pressed"
+        custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_textComplete="Success"
+        custom:pb_textProgress="Loading"
+        custom:pb_textError="Error"
+        custom:pb_colorError="@color/red_error" />
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/button_maps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/Maps"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorNormal="@color/blue_normal"
+        custom:pb_colorPressed="@color/blue_pressed"
+        custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_textComplete="Success"
+        custom:pb_textProgress="Loading"
+        custom:pb_textError="Error"
+        custom:pb_colorError="@color/red_error" />
+
+    <TextView
+        android:id="@+id/param"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/ParamRecherche"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="150dp"
+        android:layout_margin="10dp"
+        android:background="@color/blue_normal"
+        android:textSize="18sp"
+        android:layout_weight="0.03" />
+
+    <Spinner
+        android:id="@+id/paramRecherche"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       />
+
+    <Spinner
+        android:id="@+id/paramReVille"
+        android:layout_width="fill_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/paramReGeolo"
+        android:layout_width="fill_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:background="#0055A9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Save"
+        android:layout_margin="10dp"
+        android:textSize="15sp"/>
+
+
+</LinearLayout>

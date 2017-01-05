@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp" ng-controller="loginCtrl">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<title>Login</title>
+	 	<link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
+	 	<link rel="stylesheet" href="css/app.css">
+ 	</head>
+	<body>
+		<!-- Top content -->
+		<div>
+			<h1 class="align-center">Login Page</h1>
+		</div>
+		<div class="limitWidth">
+			<form role="form" action="" method="post" name="form" class="login-form">
+				<div class="align-center">
+					<input type="text" name="username" placeholder="Email" class="username form-control" id="username" ng-model="user.login" required>
+					<span ng-show="form.username.$error.required && form.username.$touched">Email is required.</span>
+				</div>
+				<div class="align-center">
+					<input type="password" name="password" placeholder="Password" class="password form-control" id="password" ng-model="user.pwd" required>
+					<span ng-show="form.username.$error.required && form.username.$touched">Enter your password.</span>
+				</div>
+				<br>
+				<div class="align-center">
+					<button type="button" class="btn btn-primary btn-block" ng-click="logAuth()" ng-disabled="!form.username.$touched || !form.password.$touched || form.username.$invalid || form.password.$invalid ">Login</button>
+					<span ng-show="error">Wrong email/password. </span>
+				</div>
+				
+		 	</form>
+		</div>
+		<!-- Javascript -->
+		<script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+		<script src="librairies/bootstrap/js/bootstrap.min.js"></script>
+		<script src="librairies/angular/angular.min.js"></script>
+		<script src="js/services/LoginService.js"></script>
+		<script src="js/application/LoginApp.js"></script>
+		<script src="js/controllers/LoginController.js"></script>
+	</body>
+</html>
