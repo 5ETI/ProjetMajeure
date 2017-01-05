@@ -74,6 +74,18 @@
             <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
             <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
               <div>
+                <div ng-if="device.type == 'smartphone'">
+                  <i class="floatright fa fa-mobile" aria-hidden="true"></i>
+                </div>
+                <div ng-if="device.type == 'tablet'">
+                  <i class="floatright fa fa-tablet" aria-hidden="true"></i>
+                </div>
+                <div ng-if="device.type == 'desktop'">
+                  <i class="floatright fa fa-desktop" aria-hidden="true"></i>
+                </div>
+                <div ng-if="device.type == 'television'">
+                  <i class="floatright fa fa-television" aria-hidden="true"></i>
+                </div>
                 <div>Identifiant: {{device.id}}</div>
               </div>
               <div>                 
@@ -98,6 +110,7 @@
   <!-- *************   END RIGHT PANEL  *************-->
       </div>
     <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+    <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
     <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
     <script src="librairies/angular/angular.min.js"></script> 
     <script src="js/services/factoryService.js"></script>
