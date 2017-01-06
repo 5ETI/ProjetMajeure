@@ -1,24 +1,42 @@
-<!doctype html>
-<html ng-app="myApp">
+<!DOCTYPE html>
+<html lang="en" ng-app="twitterApp" ng-controller="twitterCtrl">
 <head>
-    <script src="./librairies/angular/angular.min.js"></script>
-    <script src="./librairies/ngtweet/ngtweet.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        var myApp = angular.module('myApp', ['ngtweet']);
-    </script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login</title>
+	<link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/embed.min.css">
 </head>
 <body>
+	<!-- Top content
+	<div>
+		<h1 class="align-center">Login Page</h1>
+	</div> -->
+	<div class="limitWidth">
+		<!--<form role="form" action="" method="post" name="form" class="login-form">-->
+			<div class="align-center">
+				<!--Here twit-->
+				<div render-iframely ng-bind-html="iframelyHtml"></div>
 
-<twitter-widget twitter-widget-id="'816944074129309696'">
-</twitter-widget>
-<twitter-widget twitter-widget-id="'816781889897959424'">
-</twitter-widget>
-<twitter-widget twitter-widget-id="'816781469096013824'">
-</twitter-widget>
-<twitter-widget twitter-widget-id="'816781271158452224'">
-</twitter-widget>
-<twitter-widget twitter-widget-id="'816781268666957824'">
-</twitter-widget>
+				
+
+
+
+		</div>
+
+</div>
+<!-- Javascript -->
+<script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+<script src="librairies/bootstrap/js/bootstrap.min.js"></script>
+<script src="librairies/angular/angular.min.js"></script>
+<script src="librairies/embed/embed.min.js"></script>
+
+
+<script src="js/application/TwitterApp.js"></script>
+<script src="js/controllers/TwitterController.js"></script>
+<script src="js/services/TwitterService.js"></script>
 
 </body>
 </html>
