@@ -42,7 +42,7 @@ function commFnc($http, $q, factory){
         imageMap[content9.id] = content9;
         imageMap[content10.id] = content10;*/
         var devices = [
-          {
+        {
             "id": 0,
             "type": "desktop",
             "orientation": "paysage",
@@ -51,8 +51,8 @@ function commFnc($http, $q, factory){
             "latitude": 3.14957,
             "longitude": 4.12457,
             "template": 1
-          },
-          {
+        },
+        {
             "id": 1,
             "type": "television",
             "orientation": "paysage",
@@ -61,8 +61,8 @@ function commFnc($http, $q, factory){
             "latitude": 43.5353,
             "longitude": 41.12457,
             "template": 2
-          },
-          {
+        },
+        {
             "id": 2,
             "type": "smartphone",
             "orientation": "portrait",
@@ -71,8 +71,8 @@ function commFnc($http, $q, factory){
             "latitude": 9.1458,
             "longitude": 3.14957,
             "template": 3
-          },
-          {
+        },
+        {
             "id": 3,
             "type": "tablet",
             "orientation": "portrait",
@@ -81,7 +81,7 @@ function commFnc($http, $q, factory){
             "latitude": 192.1458,
             "longitude": 178.14957,
             "template": 4
-          }
+        }
         ];
 
         var comm = {
@@ -90,49 +90,30 @@ function commFnc($http, $q, factory){
         };
 
        // FOR HTTP REQUEST
-       function loadDevicesList(deviceId){
+       function loadDevicesList(id_manager){
         var deferred = $q.defer();
-        deferred.resolve(devices);
+        $http.get('/device/manager/'+ id_manager)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
         return deferred.promise;
-        };
-
-        /*function loadImages(presName,presID){
-                var deferred = $q.defer();
-                $http.get('/resources_list').
-                success(function(data, status, headers, config) {
-                        deferred.resolve(data);
-                }).
-                error(function(data, status, headers, config) {
-                       deferred.reject(status);
-                 // or server returns response with an error status.
-         });
-                return deferred.promise;
-        };
-
-        /*function loadPres(presName,presID){
-               var deferred = $q.defer();
-               $http.get('/loadPres').
-               success(function(data, status, headers, config) {
-                       deferred.resolve(data);
-               }).
-               error(function(data, status, headers, config) {
-                       deferred.reject(status);
-                 // or server returns response with an error status.
-         });
-               return deferred.promise;
-           }*/
+    };
 
 
 
-        function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
-            var device1 = {};
-            device1.id = deviceId;
-            device1.type = deviceType;
-            device1.orientation = deviceOrientation;
-            device1.hauteur = deviceHauteur;
-            device1.longueur = deviceLongueur;
-            device1.longitude = deviceLongitude;
-            device1.latitude = deviceLatitude;
+
+
+    function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
+        var device1 = {};
+        device1.id = deviceId;
+        device1.type = deviceType;
+        device1.orientation = deviceOrientation;
+        device1.hauteur = deviceHauteur;
+        device1.longueur = deviceLongueur;
+        device1.longitude = deviceLongitude;
+        device1.latitude = deviceLatitude;
 
         /*var presentation2 = {};
         presentation2.id='2';
