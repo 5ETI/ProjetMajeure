@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_device"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="projetmajeur.screenadministrator.activity.AddDeviceActivity">
+
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/identifiant"
+        android:hint="Identifiant"
+        android:background="@drawable/border"
+        android:textSize="20dp"
+       />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/orientation"
+        android:hint="Orientation"
+        android:background="@drawable/border"
+        android:layout_below="@+id/identifiant"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/longueur"
+        android:hint="Longueur"
+        android:background="@drawable/border"
+        android:layout_below="@+id/orientation"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/largeur"
+        android:hint="Largeur"
+        android:background="@drawable/border"
+        android:layout_below="@+id/longueur"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/latitude"
+        android:hint="Latitude"
+        android:background="@drawable/border"
+        android:layout_below="@+id/largeur"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+     />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/longitude"
+        android:hint="Longitude"
+        android:background="@drawable/border"
+        android:layout_below="@+id/latitude"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/ville"
+        android:hint="Ville"
+        android:background="@drawable/border"
+        android:layout_below="@+id/longitude"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15pt"
+        android:layout_marginBottom="10pt"
+        android:layout_height="40pt"
+        android:text="@string/AddDevice"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:background="@drawable/button_bg_round"
+        android:layout_width="40pt"
+        android:layout_weight="0.04" />
+
+
+</RelativeLayout>

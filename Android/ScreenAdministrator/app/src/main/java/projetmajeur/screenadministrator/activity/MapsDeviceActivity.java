@@ -38,7 +38,9 @@ import projetmajeur.screenadministrator.entity.model.RechercheDevice;
 import projetmajeur.screenadministrator.tasks.DeviceTask;
 
 import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_YELLOW;
 import static com.google.android.gms.maps.model.BitmapDescriptorFactory.defaultMarker;
+import static projetmajeur.screenadministrator.R.id.icon;
 import static projetmajeur.screenadministrator.R.id.latitude;
 import static projetmajeur.screenadministrator.R.id.longitude;
 
@@ -51,6 +53,8 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
 
     private double longUser;
     private double latUser;
+
+    Marker markerUser = null;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -118,7 +122,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
             if (RechercheDevice.getInstance().getVillerecherche().toString().equals("New York")) {
                 city = newyork;
             }
-            mMap.addMarker(new MarkerOptions().position(city).title("Cherche ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
+            markerUser = mMap.addMarker(new MarkerOptions().position(city).title("Cherche ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(city));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 12));
         }
@@ -130,7 +134,8 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
             latUser = bundle.getDouble("latUser");
 
             LatLng user = new LatLng(latUser, longUser);
-            mMap.addMarker(new MarkerOptions().position(user).title("Vous etes ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
+            markerUser = mMap.addMarker(new MarkerOptions().position(user).title("Vous etes ici").icon(BitmapDescriptorFactory.fromResource(R.drawable.amu_bubble_mask)));
+
             mMap.moveCamera(CameraUpdateFactory.newLatLng(user));
 
 
@@ -146,7 +151,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
             public void onDevice(ArrayList<Device> result) {
                 for (int i = 0; i < result.size(); i++) {
                     LatLng lt = new LatLng(result.get(i).getLatitude(), result.get(i).getLongitude());
-                    Marker marke = mMap.addMarker(new MarkerOptions().position(lt).title("Screen n° : " + result.get(i).getId()).icon(defaultMarker(HUE_GREEN)));
+                    Marker marke = mMap.addMarker(new MarkerOptions().position(lt).title("Screen n° : " + result.get(i).getId()).icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_always_landscape_portrait)));
                     marke.setTag(result.get(i));
                 }
             }
@@ -159,15 +164,27 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
             @Override
             public boolean onMarkerClick(Marker arg0) {
 
-                    Device pl = (Device) arg0.getTag();
+                Device pl = (Device) arg0.getTag();
 
+                if(arg0.equals(markerUser)){
+                    id.setVisibility(View.INVISIBLE);
+                    orientation.setVisibility(View.INVISIBLE);
+                    longueur.setVisibility(View.INVISIBLE);
+                    hauteur.setVisibility(View.INVISIBLE);
+                    longitude.setVisibility(View.INVISIBLE);
+                    latitude.setVisibility(View.INVISIBLE);
+
+
+                }
+                else {
                     id.setText("Id du screen : " + pl.getId());
                     orientation.setText("Orientation du screen : " + pl.getOrientation());
                     longueur.setText("Longueur du screen" + pl.getLongueur());
                     hauteur.setText("Hauteur du screen : " + pl.getHauteur());
                     longitude.setText("Longitude du screen" + pl.getLongitude());
                     latitude.setText("Latitude du screen: " + pl.getLatitude());
-                    return true;
+                }
+                return true;
 
 
 
@@ -176,10 +193,10 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
 
         });
     }
-        /**
-         * ATTENTION: This was auto-generated to implement the App Indexing API.
-         * See https://g.co/AppIndexing/AndroidStudio for more information.
-         */
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
 
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
