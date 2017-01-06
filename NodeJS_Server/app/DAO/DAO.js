@@ -6,7 +6,7 @@ var connect = function(conn){
 	var connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
-		password : 'root',
+		password : '1234',
 		database : 'ProjetMajeure'
 	});
 
@@ -41,6 +41,28 @@ var list = function(datatype, whereFilter, value, intemList){
 }
 module.exports.list = list;
 
+var listManagerDevice = function (id_manager, itemList)
+{
+	connect(function(conn){
+		var Query = "SELECT DISTINCT * FROM projetmajeure.device WHERE id IN ( SELECT id FROM projetmajeure.screen WHERE id_manager = " + id_manager +" );";
+
+		// console.log(Query);
+		conn.query(Query, function(err, ItemList) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return itemList(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of devices : ', ItemList);
+			return itemList(null, ItemList);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.listManagerDevice = listManagerDevice;
 
 // var getData = function (id, datatype, callback){
 // 	connect(function(conn){
