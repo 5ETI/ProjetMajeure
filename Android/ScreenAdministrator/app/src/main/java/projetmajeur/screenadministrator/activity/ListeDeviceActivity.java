@@ -57,8 +57,12 @@ public class ListeDeviceActivity extends AppCompatActivity {
             public void onListDevice(ArrayList<Device> result) {
                 // specify an adapter
 
-                RecyclerAdapter mAdapter = new RecyclerAdapter(result);
-                mRecyclerView.setAdapter(mAdapter);
+
+                    Intent intent = new Intent(ListeDeviceActivity.this, DeviceListeActivity.class);
+                    startActivity(intent);
+
+                //RecyclerAdapter mAdapter = new RecyclerAdapter(result);
+                //mRecyclerView.setAdapter(mAdapter);
             }
         };
 
