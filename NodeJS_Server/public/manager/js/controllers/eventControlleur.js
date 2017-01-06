@@ -34,7 +34,7 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
             "hauteur": 555,
             "latitude": 9.1458,
             "longitude": 3.14957,
-            "template": 3
+            "template": 2
           },
           {
             "id": 3,
@@ -44,7 +44,7 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
             "hauteur": 887,
             "latitude": 192.1458,
             "longitude": 178.14957,
-            "template": 4
+            "template": 1
           }
         ];
     //$scope.currentDevice=factory.deviceCreation("paysage","55.33","43.32","1024","340");
