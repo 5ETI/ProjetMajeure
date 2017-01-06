@@ -11,34 +11,32 @@
 </head>
 <body>
   <div>
-    <h1 class="align-center">Manager Page</h1>
+    <h5 class="align-center">Manager Page</h5>
   </div>
-  <div class="">
-    <!-- *************   CENTER PANEL  *************-->
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-      <!-- *************   CANVAS  *************-->
-
+  <div>
+  <!-- *************   CENTER PANEL  *************-->
+  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+    <!-- *************   CANVAS  *************-->
+    <div class="canvas">
       <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template1.html'">  </div> 
       <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template2.html'">  </div> 
-      <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
-      <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div> 
-
+      <!--<div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
+      <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div>-->
+        <!--<div>
+          <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
+          <span class="btn btn-info ng-hide" ng-show="$flow.files.length" flow-btn="">Change<input style="visibility: hidden; position: absolute;" type="file"></span>
+          <span class="btn btn-danger ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+            Remove
+          </span>
+        </div>-->
+    </div>
       <!-- *************  END CANVAS  *************-->
       <!-- *************  BUTTON ZONE  *************-->
-      <div class="row margin-top-1em">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addImage();">Add Image</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addVideo();">Add Video</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addSocial();">Add Social</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-success btn-block" ng-click="addSave();">Save</button>
-        </div>
+    <div class="row margin-top-1em">
+      <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <button type="button" class="btn btn-primary btn-block" ngclick="addImage();">Add Image</button>
       </div>
+
       <!-- *************  END BUTTON ZONE  *************-->
       <!-- *************   DEVICE PANEL  *************-->
       <div class="infoDevice margin-top-1em">
@@ -113,15 +111,18 @@
             </div>
           </div>
         </div>
-        <!-- *************   END RIGHT PANEL  *************-->
       </div>
-      <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
-      <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
-      <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
-      <script src="librairies/angular/angular.min.js"></script> 
-      <script src="js/services/factoryService.js"></script>
-      <script src="js/services/commService.js"></script>   
-      <script src="js/application/managerApp.js"></script>
-      <script src="js/controllers/eventControlleur.js"></script>
-    </body>
-    </html>
+    </div>
+  </div>
+<!-- *************   END RIGHT PANEL  *************-->
+  <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+  <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
+  <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
+  <script src="librairies/angular/angular.min.js"></script> 
+  <script src="librairies/ng-flow/dist/ng-flow-standalone.min.js"></script>
+  <script src="js/services/factoryService.js"></script>
+  <script src="js/services/commService.js"></script>   
+  <script src="js/application/managerApp.js"></script>
+  <script src="js/controllers/eventControlleur.js"></script>
+</body>
+</html>
