@@ -86,4 +86,3 @@ router.route("/device/delete/:id")
 
 	});
 });
-

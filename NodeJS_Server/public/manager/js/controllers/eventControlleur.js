@@ -32,7 +32,16 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
 
     $scope.selectCurrentDevice=function(deviceId){
       $scope.currentDevice=$scope.deviceMap.array[deviceId];
+
+      var available_device=comm.loadTemplate(deviceId);
+      available_device.then(
+        function(payload) { 
+          $scope.currentDevice.template = payload[0].template;
+        },
+        function(errorPayload) {
+          $log.error('failure loading template', errorPayload);
+        });
     }
     
     
-};
+  };

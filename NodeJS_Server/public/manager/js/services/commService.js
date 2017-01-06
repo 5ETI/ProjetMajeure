@@ -3,44 +3,6 @@ commFnc.$inject=['$http','$q', 'factory'];
 
 function commFnc($http, $q, factory){
 
-
-        /*var content0 = {};
-        content0 = factory.contentCreation('myImg0','IMG_B64','./img/0.jpg');
-        content0.id = 10; 
-
-        var content1 = {};
-        content1= factory.contentCreation('myImg1','IMG_URL','./img/1.jpg');
-        var content2 = {};
-        content2= factory.contentCreation('myImg2','IMG_URL','./img/2.jpg');
-        var content3 = {};
-        content3= factory.contentCreation('myImg3','IMG_URL','./img/3.jpg');
-        var content4 = {};
-        content4= factory.contentCreation('myImg4','IMG_URL','./img/4.jpg');
-        var content5 = {};
-        content5= factory.contentCreation('myImg5','IMG_URL','./img/5.jpg');
-        var content6 = {};
-        content6= factory.contentCreation('myImg6','IMG_URL','./img/6.jpg');
-        var content7 = {};
-        content7= factory.contentCreation('myImg7','IMG_URL','./img/7.jpg');
-        var content8 = {};
-        content8= factory.contentCreation('myImg8','IMG_B64','./img/8.jpg');
-        var content9 = {};
-        content9= factory.contentCreation('myImg9','IMG_URL','./img/9.jpg');
-        var content10 = {};
-        content10= factory.contentCreation('myImg10','IMG_URL','./img/10.jpg');
-
-        var imageMap = {};
-        imageMap[content0.id] = content0;
-        imageMap[content1.id] = content1;
-        imageMap[content2.id] = content2;
-        imageMap[content3.id] = content3;
-        imageMap[content4.id] = content4;
-        imageMap[content5.id] = content5;
-        imageMap[content6.id] = content6;
-        imageMap[content7.id] = content7;
-        imageMap[content8.id] = content8;
-        imageMap[content9.id] = content9;
-        imageMap[content10.id] = content10;*/
         var devices = [
         {
             "id": 0,
@@ -86,11 +48,12 @@ function commFnc($http, $q, factory){
 
         var comm = {
             loadDevicesList: loadDevicesList, 
-            loadDevice: loadDevice
+            loadDevice: loadDevice,
+            loadTemplate: loadTemplate
         };
 
        // FOR HTTP REQUEST
-       function loadDevicesList(id_manager){
+    function loadDevicesList(id_manager){
         var deferred = $q.defer();
         $http.get('/device/manager/'+ id_manager)
         .then(function successCallback(response) {
@@ -101,8 +64,16 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     };
 
-
-
+    function loadTemplate(deviceId){
+        var deferred = $q.defer();
+        $http.get('/screen/'+ deviceId)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    }
 
 
     function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
