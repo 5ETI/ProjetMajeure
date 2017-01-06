@@ -12,5 +12,7 @@
     <string name="Save">Sauvegarder les parametres</string>
     <string name="TypeRecherche">Selectionner le type de recherche</string>
     <string name="title_activity_maps_device">Map</string>
+    <string name="AddDevice">Add</string>
+    <string name="DeleteDevice">Delete</string>
 
 </resources>
