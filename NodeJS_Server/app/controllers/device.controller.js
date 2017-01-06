@@ -23,6 +23,22 @@ var list = function(DAO_Device_list){
 }
 module.exports.list = list;
 
+var getManagerDevices = function(id_manager, DAO_Device_list){
+	DAO.listManagerDevice(id_manager, function(err, deviceList){
+		if(err)
+		{
+			console.log(err);
+			return DAO_Device_list(err);
+		}
+		else{
+			//console.log(deviceList);
+			return DAO_Device_list(null, deviceList);
+		}
+	});
+
+}
+module.exports.getManagerDevices = getManagerDevices;
+
 var getDevice = function(id, DAO_Device_info){
 	DAO.list("device", "id",id, function(err, device){
 		if(err)

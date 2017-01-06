@@ -12,7 +12,7 @@ var path = require("path");
 
 var deviceRoute  = require("./app/routes/device.router.js");
 var managerRoute  = require("./app/routes/manager.router.js");
-
+var screenRoute  = require("./app/routes/screen.router.js");
 
 
 var app = express();
@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 //app.use(defaultRoute); 
 app.use(deviceRoute);
 app.use(managerRoute);
+app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 app.use("/manager", express.static(path.join(__dirname, "public/manager")));
 //init server

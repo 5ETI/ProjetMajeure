@@ -11,34 +11,32 @@
 </head>
 <body>
   <div>
-    <h1 class="align-center">Manager Page</h1>
+    <h5 class="align-center">Manager Page</h5>
   </div>
-  <div class="">
+  <div>
     <!-- *************   CENTER PANEL  *************-->
     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
       <!-- *************   CANVAS  *************-->
-
-      <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template1.html'">  </div> 
-      <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template2.html'">  </div> 
-      <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
-      <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div> 
-
+      <div class="canvas">
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template2.html'">  </div> 
+      <!--<div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
+      <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div>-->
+        <!--<div>
+          <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
+          <span class="btn btn-info ng-hide" ng-show="$flow.files.length" flow-btn="">Change<input style="visibility: hidden; position: absolute;" type="file"></span>
+          <span class="btn btn-danger ng-hide" ng-show="$flow.files.length" ng-click="$flow.cancel()">
+            Remove
+          </span>
+        </div>-->
+      </div>
       <!-- *************  END CANVAS  *************-->
       <!-- *************  BUTTON ZONE  *************-->
       <div class="row margin-top-1em">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addImage();">Add Image</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addVideo();">Add Video</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ngclick="addSocial();">Add Social</button>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-success btn-block" ng-click="addSave();">Save</button>
-        </div>
+      <!-- <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <button type="button" class="btn btn-primary btn-block" ngclick="addImage();">Add Image</button>
       </div>
+
       <!-- *************  END BUTTON ZONE  *************-->
       <!-- *************   DEVICE PANEL  *************-->
       <div class="infoDevice margin-top-1em">
@@ -60,71 +58,68 @@
           <span id="currentDeviceTemplate">{{currentDevice.template}}</span>
         </div>
         <div>
-                  <!--<label for="currentScreenAdresse">Adresse:</label>
-                  <span id="currentScreenAdresse" ng-model="currentScreen.adresse"></span>-->
-                  <label for="currentDeviceLatitude">Latitude:</label> 
-                  <span id="currentDeviceLatitude">{{currentDevice.latitude}}</span>
-                  <label for="currentDeviceLongitude">Longitude:</label>
-                  <span id="currentDeviceLongitude">{{currentDevice.longitude}}</span>
-                </div>
-              </div>
-              <!-- *************   END DEVICE PANEL  *************-->
-            </div>
-            <!-- *************  END CENTER PANEL  *************-->
-            <!-- *************   RIGHT PANEL  *************-->
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              <div class="rightPanel">
-                <div>
-                 <h6 class="align-center">DEVICES LIST</h6>
-               </div>
-               <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
-               <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
-                <div>
-                  <div ng-if="device.type == 'smartphone'">
-                    <i class="floatright fa fa-mobile" aria-hidden="true"></i>
-                  </div>
-                  <div ng-if="device.type == 'tablet'">
-                    <i class="floatright fa fa-tablet" aria-hidden="true"></i>
-                  </div>
-                  <div ng-if="device.type == 'desktop'">
-                    <i class="floatright fa fa-desktop" aria-hidden="true"></i>
-                  </div>
-                  <div ng-if="device.type == 'television'">
-                    <i class="floatright fa fa-television" aria-hidden="true"></i>
-                  </div>
-                  <div>Identifiant: {{device.id}}</div>
-                </div>
-                <div>                 
-                  <span>Orientation: {{device.orientation}}</span>
-                </div>
-                <div>
-                  <span>Hauteur: {{device.hauteur}}</span>
-                </div>
-                <div>
-                  <span>Longueur: {{device.longueur}}</span>
-                </div>
-                <div>
-                  <span>Latitude: {{device.latitude}}</span>
-                </div>
-                <div> 
-                  <span>Longitude: {{device.longitude}}</span>
-                </div>
-                <div> 
-                  <span>Template: {{device.template}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+
+          <label for="currentDeviceLatitude">Latitude:</label> 
+          <span id="currentDeviceLatitude">{{currentDevice.latitude}}</span>
+          <label for="currentDeviceLongitude">Longitude:</label>
+          <span id="currentDeviceLongitude">{{currentDevice.longitude}}</span>
         </div>
-        <!-- *************   END RIGHT PANEL  *************-->
       </div>
-      <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
-      <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
-      <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
-      <script src="librairies/angular/angular.min.js"></script> 
-      <script src="js/services/factoryService.js"></script>
-      <script src="js/services/commService.js"></script>   
-      <script src="js/application/managerApp.js"></script>
-      <script src="js/controllers/eventControlleur.js"></script>
-    </body>
-    </html>
+      <!-- *************   END DEVICE PANEL  *************-->
+    </div>
+    </div>
+    <!-- *************  END CENTER PANEL  *************-->
+    <!-- *************   RIGHT PANEL  *************-->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <div class="rightPanel">
+        <div>
+         <h6 class="align-center">DEVICES LIST</h6>
+       </div>
+       <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
+       <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
+        <div>
+          <div ng-if="device.type == 'smartphone'">
+            <i class="floatright fa fa-mobile" aria-hidden="true"></i>
+          </div>
+          <div ng-if="device.type == 'tablet'">
+            <i class="floatright fa fa-tablet" aria-hidden="true"></i>
+          </div>
+          <div ng-if="device.type == 'desktop'">
+            <i class="floatright fa fa-desktop" aria-hidden="true"></i>
+          </div>
+          <div ng-if="device.type == 'television'">
+            <i class="floatright fa fa-television" aria-hidden="true"></i>
+          </div>
+          <div>Identifiant: {{device.id}}</div>
+        </div>
+        <div>                 
+          <span>Orientation: {{device.orientation}}</span>
+        </div>
+        <div>
+          <span>Hauteur: {{device.hauteur}}</span>
+        </div>
+        <div>
+          <span>Longueur: {{device.longueur}}</span>
+        </div>
+        <div>
+          <span>Latitude: {{device.latitude}}</span>
+        </div>
+        <div> 
+          <span>Longitude: {{device.longitude}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *************   END RIGHT PANEL  *************-->
+<script src="librairies/jquery/jquery-3.1.1.min.js"></script>
+<script src="https://use.fontawesome.com/bb57c833c9.js"></script>
+<script src="librairies/bootstrap/js/bootstrap.min.js"></script>
+<script src="librairies/angular/angular.min.js"></script> 
+<script src="librairies/ng-flow/ng-flow-standalone.min.js"></script>
+<script src="js/services/factoryService.js"></script>
+<script src="js/services/commService.js"></script>   
+<script src="js/application/managerApp.js"></script>
+<script src="js/controllers/eventControlleur.js"></script>
+</body>
+</html>
