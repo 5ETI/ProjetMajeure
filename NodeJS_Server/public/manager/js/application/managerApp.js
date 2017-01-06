@@ -1,1 +1,1 @@
-angular.module('managerApp', ['factoryService','commService']);
+  angular.module('managerApp', ['factoryService','commService','flow']);
