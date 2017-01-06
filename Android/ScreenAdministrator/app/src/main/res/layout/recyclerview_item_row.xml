@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/linearborder"
+    android:layout_height="80pt"
+    >
+
+    <TextView
+        android:id="@+id/identifiant"
+        android:layout_width="wrap_content"
+        android:layout_height="10pt"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/orientation"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/identifiant"
+        android:layout_marginLeft="8dp"
+        android:layout_height="10pt" />
+    <TextView
+        android:id="@+id/longueur"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/orientation"
+        android:layout_marginLeft="8dp"
+        android:layout_height="10pt" />
+    <TextView
+        android:id="@+id/hauteur"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/longueur"
+        android:layout_marginLeft="8dp"
+        android:layout_height="10pt" />
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/hauteur"
+        android:layout_marginLeft="8dp"
+        android:layout_height="10pt" />
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/latitude"
+        android:layout_height="10pt" />
+
+    <TextView
+        android:id="@+id/ville"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/longitude"
+        android:layout_height="10pt" />
+
+    <CheckBox android:id="@+id/checkbox"
+        android:layout_width="25pt"
+        android:layout_height="10pt"
+        android:layout_alignRight="@+id/longitude"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:onClick="onCheckboxClicked"/>
+</RelativeLayout>

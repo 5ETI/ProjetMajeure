@@ -20,6 +20,23 @@ router.route("/device/all")
 
 	});
 });
+
+router.route("/device/manager/:id_manager")
+.get(function (request, response) {
+	var params = request.url.split("/");
+	var id_manager = params[3];
+	DeviceController.getManagerDevices(id_manager, function(err, deviceList){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(deviceList);
+		}
+
+	});
+});
+
 router.route("/device/:id")
 .get(function(request, response) {
 	var params = request.url.split("/");
@@ -70,22 +87,3 @@ router.route("/device/delete/:id")
 	});
 });
 
-///////////////////////////Test twitter ///////////////////////////
-// router.route("/twitter")
-// .get(function(request, response) {
-// 	var Twitter = require('mtwitter');
-// 	var twitter = new Twitter({
-// 		consumer_key: 'Q8muyflJGzegAbSKZ5Jjd8aZ0',
-// 		consumer_secret: 'BnWvbCjAVl7gpGVHmNEIHGkD06kWDyR4G1SIGKdbnfq0nM0UUn',
-// 		application_only: true
-// 	});
-
-// 	twitter.get(
-// 		'https://twitter.com/redbull/',
-// 		function logResponse(error, data, res) {
-// 			console.log('Error? ', error);
-// 			console.log('Parsed object of data: ', data);
-// 			//console.log('Raw HTTP response: ', response);
-// 			res.send(data);
-// 		});
-// });

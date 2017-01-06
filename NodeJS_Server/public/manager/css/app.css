@@ -2,7 +2,7 @@ html,body {
 	height:100%; 
 	padding-top:0px; 
 	overflow-x:hidden; 
-	overflow-y:hidden
+	overflow-y:auto;
 }
 
 .zeroRef{
@@ -31,7 +31,7 @@ html,body {
 	border-top: 1px solid #c0c0c0;
 	border-radius: 5px;
 	padding: 1em;
-	box-sizing: border-box;
+	box-sizing:border-box;
 	margin: 1em auto auto auto;
 }
 
@@ -43,12 +43,19 @@ html,body {
 }
 
 .rightPanelDevice{
-	border: 0.2em solid;
+	border: 0.2em #6770ad solid;
 	padding: 0.5em;
 	margin:0.3em;
 	cursor:pointer;
 	border-radius: 5px;
+}
 
+.rightPanelDevice:hover{
+	background: #e8eaf8;
+}
+
+.floatright{
+	float:right;
 }
 
 .infoDevice{
@@ -60,8 +67,8 @@ html,body {
 }
 
 .canvas{
-	border:1px solid #9D9D9D;
-	padding:1em;
+	border:0.2em solid #6770ad;
+	padding:0.2em;
 	border-radius: 5px;
 	min-height:30em;
 	background: #e8eaf8;
@@ -70,3 +77,9 @@ html,body {
 .margin-top-1em{
 	margin-top:1em;
 }
+
+.nomargin-padding{
+	padding:0 !important;
+	margin:0 !important;
+}
+

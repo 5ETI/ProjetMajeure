@@ -41,6 +41,8 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
 
     @Override
     protected ArrayList<Device> doInBackground(Double... params) {
+
+        // REQUETE POUR RECUPERE LA LISTE NODEJS
         stockage.add(device1);
         stockage.add(device2);
         stockage.add(device3);
