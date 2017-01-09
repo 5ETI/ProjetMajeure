@@ -38,3 +38,20 @@ var getScreen = function(id_manager, id_device, DAO_screen){
 	});
 };
 module.exports.getScreen = getScreen;
+
+
+var getContent = function(id_screen, DAO_content){
+	DAO.getContent(id_screen, function(err, content){
+		if(err)
+		{
+			console.log(err);
+			return DAO_content(err);
+		}
+		else{
+			//console.log(screen);
+			return DAO_content(null, content);
+		}
+
+	});
+};
+module.exports.getContent = getContent;

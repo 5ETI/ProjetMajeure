@@ -50,7 +50,8 @@ function commFnc($http, $q, factory){
             loadDevicesList: loadDevicesList, 
             loadDevice: loadDevice,
             //loadTemplate: loadTemplate,
-            getScreen: getScreen
+            getScreen: getScreen,
+            loadContent: loadContent
         };
 
        // FOR HTTP REQUEST
@@ -76,16 +77,16 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     };
 
-   /* function loadTemplate(deviceId){
+   function loadContent(id_screen){
         var deferred = $q.defer();
-        $http.get('/screen/'+ deviceId)
+        $http.get('/content/'+ id_screen)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
             return deferred.reject(response.status);
         });
         return deferred.promise;
-    };*/
+    };
 
 
     function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){

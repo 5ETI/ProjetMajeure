@@ -75,6 +75,8 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
     }*/
 
     $scope.id_screen = 0;
+    $scope.screen = {};
+    //$scope.contents = [];
 
     $scope.selectCurrentDevice=function(deviceId){
       $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
@@ -82,21 +84,32 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
       var screen = comm.getScreen(id_manager, deviceId);
       screen.then(
         function(payload){
+          //log.info('screen ', payload);
           $scope.currentDevice.template = payload[0].template;
-          $scope.id_screen = payload[0].id; // TODOOOOOOOOOOOOOOOOOOO
+          $scope.id_screen = payload[0].id;
+          $scope.screen.empty = payload[0].empty;
+          if(!$scope.screen.empty){
+            loadContent();
+          }
         },
         function(errorPayload){
-          $log.error('failure loading template', errorPayload);
+          $log.error('failure loading screen', errorPayload);
         });
 
-      /*var contents=comm.loadContent(deviceId);
-      contents.then(
-        function(payload) { 
-          $scope.currentDevice.template = payload[0].template;
-        },
-        function(errorPayload) {
-          $log.error('failure loading template', errorPayload);
-        });*/
+
+      var loadContent = function(){
+        if(!$scope.screen.empty){
+          var contents=comm.loadContent($scope.id_screen);
+          contents.then(
+            function(payload) { 
+                $scope.screen.contents = payload;
+              },
+              function(errorPayload) {
+                $log.error('failure loading content', errorPayload);
+              });
+        }
+      }
+
 
     }
     

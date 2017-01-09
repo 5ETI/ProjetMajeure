@@ -20,8 +20,8 @@
       <div class="canvas">
         <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template1.html'">  </div> 
         <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template2.html'">  </div> 
-      <!--<div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
-      <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div>-->
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
+        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div>
         <!--<div>
           <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
           <span class="btn btn-info ng-hide" ng-show="$flow.files.length" flow-btn="">Change<input style="visibility: hidden; position: absolute;" type="file"></span>
@@ -56,6 +56,8 @@
           <span id="currentDeviceLongueur">{{currentDevice.longueur}}</span>
           <label for="currentDeviceTemplate">Template: </label>
           <span id="currentDeviceTemplate">{{currentDevice.template}}</span>
+          <label for="screenEmpty">Empty: </label>
+          <span id="screenEmpty">{{screen.empty}}</span>
         </div>
         <div>
 

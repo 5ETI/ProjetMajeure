@@ -25,6 +25,23 @@ router.route("/screen/:id_manager/:id_device")
 	});
 });
 
+router.route("/content/:id_screen")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var id_screen = params[2];
+	ScreenController.getContent(id_screen, function(err, content){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			console.log(content);
+			response.json(content);
+		}
+
+	});
+});
+
 /*router.route("/screen/:id")
 .get(function(request, response) {
 	var params = request.url.split("/");

@@ -88,6 +88,29 @@ var getScreen = function (id_manager, id_device, screen)
 }
 module.exports.getScreen = getScreen;
 
+var getContent = function (id_screen, content)
+{
+	connect(function(conn){
+		var Query = "SELECT * FROM projetmajeure.content WHERE id IN ( SELECT id FROM projetmajeure.screen_content WHERE id_screen = " + id_screen + " );";
+
+		// console.log(Query);
+		conn.query(Query, function(err, Content) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return content(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of devices : ', Content);
+			return content(null, Content);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.getContent = getContent;
+
 // var getData = function (id, datatype, callback){
 // 	connect(function(conn){
 // 		conn.query("SELECT * FROM " + datatype + " WHERE id = '" + id + "';", function(err, Data) {
