@@ -36,7 +36,7 @@ var DaoGetTwit = function(accountname, nbtwits, intemList){
 				oEmbedTweetsList.push(tempOembedTwit);
 				//console.log(oEmbedTweetsList);
 				console.log ("i : ", i);
-				console.log("twits.length -1 : ", twits.length)
+				console.log("twits.length : ", twits.length)
 				if (oEmbedTweetsList.length == twits.length){
 					console.log("in if ////");
 					return intemList(null, oEmbedTweetsList);
