@@ -6,7 +6,7 @@ var connect = function(conn){
 	var connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
-		password : '1234',
+		password : 'admin',
 		database : 'ProjetMajeure'
 	});
 
@@ -14,6 +14,32 @@ var connect = function(conn){
 	return conn(connection);
 
 }
+
+var listVille = function(datatype,value, intemList){
+	var Query = "SELECT * from  " + datatype;
+
+	Query += " WHERE `" +  "ville" + "` = '" + value + "'"
+	// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
+	console.log("tttteeeesssstt : dedans", Query);
+	
+	connect(function(conn){
+
+		conn.query(Query, function(err, ItemList) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return intemList(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of ' + datatype + ' : ', ItemList);
+			return intemList(null, ItemList);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.listVille = listVille;
 
 var list = function(datatype, whereFilter, value, intemList){
 	var Query = "SELECT * from  " + datatype;

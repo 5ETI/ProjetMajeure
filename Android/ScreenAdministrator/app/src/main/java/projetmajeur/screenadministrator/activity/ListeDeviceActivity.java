@@ -56,7 +56,6 @@ public class ListeDeviceActivity extends AppCompatActivity {
             @Override
             public void onListDevice(ArrayList<Device> result) {
                 // specify an adapter
-
                 RecyclerAdapter mAdapter = new RecyclerAdapter(result);
                 mRecyclerView.setAdapter(mAdapter);
             }

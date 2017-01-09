@@ -14,10 +14,12 @@ router.route("/managers/all")
 			}
 			else{
 				response.json(managerList);
+			
 			}
 
     	});
 });
+
 // router.route("/device/:id")
 // 	.get(function(request, response) {
 // 	var params = request.url.split("/");

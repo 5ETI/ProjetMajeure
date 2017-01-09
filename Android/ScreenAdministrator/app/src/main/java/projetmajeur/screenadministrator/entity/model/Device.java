@@ -1,12 +1,14 @@
 package projetmajeur.screenadministrator.entity.model;
 
+import org.json.JSONObject;
+
 import java.util.UUID;
 
 /**
  * Created by benad on 03/01/2017.
  */
 
-public class Device {
+public class Device extends JSONObject{
 
     private int id;
     private String orientation;
@@ -94,4 +96,5 @@ public class Device {
                 ", ville='" + ville + '\'' +
                 '}';
     }
+
 }

@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_liste_device"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     android:orientation="vertical"
     android:background="@drawable/linearborder"
-    tools:context="projetmajeur.screenadministrator.activity.MainActivity">
+    tools:context="projetmajeur.screenadministrator.activity.ListeDeviceActivity">
     <Button
             android:id="@+id/button_add"
             android:layout_alignParentBottom="true"

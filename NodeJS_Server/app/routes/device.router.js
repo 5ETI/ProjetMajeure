@@ -70,6 +70,21 @@ router.route("/device/add")
 	});
 
 });
+router.route("/device/parVille/:ville")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var ville = params[3];
+	DeviceController.listVille(ville,function(err,deviceList){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(deviceList);
+		}
+
+	});
+});
 
 router.route("/device/delete/:id")
 .get(function(request, response) {
@@ -86,3 +101,4 @@ router.route("/device/delete/:id")
 
 	});
 });
+
