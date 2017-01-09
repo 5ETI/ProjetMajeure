@@ -7,7 +7,7 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -56,7 +56,8 @@
         -->
 
         <activity android:name=".activity.ListeDeviceActivity" />
-        <activity android:name=".activity.AddDeviceActivity"></activity>
+        <activity android:name=".activity.AddDeviceActivity" />
+        <activity android:name=".activity.ListManagerActivity"></activity>
     </application>
 
 </manifest>

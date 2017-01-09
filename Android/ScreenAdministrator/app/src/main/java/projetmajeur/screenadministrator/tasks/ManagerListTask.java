@@ -1,12 +1,8 @@
 package projetmajeur.screenadministrator.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.CheckBox;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,34 +15,31 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
+import projetmajeur.screenadministrator.activity.ManagerActivity;
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.User;
 
 /**
- * Created by benad on 05/01/2017.
+ * Created by benad on 08/01/2017.
  */
 
-public class DeviceListTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
-    DeviceListTask.DeviceListListener deviceListListener;
+public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>> {
+
+    ManagerListTask.ManagerListListener managerListListener;
 
     Gson gson = new Gson();
 
-
-    ArrayList<Device> stockage = new ArrayList<Device>();
     @Override
-    protected ArrayList<Device> doInBackground(Double... params) {
-        /// REQUETE POUR RECUPERER LA LISTE
-        Gson gson = new Gson();
+    protected ArrayList<User> doInBackground(String... params) {
 
         URL url = null;
         try {
-            url = new URL("http://10.170.1.100:1337/device/all");
-            //url = new URL("http://192.168.1.23:1337/device/all");
+           // url = new URL("http://192.168.1.23:1337/managers/all");
+            url = new URL("http://10.170.1.100:1337/managers/all");
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -70,22 +63,36 @@ public class DeviceListTask extends AsyncTask<Double, Integer, ArrayList<Device>
         }
 
 
-        return getListDevice(in);
+        return getListManager(in);
     }
 
-    protected void onPostExecute(ArrayList<Device> result) {
-        deviceListListener.onListDevice(result);
-        this.cancel(true);
+    public ArrayList<User> getListManager (InputStream in){
+        ArrayList<User> list = new ArrayList<User>();
+        String responseString = null;
+        try {
+            responseString = readInputStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jObj = null;
+        try {
+            jObj = new JSONArray(responseString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jObj.length(); i++) {
+            JSONObject jsonobject = null;
+            try {
+                jsonobject = jObj.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            User dev = gson.fromJson(String.valueOf(jsonobject),User.class);
+            list.add(dev);
+        }
 
+        return list;
     }
-    public void setDeviceListListener(DeviceListTask.DeviceListListener deviceListListener) {
-        this.deviceListListener=deviceListListener;
-    }
-
-    public interface DeviceListListener {
-        void  onListDevice(ArrayList<Device> list);
-    }
-
     private boolean readStream(InputStream in) throws IOException, JSONException {
         String responseString = readInputStream(in);
         JSONObject jObj = new JSONObject(responseString);
@@ -109,32 +116,19 @@ public class DeviceListTask extends AsyncTask<Double, Integer, ArrayList<Device>
         reader.close();
         return sb.toString();
     }
-    public ArrayList<Device> getListDevice (InputStream in){
-        ArrayList<Device> list = new ArrayList<Device>();
-        String responseString = null;
-        try {
-            responseString = readInputStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONArray jObj = null;
-        try {
-            jObj = new JSONArray(responseString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < jObj.length(); i++) {
-            JSONObject jsonobject = null;
-            try {
-                jsonobject = jObj.getJSONObject(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Device dev = gson.fromJson(String.valueOf(jsonobject),Device.class);
-            list.add(dev);
-        }
 
-        return list;
+    protected void onPostExecute(ArrayList<User> result) {
+        managerListListener.onManager(result);
+        this.cancel(true);
+
+
     }
 
+    public void setManagerListListener(ManagerListTask.ManagerListListener managerListListener) {
+        this.managerListListener=managerListListener;
+    }
+
+    public interface ManagerListListener {
+        void  onManager(ArrayList<User> list);
+    }
 }

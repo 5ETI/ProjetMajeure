@@ -12,6 +12,9 @@ import projetmajeur.screenadministrator.entity.model.Device;
 
 public class AddDevice extends AsyncTask <ArrayList<Device>,Integer,Boolean>{
 
+
+
+
     @Override
     protected Boolean doInBackground(ArrayList<Device>... params) {
         return null;

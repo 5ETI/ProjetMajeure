@@ -3,26 +3,26 @@ package projetmajeur.screenadministrator.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.User;
 import projetmajeur.screenadministrator.tasks.DeviceListTask;
+import projetmajeur.screenadministrator.tasks.ManagerAdapter;
+import projetmajeur.screenadministrator.tasks.ManagerListTask;
 import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
 
-public class ListeDeviceActivity extends AppCompatActivity {
+import static projetmajeur.screenadministrator.R.id.button_add;
+import static projetmajeur.screenadministrator.R.id.button_delete;
+
+public class ListManagerActivity extends AppCompatActivity  {
 
     private Button button_add;
     private Button button_delete;
@@ -32,43 +32,48 @@ public class ListeDeviceActivity extends AppCompatActivity {
     //private RecyclerView mRecyclerView ;
     private LinearLayoutManager mLinearLayoutManager;
 
-    ArrayList<Device> stockage = new ArrayList<Device>();
-
-    ArrayList<RecyclerView> selectedcheckBox = new ArrayList<RecyclerView>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_liste_device);
-
+        setContentView(R.layout.activity_list_manager);
         button_add = (Button) findViewById(R.id.button_add);
         button_delete = (Button) findViewById(R.id.button_delete);
 
-        final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewManager);
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        DeviceListTask deviceListTask = new DeviceListTask();
-        DeviceListTask.DeviceListListener deviceListListener = new DeviceListTask.DeviceListListener() {
+        ManagerListTask managerListTask = new ManagerListTask();
+        ManagerListTask.ManagerListListener managerListListener = new ManagerListTask.ManagerListListener() {
             @Override
-            public void onListDevice(ArrayList<Device> result) {
+            public void onManager(ArrayList<User> result) {
                 // specify an adapter
-                RecyclerAdapter mAdapter = new RecyclerAdapter(result);
+                ManagerAdapter mAdapter = new ManagerAdapter(result);
                 mRecyclerView.setAdapter(mAdapter);
             }
         };
 
-        deviceListTask.setDeviceListListener(deviceListListener);
-        deviceListTask.execute();
+        managerListTask.setManagerListListener(managerListListener);
+        managerListTask.execute();
+
+      /*  mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListManagerActivity.this, ManagerActivity.class);
+                startActivity(intent);
 
 
+            }
+
+        });
+*/
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListeDeviceActivity.this, AddDeviceActivity.class);
+                Intent intent = new Intent(ListManagerActivity.this, AddDeviceActivity.class);
                 startActivity(intent);
 
             }
@@ -77,7 +82,5 @@ public class ListeDeviceActivity extends AppCompatActivity {
 
     public void onCheckboxClicked(View view) {
 
-        }
     }
-
-
+}

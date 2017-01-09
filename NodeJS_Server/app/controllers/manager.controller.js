@@ -8,7 +8,7 @@ var DAO = require("./../DAO/DAO.js");
 
 
 var list = function(DAO_Managers_list){
-	DAO.list("user","role","manager", function(err, managerList){
+	DAO.list("user","role",1, function(err, managerList){
 		if(err)
 		{
 			console.log(err);
