@@ -7,16 +7,32 @@ var path = require("path");
 var DAO = require("./../DAO/DAO.js");
 
 
-var getScreen = function(id, DAO_Device_info){
+/*var getScreen = function(id, DAO_screen){
 	DAO.list("screen", "id",id, function(err, screen){
 		if(err)
 		{
 			console.log(err);
-			return DAO_Device_info(err);
+			return DAO_screen(err);
 		}
 		else{
 			//console.log(screen);
-			return DAO_Device_info(null, screen);
+			return DAO_screen(null, screen);
+		}
+
+	});
+};
+module.exports.getScreen = getScreen;*/
+
+var getScreen = function(id_manager, id_device, DAO_screen){
+	DAO.getScreen(id_manager, id_device, function(err, screen){
+		if(err)
+		{
+			console.log(err);
+			return DAO_screen(err);
+		}
+		else{
+			//console.log(screen);
+			return DAO_screen(null, screen);
 		}
 
 	});

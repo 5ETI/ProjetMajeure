@@ -64,6 +64,30 @@ var listManagerDevice = function (id_manager, itemList)
 }
 module.exports.listManagerDevice = listManagerDevice;
 
+var getScreen = function (id_manager, id_device, screen)
+{
+	connect(function(conn){
+		var Query = "SELECT * FROM projetmajeure.screen WHERE id_manager = " + id_manager + " AND id_device = " + id_device;
+
+		// console.log(Query);
+		conn.query(Query, function(err, Screen) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return screen(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of devices : ', Screen);
+			return screen(null, Screen);
+			}
+		});
+		conn.end();
+	});
+
+}
+module.exports.getScreen = getScreen;
+
 // var getData = function (id, datatype, callback){
 // 	connect(function(conn){
 // 		conn.query("SELECT * FROM " + datatype + " WHERE id = '" + id + "';", function(err, Data) {

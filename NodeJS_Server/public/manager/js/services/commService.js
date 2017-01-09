@@ -49,7 +49,8 @@ function commFnc($http, $q, factory){
         var comm = {
             loadDevicesList: loadDevicesList, 
             loadDevice: loadDevice,
-            loadTemplate: loadTemplate
+            //loadTemplate: loadTemplate,
+            getScreen: getScreen
         };
 
        // FOR HTTP REQUEST
@@ -64,7 +65,18 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     };
 
-    function loadTemplate(deviceId){
+    function getScreen(id_manager,id_device){
+        var deferred = $q.defer();
+        $http.get('/screen/'+ id_manager + '/'+id_device)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    };
+
+   /* function loadTemplate(deviceId){
         var deferred = $q.defer();
         $http.get('/screen/'+ deviceId)
         .then(function successCallback(response) {
@@ -73,7 +85,7 @@ function commFnc($http, $q, factory){
             return deferred.reject(response.status);
         });
         return deferred.promise;
-    }
+    };*/
 
 
     function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
