@@ -76,7 +76,7 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
 
 
     $scope.selectCurrentDevice=function(deviceId){
-      $scope.currentDevice=$scope.deviceMap.array[deviceId];
+      $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
       var available_device=comm.loadTemplate(deviceId);
       available_device.then(
