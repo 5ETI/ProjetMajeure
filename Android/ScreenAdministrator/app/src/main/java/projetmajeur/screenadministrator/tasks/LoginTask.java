@@ -117,6 +117,8 @@ public class LoginTask extends AsyncTask<String, Integer, Boolean> {
 
     protected void onPostExecute(Boolean result) {
         loginListener.onLogin(result);
+        this.cancel(true);
+
 
     }
 

@@ -70,6 +70,8 @@ public class AddDeviceActivity extends AppCompatActivity {
         Log.i("teeeeeeest",device.toString());
 
         // FAIRE APPEL A AddDevice pour l ajouter de maniere asynchrone ayant pour retour un boolean
+
+
         Toast.makeText(getApplicationContext(), "Device add", Toast.LENGTH_SHORT).show();
 
 

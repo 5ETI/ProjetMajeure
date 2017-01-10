@@ -6,12 +6,26 @@ import android.os.AsyncTask;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.entity.enumeration.EnumVille;
 import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.RechercheDevice;
+
+import com.google.gson.Gson;
 import com.google.maps.android.SphericalUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by benad on 04/01/2017.
@@ -20,41 +34,15 @@ import com.google.maps.android.SphericalUtil;
 public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
 
     DeviceTask.DeviceListener deviceListener;
+    Gson gson = new Gson();
 
 
-    Device device1 = new Device(0,"portrait",100,100,45.77931271229767,4.865341190015897,"Lyon");
-    Device device2 = new Device(1,"portrait",100,100,45.78338306915131,4.862594607984647,"Lyon");
-    Device device3 = new Device(2,"portrait",100,100,45.77746099967389,4.855098724365234,"Lyon");
-    Device device4 = new Device(3,"portrait",100,100,45.77224874075234,4.866371158277616,"Lyon");
-    Device device5 = new Device(4,"portrait",100,100,45.76913552008806,4.870147708570585,"Lyon");
-    Device device6 = new Device(5,"portrait",100,100,45.76458511576175,4.869117740308866,"Lyon");
-    Device device7 = new Device(6,"portrait",100,100,45.75955528964215,4.867916110670194,"Lyon");
-    Device device8 = new Device(6,"portrait",100,100,48.856614,2.3522219000000177,"Paris");
-    Device device9 = new Device(6,"portrait",100,100,48.841951316948126,2.337970737135038,"Paris");
-    Device device10 = new Device(6,"portrait",100,100,48.85200525526809,2.285957339918241,"Paris");
-    Device device11 = new Device(6,"portrait",100,100,51.519688806435894,-0.15661239274777472,"Londres");
-    Device device12 = new Device(6,"portrait",100,100,51.496183322772204,-0.1289749110583216,"Londres");
 
-    ArrayList<Device> stockage = new ArrayList<Device>();
-    ArrayList<Device> liste = new ArrayList<Device>();
+
 
 
     @Override
     protected ArrayList<Device> doInBackground(Double... params) {
-
-        // REQUETE POUR RECUPERE LA LISTE NODEJS
-        stockage.add(device1);
-        stockage.add(device2);
-        stockage.add(device3);
-        stockage.add(device4);
-        stockage.add(device5);
-        stockage.add(device6);
-        stockage.add(device7);
-        stockage.add(device8);
-        stockage.add(device9);
-        stockage.add(device10);
-        stockage.add(device11);
-        stockage.add(device12);
 
         Double typeRecherche = params[0];
         Double latUser = params[1];
@@ -88,18 +76,70 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
 
         if(typeRecherche == 1.0){
 
-            for(int i = 0; i < stockage.size(); i++){
-                if(stockage.get(i).getVille().equals(villeCherche)){
+            String ville = String.valueOf(RechercheDevice.getInstance().getVillerecherche());
+            URL url = null;
+            try {
+                url = new URL("http://10.170.1.100:1337/device/parVille/"+ville);
 
-                    liste.add(stockage.get(i));
-                }
-
+                //url = new URL("http://192.168.1.23:1337/device/parVille/"+ville);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             }
-            return liste;
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return getListDevice(in);
         }
         if(typeRecherche == 2.0){
             LatLng userlatlng = new LatLng(latUser,lonUser);
             LatLngBounds perime  = toBounds(userlatlng,d);
+
+            URL url = null;
+            try {
+                url = new URL("http://10.170.1.100:1337/device/all");
+
+                //url = new URL("http://192.168.1.23:1337/device/all");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<Device> stockage = getListDevice(in);
+            ArrayList<Device> liste = new ArrayList<Device>();
 
             for(int i = 0; i < stockage.size(); i++){
                 LatLng lt = new LatLng(stockage.get(i).getLatitude(),stockage.get(i).getLongitude());
@@ -121,6 +161,8 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
 
     protected void onPostExecute(ArrayList<Device> result) {
         deviceListener.onDevice(result);
+        this.cancel(true);
+
 
     }
 
@@ -136,6 +178,56 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
         LatLng southwest = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 225);
         LatLng northeast = SphericalUtil.computeOffset(center, radius * Math.sqrt(2.0), 45);
         return new LatLngBounds(southwest, northeast);
+    }
+    public ArrayList<Device> getListDevice (InputStream in){
+        ArrayList<Device> list = new ArrayList<Device>();
+        String responseString = null;
+        try {
+            responseString = readInputStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jObj = null;
+        try {
+            jObj = new JSONArray(responseString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < jObj.length(); i++) {
+            JSONObject jsonobject = null;
+            try {
+                jsonobject = jObj.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Device dev = gson.fromJson(String.valueOf(jsonobject),Device.class);
+            list.add(dev);
+        }
+
+        return list;
+    }
+    private boolean readStream(InputStream in) throws IOException, JSONException {
+        String responseString = readInputStream(in);
+        JSONObject jObj = new JSONObject(responseString);
+        if(jObj.getInt("status")==200)
+        {
+            return true;
+        }
+        return false;
+    }
+    private String readInputStream(InputStream inputStream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                inputStream, "UTF-8"));
+        String tmp;
+        StringBuilder sb = new StringBuilder();
+        while ((tmp = reader.readLine()) != null) {
+            sb.append(tmp).append("\n");
+        }
+        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '\n') {
+            sb.setLength(sb.length() - 1);
+        }
+        reader.close();
+        return sb.toString();
     }
 
 }

@@ -6,20 +6,46 @@ var connect = function(conn){
 	var connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
-		password : '1234',
-		database : 'ProjetMajeure'
+		password : 'root',
+		database : 'projetmajeure'
 	});
 
 	connection.connect();
 	return conn(connection);
 
-}
+};
+
+var listVille = function(datatype,value, intemList){
+	var Query = "SELECT * from  " + datatype;
+
+	Query += " WHERE `" +  "ville" + "` = '" + value + "'";
+	// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
+	console.log("tttteeeesssstt : dedans", Query);
+	
+	connect(function(conn){
+
+		conn.query(Query, function(err, ItemList) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return intemList(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of ' + datatype + ' : ', ItemList);
+			return intemList(null, ItemList);
+			}
+		});
+		conn.end();
+	});
+};
+module.exports.listVille = listVille;
 
 var list = function(datatype, whereFilter, value, intemList){
 	var Query = "SELECT * from  " + datatype;
 	if (whereFilter != null)
 	{
-		Query += " WHERE `" +  whereFilter + "` = '" + value + "'"
+		Query += " WHERE `" +  whereFilter + "` = '" + value + "'";
 		// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
 	}
 	connect(function(conn){
@@ -38,7 +64,7 @@ var list = function(datatype, whereFilter, value, intemList){
 		});
 		conn.end();
 	});
-}
+};
 module.exports.list = list;
 
 var listManagerDevice = function (id_manager, itemList)
@@ -61,7 +87,7 @@ var listManagerDevice = function (id_manager, itemList)
 		});
 		conn.end();
 	});
-}
+};
 module.exports.listManagerDevice = listManagerDevice;
 
 // var getData = function (id, datatype, callback){
@@ -98,12 +124,12 @@ var addDevice = function (device, callback)
 			{
 			//console.log('type of : ', typeof(DeviceList));
 			//console.log(datatype + " of id : " + id +" : \n" , Data);
-			return callback(null, device);
+			return callback(null, Data);
 			}
 		});
 		conn.end();
 	});
-}
+};
 module.exports.addDevice = addDevice;
 
 
@@ -113,7 +139,7 @@ var deleteData = function(datatype, whereFilter, value, ret)
 	var Query = "DELETE from " + datatype;
 	if (whereFilter != null)
 	{
-		Query += " WHERE `" +  whereFilter + "` = '" + value + "'"
+		Query += " WHERE `" +  whereFilter + "` = '" + value + "'";
 		// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
 	}
 	console.log(Query);
@@ -133,5 +159,5 @@ var deleteData = function(datatype, whereFilter, value, ret)
 		});
 		conn.end();
 	});
-}
+};
 module.exports.deleteData = deleteData;

@@ -20,8 +20,24 @@ var list = function(DAO_Device_list){
 		}
 	});
 
-}
+};
 module.exports.list = list;
+
+var listVille = function(ville,DAO_Device_list){
+	DAO.list("device","ville", ville, function(err, deviceList){
+		if(err)
+		{
+			console.log(err);
+			return DAO_Device_list(err);
+		}
+		else{
+			//console.log(deviceList);
+			return DAO_Device_list(null, deviceList);
+		}
+	});
+
+}
+module.exports.listVille = listVille;
 
 var getManagerDevices = function(id_manager, DAO_Device_list){
 	DAO.listManagerDevice(id_manager, function(err, deviceList){
@@ -57,10 +73,7 @@ module.exports.getDevice = getDevice;
 
 
 var addDevice = function(device, Dao_add_device){
-	if (device.id === "undefined"){
-		return new Error("device id cannot be undfined");
-	 		//return console.error("L'id d'un Device ne peut pas être nul");
-	 	}
+	
 	 	if (device.orientation === "undefined"){
 	 		return new Error("device orientation cannot be undfined");
 	 		//return console.error("L'orientation d'un Device ne peut pas être nul");
