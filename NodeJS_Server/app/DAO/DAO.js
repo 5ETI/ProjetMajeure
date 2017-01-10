@@ -6,8 +6,8 @@ var connect = function(conn){
 	var connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
-		password : 'root',
-		database : 'projetmajeure'
+		password : '1234',
+		database : 'ProjetMajeure'
 	});
 
 	connection.connect();
@@ -34,8 +34,8 @@ var listVille = function(datatype,value, intemList){
 			//console.log('type of : ', typeof(DeviceList));
 			console.log('List of ' + datatype + ' : ', ItemList);
 			return intemList(null, ItemList);
-			}
-		});
+		}
+	});
 		conn.end();
 	});
 };
@@ -60,8 +60,8 @@ var list = function(datatype, whereFilter, value, intemList){
 			//console.log('type of : ', typeof(DeviceList));
 			console.log('List of ' + datatype + ' : ', ItemList);
 			return intemList(null, ItemList);
-			}
-		});
+		}
+	});
 		conn.end();
 	});
 };
@@ -83,12 +83,59 @@ var listManagerDevice = function (id_manager, itemList)
 			//console.log('type of : ', typeof(DeviceList));
 			console.log('List of devices : ', ItemList);
 			return itemList(null, ItemList);
-			}
-		});
+		}
+	});
 		conn.end();
 	});
 };
 module.exports.listManagerDevice = listManagerDevice;
+
+var getScreen = function (id_manager, id_device, screen)
+{
+	connect(function(conn){
+		var Query = "SELECT * FROM projetmajeure.screen WHERE id_manager = " + id_manager + " AND id_device = " + id_device;
+
+		// console.log(Query);
+		conn.query(Query, function(err, Screen) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return screen(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of devices : ', Screen);
+			return screen(null, Screen);
+		}
+	});
+		conn.end();
+	});
+
+}
+module.exports.getScreen = getScreen;
+
+var getContent = function (id_screen, content)
+{
+	connect(function(conn){
+		var Query = "SELECT * FROM projetmajeure.content WHERE id IN ( SELECT id FROM projetmajeure.screen_content WHERE id_screen = " + id_screen + " );";
+
+		// console.log(Query);
+		conn.query(Query, function(err, Content) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return content(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of devices : ', Content);
+			return content(null, Content);
+		}
+	});
+		conn.end();
+	});
+}
+module.exports.getContent = getContent;
 
 // var getData = function (id, datatype, callback){
 // 	connect(function(conn){
@@ -125,8 +172,8 @@ var addDevice = function (device, callback)
 			//console.log('type of : ', typeof(DeviceList));
 			//console.log(datatype + " of id : " + id +" : \n" , Data);
 			return callback(null, Data);
-			}
-		});
+		}
+	});
 		conn.end();
 	});
 };
@@ -155,9 +202,77 @@ var deleteData = function(datatype, whereFilter, value, ret)
 			//console.log('type of : ', typeof(DeviceList));
 			console.log('List of ' + datatype + ' : ', retval);
 			return ret(null, retval);
-			}
-		});
+		}
+	});
 		conn.end();
 	});
 };
 module.exports.deleteData = deleteData;
+
+
+var deleteContent = function (id_screen, ret){
+
+	var query = "DELETE FROM projetmajeure.content WHERE id IN ( SELECT id_content FROM projetmajeure.screen_content WHERE id_screen = '" + id_screen +"')";
+
+	connect(function(conn){
+		conn.query(query, function(err, resp) {
+			if (err){
+				console.log('Error while performing query.  ' + err);
+				return ret(err);
+			}
+			else{
+				return ret(null, resp);
+			}
+		});
+		conn.end();
+	});
+
+};
+module.exports.deleteContent = deleteContent;
+
+var saveContent = function (id_screen, contents, ret){
+
+	console.log("contents.length " + contents.length);
+	console.log('id_screen  ' + id_screen);
+	
+	for (var i=0; i< contents.length; i++){
+		
+		var query = "INSERT INTO content (`type`, `param1`) VALUES";
+		query += "('" + contents[i].type + "','" + contents[i].param1 + "');";
+
+		console.log(query);
+
+		connect(function(conn){
+			conn.query(query, function(err, sqlInfo) {
+				if (err){
+					console.log('Error while performing query.  ' + err);
+					return callback(err);
+				}
+				else{
+					console.log('sqlInfo.insertId  ' + sqlInfo.insertId);
+					console.log('id_screen  ' + id_screen);
+
+					query = "INSERT INTO screen_content (`id_screen`, `id_content`) VALUES";
+					query += "('" + id_screen + "', '" + sqlInfo.insertId +"' );";
+					connect(function(conn){
+						conn.query(query, function(err, sqlInfo) {
+							if (err){
+								console.log('Error while performing query.  ' + err);
+								return callback(err);
+							}
+							else{	
+								ret(null, sqlInfo);
+							}
+						});
+						conn.end();
+					});
+
+				}
+			});
+			conn.end();
+		});
+		
+	}
+
+};
+module.exports.saveContent = saveContent;

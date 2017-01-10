@@ -26,6 +26,8 @@ app.use(twitRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 
 
+app.use("/twittertest", express.static(path.join(__dirname, "public/testTweet")));
+
 
 app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));

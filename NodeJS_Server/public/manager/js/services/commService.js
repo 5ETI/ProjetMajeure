@@ -49,7 +49,11 @@ function commFnc($http, $q, factory){
         var comm = {
             loadDevicesList: loadDevicesList, 
             loadDevice: loadDevice,
-            loadTemplate: loadTemplate
+            //loadTemplate: loadTemplate,
+            getScreen: getScreen,
+            loadContent: loadContent,
+            deleteContent: deleteContent,
+            saveScreen: saveScreen
         };
 
        // FOR HTTP REQUEST
@@ -64,9 +68,31 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     };
 
-    function loadTemplate(deviceId){
+    function getScreen(id_manager,id_device){
         var deferred = $q.defer();
-        $http.get('/screen/'+ deviceId)
+        $http.get('/screen/'+ id_manager + '/'+id_device)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    };
+
+   function loadContent(id_screen){
+        var deferred = $q.defer();
+        $http.get('/content/'+ id_screen)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    };
+
+    function deleteContent(id_screen){
+        var deferred = $q.defer();
+        $http.get('/content/delete/'+ id_screen)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
@@ -75,6 +101,16 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     }
 
+    function saveScreen(id_screen, contents){
+        var deferred = $q.defer();
+        $http.post('/content/save/'+ id_screen, contents)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    }
 
     function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
         var device1 = {};

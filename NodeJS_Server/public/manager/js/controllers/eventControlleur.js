@@ -16,19 +16,19 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     var available_device=comm.loadDevicesList(id_manager);
     available_device.then(
-      function(payload) { 
+      function(payload) {
         $scope.deviceMap.payload = payload;
         $scope.deviceMap.array=factory.mapToArray(payload);
       },
       function(errorPayload) {
         $log.error('failure loading devices', errorPayload);
       });
-    
-    /*$scope.selectDevice = function(payload) { 
-      $scope.deviceMap.payload= payload;             
+
+    /*$scope.selectDevice = function(payload) {
+      $scope.deviceMap.payload= payload;
       for(key in $scope.deviceMap.payload){
         $scope.currentDevice = $scope.deviceMap.payload[key];
-      }  
+      }
     },
     function(errorPayload) {
       $log.error('failure loading movie', errorPayload);
@@ -40,7 +40,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
       var available_device=comm.loadTemplate(deviceId);
       available_device.then(
-        function(payload) { 
+        function(payload) {
           $log.info(payload[0]);
           $scope.currentDevice.template = payload[0].template;
         },
@@ -96,12 +96,11 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         }
         else{
                 var confirm = $mdDialog.confirm()
-                    .textContent('Would you like to delete the twitter account?')
+                    .textContent('Would you like to delete your twitter account?')
                     .ok('Please do it!')
-                    .cancel('cancel');
+                    .cancel('Sounds like a scam');
 
                 $mdDialog.show(confirm).then(function() {
-                    $scope.EmbedTweet = "";
                     $interval.cancel(inter);
                     tweetsList = [];
                     isTwitterAccountSet = false;
@@ -112,5 +111,5 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
         };
 
-    
+
   };
