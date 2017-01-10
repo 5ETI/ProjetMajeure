@@ -96,11 +96,12 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         }
         else{
                 var confirm = $mdDialog.confirm()
-                    .textContent('Would you like to delete your twitter account?')
+                    .textContent('Would you like to delete the twitter account?')
                     .ok('Please do it!')
-                    .cancel('Sounds like a scam');
+                    .cancel('cancel');
 
                 $mdDialog.show(confirm).then(function() {
+                    $scope.EmbedTweet = "";
                     $interval.cancel(inter);
                     tweetsList = [];
                     isTwitterAccountSet = false;
