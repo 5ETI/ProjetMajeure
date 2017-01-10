@@ -43,36 +43,8 @@ var DaoGetTwit = function(accountname, nbtwits, intemList){
 				}
 			});
 		}
-		//
-	
-
-
-
-
-	// var Query = "SELECT * from  " + datatype;
-	// if (whereFilter != null)
-	// {
-	// 	Query += " WHERE `" +  whereFilter + "` = '" + value + "'"
-	// 	// SELECT * FROM ProjetMajeure.user where `role`= 'manager';
-	// }
-	// connect(function(conn){
-
-	// 	conn.query(Query, function(err, ItemList) {
-	// 		if (err){
-	// 			console.log('Error while performing Query.  ' + err);
-	// 			return intemList(err);
-	// 		}
-	// 		else
-	// 		{
-	// 		//console.log('type of : ', typeof(DeviceList));
-	// 		console.log('List of ' + datatype + ' : ', ItemList);
-	// 		return intemList(null, ItemList);
-	// 		}
-	// 	});
-	// 	conn.end();
-	// });
 });
-}
+};
 module.exports.DaoGetTwit = DaoGetTwit;
 
 

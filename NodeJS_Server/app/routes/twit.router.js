@@ -11,7 +11,7 @@ router.route("/twit/:username/:nbTwits")
 	var nbTwits = params[3];
 	TwitController.getTwit(username, nbTwits, function(err, twits){
 		if(err){
-			console.error(response.statut(500).end);
+			console.error(err);
 			return response.statut(500).end;
 		}
 		else{
