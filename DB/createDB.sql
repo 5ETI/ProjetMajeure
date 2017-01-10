@@ -123,8 +123,11 @@ INSERT INTO `ProjetMajeure`.`screen` ( `id_manager` , `id_device` , `template`, 
 INSERT INTO `ProjetMajeure`.`content` (`type`, `param1`) VALUES
 ('1','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
 ('1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
-('2','path/to/define');
+('2','path/to/define'),
+('1','514454');
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
 ('4', '1'),
-('4', '2');
+('4', '2'),
+('3','3'),
+('3','4');
