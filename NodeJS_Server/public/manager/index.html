@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/screen.css">
   <link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/embed.min.css">
+    <link rel="stylesheet" href="css/angular-material.min.css">
+
+
 </head>
 <body>
   <div>
@@ -20,6 +24,7 @@
       <div class="canvas">
         <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template1.html'">  </div> 
         <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template2.html'">  </div> 
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
       <!--<div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template3.html'">  </div> 
       <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template4.html'">  </div>-->
         <!--<div>
@@ -115,11 +120,20 @@
 <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
 <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
-<script src="librairies/angular/angular.min.js"></script> 
+<script src="librairies/angular/angular.min.js"></script>
+
+<script src="librairies/angular-animate/angular-animate.js"></script> 
+<script src="librairies/angular-material/angular-material.js"></script>
+<script src="librairies/angular-aria/angular-aria.js"></script>
+<script src="librairies/embed/embed.min.js"></script>
 <script src="librairies/ng-flow/ng-flow-standalone.min.js"></script>
+
+
+
 <script src="js/services/factoryService.js"></script>
 <script src="js/services/commService.js"></script>   
 <script src="js/application/managerApp.js"></script>
 <script src="js/controllers/eventControlleur.js"></script>
+<script src="js/services/TwitterService.js"></script>
 </body>
 </html>
