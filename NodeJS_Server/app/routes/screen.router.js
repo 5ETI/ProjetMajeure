@@ -14,8 +14,8 @@ router.route("/screen/:id_manager/:id_device")
 	var id_device = params[3];
 	ScreenController.getScreen(id_manager, id_device, function(err, id_screen){
 		if(err){
-			console.error(response.statut(500).end);
-			return response.statut(500).end;
+			console.error(response.status(500).end);
+			return response.status(500).end;
 		}
 		else{
 			console.log(id_screen);
@@ -31,8 +31,8 @@ router.route("/content/:id_screen")
 	var id_screen = params[2];
 	ScreenController.getContent(id_screen, function(err, content){
 		if(err){
-			console.error(response.statut(500).end);
-			return response.statut(500).end;
+			console.error(response.status(500).end);
+			return response.status(500).end;
 		}
 		else{
 			console.log(content);
@@ -41,6 +41,45 @@ router.route("/content/:id_screen")
 
 	});
 });
+
+
+router.route("/content/delete/:id_screen")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var id_screen = params[3];
+
+	ScreenController.deleteContent(id_screen, function(err, resp){
+		if(err){
+			console.error(response.status(500).end);
+			return response.status(500).end;
+		}
+		else{
+			console.log(resp);
+			response.json(resp);
+		}
+	});
+
+});
+
+router.route("/content/save/:id_screen")
+.post(function(request, response) {
+	var params = request.url.split("/");
+	var id_screen = params[3];
+	var contents = request.body;
+
+	ScreenController.saveContent(id_screen, contents, function(err, resp){
+		if(err){
+			console.error(response.status(500).end);
+			return response.status(500).end;
+		}
+		else{
+			console.log(resp);
+			//return response.json(resp);
+		}
+	});
+
+});
+
 
 /*router.route("/screen/:id")
 .get(function(request, response) {

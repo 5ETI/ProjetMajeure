@@ -5,8 +5,8 @@ eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval','factory','com
 function eventCrtFnt($scope, $log, $window, $sce, $interval, factory, comm, twitter,$mdDialog){
 
 
-    $scope.deviceMap={};
-    $scope.deviceMap.payload="";
+  $scope.deviceMap={};
+  $scope.deviceMap.payload="";
 
     var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
@@ -58,11 +58,11 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, factory, comm, twit
           var contents=comm.loadContent($scope.id_screen);
           contents.then(
             function(payload) { 
-                $scope.screen.contents = payload;
-              },
-              function(errorPayload) {
-                $log.error('failure loading content', errorPayload);
-              });
+              $scope.screen.contents = payload;
+            },
+            function(errorPayload) {
+              $log.error('failure loading content', errorPayload);
+            });
         }
       }
 
@@ -73,45 +73,102 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, factory, comm, twit
 
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.prompt()
-            .textContent('Please enter the name of the twitter account from which you want to load tweets')
-            .placeholder('Twitter Account name')
-            .ariaLabel('accountName')
-            .initialValue("Your brand's Name")
+        .textContent('Please enter the name of the twitter account from which you want to load tweets')
+        .placeholder('Twitter Account name')
+        .ariaLabel('accountName')
+        .initialValue("Your brand's Name")
             //.targetEvent(ev)
             .ok('Add Tweets!')
             .cancel('cancel')
         // You can specify either sting with query selector
-            .openFrom('left')
+        .openFrom('left')
         // or an element
-            .closeTo(angular.element(document.querySelector('#right')));
+        .closeTo(angular.element(document.querySelector('#right')));
 
         $mdDialog.show(confirm).then(function(result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
             var available_tweets=twitter.loadTweets(result, 10);
             available_tweets.then(
-                function(payload) {
-                    var i = 0, len = payload.length;
-                    var updateTweet = function(){
-                        if (i>=len-1){
-                            i=0;
-                        }
-                        i+=1;
-                        var item = {"html": payload[i].html};
-                        $scope.EmbedTweet = $sce.trustAsHtml(item.html);
+              function(payload) {
+                var i = 0, len = payload.length;
+                var updateTweet = function(){
+                  if (i>=len-1){
+                    i=0;
+                  }
+                  i+=1;
+                  var item = {"html": payload[i].html};
+                  $scope.EmbedTweet = $sce.trustAsHtml(item.html);
 
-                    };
-                    $interval(updateTweet, 5000);
-                });
-        }, function() {
+                };
+                $interval(updateTweet, 5000);
+              });
+          }, function() {
             $scope.status = 'You didn\'t name your dog.';
-        });
-
-
-
-
-
+          });
 
       };
 
-    
-  };
+      $scope.remove = function(id_content){
+        var confirm = $mdDialog.confirm()
+        .textContent('Confirm delete this picture')
+        .ok('Delete')
+        .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+            //$scope.status = 'You decided to name your dog ' + result + '.';
+            $scope.screen.contents[id_content].type = 0;
+          }, function() {
+
+          });
+      };
+
+      $scope.edit = function(id_content){
+        var confirm = $mdDialog.prompt()
+        .textContent('Specify the picture url')
+        .placeholder('url')
+        .ariaLabel('url')
+        .ok('Add Image')
+        .cancel('cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+            //$scope.status = 'You decided to name your dog ' + result + '.';
+            $scope.screen.contents[id_content].type = 1;
+            $scope.screen.contents[id_content].param1 = result;
+          }, function() {
+
+          });
+      };
+
+
+
+
+      $scope.save = function(){
+
+        $log.info("$scope.screen.id " + $scope.id_screen);
+        $log.info(" $scope.screen.contents[0] " +  $scope.screen.contents[0]);
+
+        var deleteContent = comm.deleteContent($scope.id_screen);
+        deleteContent.then(
+          function(payload){
+          //log.info('screen ', payload);
+          
+          var save = comm.saveScreen($scope.id_screen, $scope.screen.contents);
+          save.then(
+            function(payload){
+          //log.info('screen ', payload);
+          $log.info('success ');
+        },
+        function(errorPayload){
+          $log.error('failure saving screen', errorPayload);
+        });
+        },
+        function(errorPayload){
+          $log.error('failure saving screen', errorPayload);
+        });
+
+        
+
+      }
+
+
+    };
