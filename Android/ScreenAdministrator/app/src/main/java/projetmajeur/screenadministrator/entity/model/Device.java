@@ -81,4 +81,17 @@ public class Device {
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                ", orientation='" + orientation + '\'' +
+                ", longueur=" + longueur +
+                ", hauteur=" + hauteur +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", ville='" + ville + '\'' +
+                '}';
+    }
 }

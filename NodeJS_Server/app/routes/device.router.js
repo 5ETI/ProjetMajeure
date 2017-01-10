@@ -20,6 +20,23 @@ router.route("/device/all")
 
 	});
 });
+
+router.route("/device/manager/:id_manager")
+.get(function (request, response) {
+	var params = request.url.split("/");
+	var id_manager = params[3];
+	DeviceController.getManagerDevices(id_manager, function(err, deviceList){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(deviceList);
+		}
+
+	});
+});
+
 router.route("/device/:id")
 .get(function(request, response) {
 	var params = request.url.split("/");
@@ -69,4 +86,3 @@ router.route("/device/delete/:id")
 
 	});
 });
-

@@ -128,6 +128,14 @@ public class DeviceActivity extends GoogleLocationActivity {
                 startActivity(intent);
             }
         });
+        button_liste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(DeviceActivity.this, ListeDeviceActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
