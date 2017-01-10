@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a2f93aa-1ecb-4b39-af03-6057b5d2f5cc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/JEE_Server/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/JEE_Server/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/JEE_Server/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NodeJS_Server/public/manager/js/application/managerApp.js" afterPath="$PROJECT_DIR$/NodeJS_Server/public/manager/js/application/managerApp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NodeJS_Server/public/manager/css/app.css" afterPath="$PROJECT_DIR$/NodeJS_Server/public/manager/css/app.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NodeJS_Server/public/manager/js/controllers/eventControlleur.js" afterPath="$PROJECT_DIR$/NodeJS_Server/public/manager/js/controllers/eventControlleur.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NodeJS_Server/public/manager/template3.html" afterPath="$PROJECT_DIR$/NodeJS_Server/public/manager/template3.html" />
     </list>
@@ -26,8 +22,8 @@
       <file leaf-file-name="template3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/template3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="33" />
+            <state relative-caret-position="215">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -35,11 +31,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/css/app.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="523">
+              <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="progressCircular.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NodeJS_Server/node_modules/angular-material/modules/closure/progressCircular/progressCircular.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3708">
+              <caret line="211" column="31" lean-forward="false" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="eventControlleur.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/js/controllers/eventControlleur.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="98" column="22" lean-forward="false" selection-start-line="98" selection-start-column="22" selection-end-line="98" selection-end-column="22" />
+            <state relative-caret-position="324">
+              <caret line="87" column="28" lean-forward="false" selection-start-line="87" selection-start-column="28" selection-end-line="87" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -57,6 +73,11 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>center</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -68,6 +89,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/NodeJS_Server/public/manager/css/app.css" />
+        <option value="$PROJECT_DIR$/NodeJS_Server/public/manager/template3.html" />
         <option value="$PROJECT_DIR$/NodeJS_Server/public/manager/js/controllers/eventControlleur.js" />
       </list>
     </option>
@@ -190,6 +213,10 @@
               <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -248,6 +275,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetMajeure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjetMajeure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NodeJS_Server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,12 +414,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1484055221021</updated>
-      <workItem from="1484055226103" duration="1469000" />
+      <workItem from="1484055226103" duration="4439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1469000" />
+    <option name="totallyTimeSpent" value="4439000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -419,10 +472,26 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/NodeJS_Server/node_modules/angular-material/modules/closure/progressCircular/progressCircular.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3708">
+          <caret line="211" column="31" lean-forward="false" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/template3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="33" />
+        <state relative-caret-position="215">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
@@ -439,8 +508,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NodeJS_Server/public/manager/js/controllers/eventControlleur.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="98" column="22" lean-forward="false" selection-start-line="98" selection-start-column="22" selection-end-line="98" selection-end-column="22" />
+        <state relative-caret-position="324">
+          <caret line="87" column="28" lean-forward="false" selection-start-line="87" selection-start-column="28" selection-end-line="87" selection-end-column="28" />
           <folding />
         </state>
       </provider>
