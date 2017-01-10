@@ -1,53 +1,9 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','factory','comm'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval','factory','comm', 'twitter', '$mdDialog'];
 
-function eventCrtFnt($scope, $log, $window, factory, comm){
+function eventCrtFnt($scope, $log, $window, $sce, $interval, factory, comm, twitter,$mdDialog){
 
-
-    //CREER tous les Device associes au manager donné
-    var devices = [
-    {
-      "id": 0,
-      "type": "desktop",
-      "orientation": "paysage",
-      "longueur": 1256,
-      "hauteur": 3256,
-      "latitude": 3.14957,
-      "longitude": 4.12457,
-      "template": 1
-    },
-    {
-      "id": 1,
-      "type": "television",
-      "orientation": "paysage",
-      "longueur": 2023,
-      "hauteur": 1451,
-      "latitude": 43.5353,
-      "longitude": 41.12457,
-      "template": 2
-    },
-    {
-      "id": 2,
-      "type": "smartphone",
-      "orientation": "portrait",
-      "longueur": 345,
-      "hauteur": 555,
-      "latitude": 9.1458,
-      "longitude": 3.14957,
-      "template": 2
-    },
-    {
-      "id": 3,
-      "type": "tablet",
-      "orientation": "portrait",
-      "longueur": 1522,
-      "hauteur": 887,
-      "latitude": 192.1458,
-      "longitude": 178.14957,
-      "template": 1
-    }
-    ];
 
     $scope.deviceMap={};
     $scope.deviceMap.payload="";
@@ -113,5 +69,49 @@ function eventCrtFnt($scope, $log, $window, factory, comm){
 
     }
     
+    $scope.addNewTweet = function() {
+
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.prompt()
+            .textContent('Please enter the name of the twitter account from which you want to load tweets')
+            .placeholder('Twitter Account name')
+            .ariaLabel('accountName')
+            .initialValue("Your brand's Name")
+            //.targetEvent(ev)
+            .ok('Add Tweets!')
+            .cancel('cancel')
+        // You can specify either sting with query selector
+            .openFrom('left')
+        // or an element
+            .closeTo(angular.element(document.querySelector('#right')));
+
+        $mdDialog.show(confirm).then(function(result) {
+            //$scope.status = 'You decided to name your dog ' + result + '.';
+            var available_tweets=twitter.loadTweets(result, 10);
+            available_tweets.then(
+                function(payload) {
+                    var i = 0, len = payload.length;
+                    var updateTweet = function(){
+                        if (i>=len-1){
+                            i=0;
+                        }
+                        i+=1;
+                        var item = {"html": payload[i].html};
+                        $scope.EmbedTweet = $sce.trustAsHtml(item.html);
+
+                    };
+                    $interval(updateTweet, 5000);
+                });
+        }, function() {
+            $scope.status = 'You didn\'t name your dog.';
+        });
+
+
+
+
+
+
+      };
+
     
   };

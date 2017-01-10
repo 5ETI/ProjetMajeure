@@ -20,7 +20,7 @@ var list = function(DAO_Device_list){
 		}
 	});
 
-}
+};
 module.exports.list = list;
 
 var listVille = function(ville,DAO_Device_list){

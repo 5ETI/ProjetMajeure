@@ -4,6 +4,10 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "angular": "^1.5.10",
+    "angular-animate": "^1.5.10",
+    "angular-aria": "^1.5.10",
+    "angular-material": "^1.1.1",
     "embed-js": "^4.1.10",
     "express": "^4.14.0",
     "ngtweet": "^0.6.1",
