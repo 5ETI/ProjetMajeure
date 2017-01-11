@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS `ProjetMajeure`.`user`;
 CREATE TABLE IF NOT EXISTS `projetmajeure`.`content` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` INT(11) NOT NULL,
+  `index` INT(11) NOT NULL,
   `param1` VARCHAR(200) NULL DEFAULT NULL,
   `param2` VARCHAR(100) NULL DEFAULT NULL,
   `param3` VARCHAR(100) NULL DEFAULT NULL,
@@ -120,14 +121,16 @@ INSERT INTO `ProjetMajeure`.`screen` ( `id_manager` , `id_device` , `template`, 
 -- 1: image from url
 -- 2: image from server
 -- 3: 
-INSERT INTO `ProjetMajeure`.`content` (`type`, `param1`) VALUES
-('1','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
-('1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
-('2','path/to/define'),
-('1','514454');
+-- 4: twitter
+INSERT INTO `ProjetMajeure`.`content` (`type`, `index`, `param1`) VALUES
+('1','0','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
+('1','1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
+('4','2','adidasFR'),
+('1','0','514454');
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
 ('4', '1'),
 ('4', '2'),
+('4', '3'),
 ('3','3'),
 ('3','4');

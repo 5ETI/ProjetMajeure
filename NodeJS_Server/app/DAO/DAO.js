@@ -117,7 +117,7 @@ module.exports.getScreen = getScreen;
 var getContent = function (id_screen, content)
 {
 	connect(function(conn){
-		var Query = "SELECT * FROM projetmajeure.content WHERE id IN ( SELECT id FROM projetmajeure.screen_content WHERE id_screen = " + id_screen + " );";
+		var Query = "SELECT * FROM projetmajeure.content WHERE id IN ( SELECT id_content FROM projetmajeure.screen_content WHERE id_screen = " + id_screen + " );";
 
 		// console.log(Query);
 		conn.query(Query, function(err, Content) {
@@ -234,11 +234,13 @@ var saveContent = function (id_screen, contents, ret){
 
 	console.log("contents.length " + contents.length);
 	console.log('id_screen  ' + id_screen);
+
+	console.log('contents :   ' + contents);
 	
 	for (var i=0; i< contents.length; i++){
 		
-		var query = "INSERT INTO content (`type`, `param1`) VALUES";
-		query += "('" + contents[i].type + "','" + contents[i].param1 + "');";
+		var query = "INSERT INTO content (`type`, `index`, `param1`) VALUES";
+		query += "('" + contents[i].type + "','" + contents[i].index + "','" + contents[i].param1 + "');";
 
 		console.log(query);
 
