@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  	<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+   		<div flow-btn=""class="sameHeight image">
+	      	<div ng-show="!$flow.files.length">
+	          <!--<img flow-btn="" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">-->
+	          <h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
+	          <input style="visibility: hidden; position: absolute;" type="file"/>
+	      	</div>
+	      		<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+	        		<img flow-btn="" flow-img="$flow.files[0]">
+	        		<input style="visibility: hidden; position: absolute;" type="file"/>
+	      		</div>
+	    </div>
+	</div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  	<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+	    <div flow-btn=""class="sameHeight image">
+	      <div ng-show="!$flow.files.length">
+	          <!--<img flow-btn="" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">-->
+	          <h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
+	          <input style="visibility: hidden; position: absolute;" type="file"/>
+	      </div>
+	      <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+	        <img flow-btn="" flow-img="$flow.files[0]">
+	        <input style="visibility: hidden; position: absolute;" type="file"/>
+	      </div>
+	    </div>
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="socialmedia">
+      <h3 class="align-center">SOCIAL MEDIA</h3>
+    </div>
+  </div>
+</div>
