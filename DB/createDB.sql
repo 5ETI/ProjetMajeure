@@ -98,7 +98,8 @@ INSERT INTO `ProjetMajeure`.`device` (`orientation`, `longueur`,`hauteur`, `lati
 ('portrait', '1256','3256', '3.14957', '4.124569', 'lyon', 'smartphone'),
 ('paysage', '1256','3256', '9.145797','3.14957', 'lyon', 'television'),
 ('paysage', '1256' , '3256','3.14957','4.12457', 'paris', 'smartphone'),
-('portrait','2023','1451','41.12457','54.12457','paysage', 'tablet' );
+('portrait','2023','1451','41.12457','54.12457','paris', 'tablet' );
+('portrait','2023','1451','41.12457','54.12457','lyon', 'television' );
 
 
 INSERT INTO `ProjetMajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 

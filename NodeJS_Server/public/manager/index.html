@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/screen.css">
   <link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/embed.min.css">
-    <link rel="stylesheet" href="css/angular-material.min.css">
+  <link rel="stylesheet" href="css/angular-material.min.css">
 
 
 </head>
@@ -23,10 +23,11 @@
       <!-- *************   CANVAS  *************-->
       <div class="canvas">
 
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div>
         <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'">  </div> 
         <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'">  </div> 
         <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'">  </div>
+        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'">  </div>
 
         <!--<div>
           <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
@@ -119,7 +120,6 @@
       </div>
     </div>
   </div>
-</div>
 <!-- *************   END RIGHT PANEL  *************-->
 <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
@@ -131,13 +131,15 @@
 <script src="librairies/angular-aria/angular-aria.js"></script>
 <script src="librairies/embed/embed.min.js"></script>
 <script src="librairies/ng-flow/ng-flow-standalone.min.js"></script>
-
-
+<script src="librairies/youtube_embed/angular-youtube-embed.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 
 <script src="js/services/factoryService.js"></script>
 <script src="js/services/commService.js"></script>   
 <script src="js/application/managerApp.js"></script>
 <script src="js/controllers/eventControlleur.js"></script>
+<script src="js/controllers/youtubeController.js"></script>
 <script src="js/services/TwitterService.js"></script>
+
 </body>
 </html>

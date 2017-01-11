@@ -13,6 +13,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   var tweetsList = [];
   $scope.LoadingAnim = true;
 
+
+
+
+
   var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
   var available_device=comm.loadDevicesList(id_manager);
@@ -25,11 +29,11 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       $log.error('failure loading devices', errorPayload);
     });
 
-    /*$scope.selectDevice = function(payload) { 
-      $scope.deviceMap.payload= payload;             
+    /*$scope.selectDevice = function(payload) {
+      $scope.deviceMap.payload= payload;
       for(key in $scope.deviceMap.payload){
         $scope.currentDevice = $scope.deviceMap.payload[key];
-      }  
+      }
     },
     function(errorPayload) {
       $log.error('failure loading movie', errorPayload);
@@ -197,4 +201,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             };
 
           };
+
+
+
+
 }
