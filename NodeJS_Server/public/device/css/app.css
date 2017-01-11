@@ -1,0 +1,89 @@
+html,body {
+	height:100%; 
+	padding-top:0px; 
+	overflow-x:hidden; 
+	overflow-y:auto;
+}
+
+.zeroRef{
+	padding:0px;
+	margin:0px
+}
+
+.fullScreenHeight{
+	height:100%;
+}
+
+.align-center{
+	text-align:  center;
+}
+
+.limitWidth{
+	width:50%;
+	margin:2em auto auto auto;
+}
+
+.username, .password{
+	height:auto;
+	font-size: 16px;
+	width: 100%;
+	border: 1px solid #d9d9d9;
+	border-top: 1px solid #c0c0c0;
+	border-radius: 5px;
+	padding: 1em;
+	box-sizing:border-box;
+	margin: 1em auto auto auto;
+}
+
+.rightPanel{
+	border:1px solid #9D9D9D;
+	padding:1em;
+	border-radius: 5px;
+	min-height:42em;
+}
+
+.rightPanelDevice{
+	border: 0.2em #6770ad solid;
+	padding: 0.5em;
+	margin:0.3em;
+	cursor:pointer;
+	border-radius: 5px;
+}
+
+.rightPanelDevice:hover{
+	background: #e8eaf8;
+}
+
+.floatright{
+	float:right;
+}
+
+.infoDevice{
+	border:1px solid #9D9D9D;
+	padding:1em;
+	border-radius: 5px;
+	height:auto;
+	margin-top:1em;
+}
+
+.canvas{
+	border:0.2em solid #6770ad;
+	padding:0.2em;
+	border-radius: 5px;
+	min-height:30em;
+	background: #e8eaf8;
+}
+
+.margin-top-1em{
+	margin-top:1em;
+}
+
+.nomargin-padding{
+	padding:0 !important;
+	margin:0 !important;
+}
+
+
+.loadingAnim{
+	margin: 8em;
+}
