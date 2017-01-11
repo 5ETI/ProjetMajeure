@@ -1,0 +1,89 @@
+<div class="row">
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		<div class="$mdDialog" layout="column" layout-align="center center" style="width:100%"></div>
+		<div class="col-lg-1">
+			<div class="btn-group" style="position: absolute; opacity: 0.7; padding-top: 1em;">
+				<button class="btn btn-danger" ng-click="remove(0)"><span class="glyphicon glyphicon-remove" ></span></button>
+				<button class="btn btn-info" ng-click="edit(0)"><span class="glyphicon glyphicon-edit" ></span></button>
+				<button class="btn btn-warning" ng-click="upload(0)" ><span class="glyphicon glyphicon-upload" ></span></button>
+			</div>
+		</div>
+		<div ng-switch="screen.contents[0].type">
+			<div ng-switch-when="0">
+				<h3 class="align-center image-temp1">NO IMAGE</h3>
+			</div>
+			<div ng-switch-when="1">
+				<img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+			</div>
+			<div ng-switch-when="2">
+				<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+					<div flow-btn="" class="sameHeight image">
+					<div ng-show="!$flow.files.length">
+							<h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
+							<input style="visibility: hidden; position: absolute;" type="file"/>
+						</div>
+						<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+							<img flow-btn="" flow-img="$flow.files[0]">
+							<input style="visibility: hidden; position: absolute;" type="file"/>
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+
+		<!--<div class="image sameHeight">
+			<h3 class="align-center image-temp1">SOCIAL MEDIA</h3>
+			<div class="col-lg-1">
+				<div class="btn-group" style="position: absolute; opacity: 0.7; padding-top: 1em;">
+					<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span>&nbsp;</a>
+					<a class="btn btn-info" href="#"><span class="glyphicon glyphicon-edit"></span>&nbsp;</a>
+				</div>
+			</div>
+		</div>-->
+	</div>
+	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+		<div class="col-lg-1">
+			<div class="btn-group" style="position: absolute; opacity: 0.7; padding-top: 1em;">
+				<button class="btn btn-danger" ng-click="remove(1)"><span class="glyphicon glyphicon-remove" ></span></button>
+				<button class="btn btn-info" ng-click="edit(1)"><span class="glyphicon glyphicon-edit" ></span></button>
+				<button class="btn btn-warning" ng-click="upload(1)"><span class="glyphicon glyphicon-upload" ></span></button>
+			</div>
+		</div>
+		<div ng-switch="screen.contents[1].type">
+			<div ng-switch-when="0">
+				<h3 class="align-center image-temp1">NO IMAGE</h3>
+			</div>
+			<div ng-switch-when="1">
+				<img class="align-center image-temp1" ng-src="{{screen.contents[1].param1}}"/>
+			</div>
+			<div ng-switch-when="2">
+				<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+					<div flow-btn=""class="sameHeight image">
+					<div ng-show="!$flow.files.length">
+							<h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
+							<input style="visibility: hidden; position: absolute;" type="file"/>
+						</div>
+						<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+							<img flow-btn="" flow-img="$flow.files[0]">
+							<input style="visibility: hidden; position: absolute;" type="file"/>
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+  	<!--<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+	    <div flow-btn=""class="sameHeight image">
+	      <div ng-show="!$flow.files.length">
+	  
+	          <h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
+	          <input style="visibility: hidden; position: absolute;" type="file"/>
+	      </div>
+	      <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+	        <img flow-btn="" flow-img="$flow.files[0]">
+	        <input style="visibility: hidden; position: absolute;" type="file"/>
+	      </div>
+	    </div>
+	</div>-->
+</div>
+</div>
+
