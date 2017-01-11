@@ -13,18 +13,18 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   var tweetsList = [];
   $scope.LoadingAnim = true;
 
-    var id_manager = 1; // TODO 1 is default manager id, get real manager id
+  var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
-    var available_device=comm.loadDevicesList(id_manager);
-    available_device.then(
-      function(payload) { 
-        $scope.deviceMap.payload = payload;
-        $scope.deviceMap.array=factory.mapToArray(payload);
-      },
-      function(errorPayload) {
-        $log.error('failure loading devices', errorPayload);
-      });
-    
+  var available_device=comm.loadDevicesList(id_manager);
+  available_device.then(
+    function(payload) { 
+      $scope.deviceMap.payload = payload;
+      $scope.deviceMap.array=factory.mapToArray(payload);
+    },
+    function(errorPayload) {
+      $log.error('failure loading devices', errorPayload);
+    });
+
     /*$scope.selectDevice = function(payload) { 
       $scope.deviceMap.payload= payload;             
       for(key in $scope.deviceMap.payload){
@@ -69,9 +69,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             });
         }
       }
-
-
     }
+    
     
     $scope.addNewTweet = function() {
 
@@ -143,6 +142,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           });
       };
 
+      $scope.upload = function (){
+        $scope.screen.contents[id_content].type = 2;
+      };
+
       $scope.save = function(){
 
         $log.info("$scope.screen.id " + $scope.id_screen);
@@ -167,7 +170,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           $log.error('failure saving screen', errorPayload);
         });
 
-      }
+      };
 
       $scope.addNewTweet = function() {
         if (isTwitterAccountSet == false) {
