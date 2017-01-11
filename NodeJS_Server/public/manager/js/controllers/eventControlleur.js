@@ -14,6 +14,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   var inter = null;
   var tweetsList = [];
   $scope.LoadingAnim = true;
+  $scope.progressSave = true;
 
   var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
@@ -119,6 +120,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
   $scope.save = function(){
 
+    $scope.progressSave = false;
     $log.info("$scope.screen.id " + $scope.id_screen);
     $log.info(" $scope.screen.contents[0] " +  $scope.screen.contents[0]);
 
@@ -126,21 +128,20 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     deleteContent.then(
       function(payload){
           //log.info('screen ', payload);
-          
+          $log.info('delete success ');
+
           var save = comm.saveScreen($scope.id_screen, $scope.screen.contents);
           save.then(
             function(payload){
           //log.info('screen ', payload);
-          $log.info('success ');
-        },
-        function(errorPayload){
-          $log.error('failure saving screen', errorPayload);
-        });
-        },
-        function(errorPayload){
-          $log.error('failure saving screen', errorPayload);
-        });
 
+          $log.info('save success ');
+          $scope.progressSave = true;
+        },
+        function(errorPayload){
+          $log.error('failure saving screen', errorPayload);
+        });
+      });
   };
 
   var loadTweets = function(twitter_account){
