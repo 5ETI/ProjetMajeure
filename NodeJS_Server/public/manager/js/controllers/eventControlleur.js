@@ -32,28 +32,28 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
     var screen = comm.getScreen(id_manager, deviceId);
-    screen.then(
+    screen.then(  
       function(payload){
           //log.info('screen ', payload);
           $scope.currentDevice.template = payload[0].template;
           $scope.id_screen = payload[0].id;
-          $scope.screen.empty = payload[0].empty;
-          if(!$scope.screen.empty){
+          //$scope.screen.empty = payload[0].empty;
+          //if(!$scope.screen.empty){
             loadContent();
-          }
+          //}
         },
         function(errorPayload){
           $log.error('failure loading screen', errorPayload);
         });
 
     var loadContent = function(){
-      if(!$scope.screen.empty){
+      //if(!$scope.screen.empty){
         var contents=comm.loadContent($scope.id_screen);
         contents.then(
           function(payload) { 
 
             $scope.screen.contents = [];
-            $log.info("contents lentgh " + $scope.screen.contents.length);
+            $log.info("contents lentgh " + payload.length);
 
             for(var i=0; i< payload.length ; i++){
               var j = payload[i].index;
@@ -69,13 +69,14 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       function(errorPayload) {
         $log.error('failure loading content', errorPayload);
       });
-      }
+      //}
     }
   }
 
 
   $scope.remove = function(id_content){
-    var confirm = $mdDialog.confirm()
+    if($scope.screen.contents[id_content].type != 0){
+      var confirm = $mdDialog.confirm()
     .textContent('Confirm delete this content')
     .ok('Delete')
     .cancel('Cancel');
@@ -91,6 +92,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     }, function() {
 
     });
+    }
+    
   };
 
   $scope.edit = function(id_content){
