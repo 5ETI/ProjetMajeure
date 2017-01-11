@@ -176,8 +176,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         });
 
       };
-    };
-
+    
     $scope.addNewTweet = function() {
         if (isTwitterAccountSet == false) {
             isTwitterAccountSet = true;
@@ -236,6 +235,5 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             };
 
         };
-
 
   };
