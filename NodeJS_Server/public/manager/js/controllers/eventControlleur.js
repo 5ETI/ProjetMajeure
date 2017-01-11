@@ -4,14 +4,13 @@ eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','
 
 function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter){
 
+    $scope.deviceMap={};
+    $scope.deviceMap.payload="";
 
-  $scope.deviceMap={};
-  $scope.deviceMap.payload="";
-
-  var isTwitterAccountSet = false;
-  var inter = null;
-  var tweetsList = [];
-  $scope.LoadingAnim = true;
+    var isTwitterAccountSet = false;
+    var inter = null;
+    var tweetsList = [];
+    $scope.LoadingAnim = true;
 
   var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
@@ -27,34 +26,40 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     /*$scope.selectDevice = function(payload) { 
       $scope.deviceMap.payload= payload;             
+    var id_manager = 1; // TODO 1 is default manager id, get real manager id
+
+    var available_device=comm.loadDevicesList(id_manager);
+    available_device.then(
+      function(payload) {
+        $scope.deviceMap.payload = payload;
+        $scope.deviceMap.array=factory.mapToArray(payload);
+      },
+      function(errorPayload) {
+        $log.error('failure loading devices', errorPayload);
+      });
+
+    /*$scope.selectDevice = function(payload) {
+      $scope.deviceMap.payload= payload;
       for(key in $scope.deviceMap.payload){
         $scope.currentDevice = $scope.deviceMap.payload[key];
-      }  
+      }
     },
     function(errorPayload) {
       $log.error('failure loading movie', errorPayload);
     }*/
 
-    $scope.id_screen = 0;
-    $scope.screen = {};
-    //$scope.contents = [];
 
     $scope.selectCurrentDevice=function(deviceId){
-      $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
+      $scope.currentDevice=$scope.deviceMap.array[deviceId];
 
-      var screen = comm.getScreen(id_manager, deviceId);
-      screen.then(
-        function(payload){
-          //log.info('screen ', payload);
+      var available_device=comm.loadTemplate(deviceId);
+      available_device.then(
+        function(payload) {
+          $log.info(payload[0]);
           $scope.currentDevice.template = payload[0].template;
-          $scope.id_screen = payload[0].id;
-          $scope.screen.empty = payload[0].empty;
-          if(!$scope.screen.empty){
-            loadContent();
-          }
         },
-        function(errorPayload){
-          $log.error('failure loading screen', errorPayload);
+        function(errorPayload) {
+          $log.error('failure loading template', errorPayload);
         });
 
       var loadContent = function(){
@@ -171,16 +176,17 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         });
 
       };
+    };
 
-      $scope.addNewTweet = function() {
+    $scope.addNewTweet = function() {
         if (isTwitterAccountSet == false) {
-          isTwitterAccountSet = true;
+            isTwitterAccountSet = true;
 
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter the name of the twitter account from which you want to load tweets')
-            .placeholder('Twitter Account name')
-            .initialValue("Your brand's Name")
+                .textContent('Please enter the name of the twitter account from which you want to load tweets')
+                .placeholder('Twitter Account name')
+                .initialValue("Your brand's Name")
                 //.targetEvent(ev)
                 .ok('Add Tweets!')
                 .cancel('cancel')
@@ -189,46 +195,47 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                 // or an element
                 .closeTo(angular.element(document.querySelector('#right')));
 
-                $mdDialog.show(confirm).then(function (result) {
+            $mdDialog.show(confirm).then(function (result) {
 
                 // TODO Here send result to db to add twitter account to screen DB
                 $scope.LoadingAnim = false;
                 var available_tweets = twitter.loadTweets(result, 10);
                 available_tweets.then(
-                  function (payload) {
-                    tweetsList = payload;
-                    var i = 0, len = tweetsList.length;
-                    var updateTweet = function () {
-                      if (i >= len - 1) {
-                        i = 0;
-                      }
-                      i += 1;
-                      var item = {"html": tweetsList[i].html};
-                      $scope.EmbedTweet = $sce.trustAsHtml(item.html);
-                      $scope.LoadingAnim = true;
+                    function (payload) {
+                        tweetsList = payload;
+                        var i = 0, len = tweetsList.length;
+                        var updateTweet = function () {
+                            if (i >= len - 1) {
+                                i = 0;
+                            }
+                            i += 1;
+                            var item = {"html": tweetsList[i].html};
+                            $scope.EmbedTweet = $sce.trustAsHtml(item.html);
+                            $scope.LoadingAnim = true;
 
-                    };
-                    inter = $interval(updateTweet, 5000);
-                  });
-              }, function () {
+                        };
+                        inter = $interval(updateTweet, 5000);
+                    });
+            }, function () {
                 $scope.status = 'You didn\'t add a tweet';
-              });
-              }
-              else{
+            });
+        }
+        else{
                 var confirm = $mdDialog.confirm()
-                .textContent('Would you like to delete your twitter account?')
-                .ok('Please do it!')
-                .cancel('Sounds like a scam');
+                    .textContent('Would you like to delete your twitter account?')
+                    .ok('Please do it!')
+                    .cancel('Sounds like a scam');
 
                 $mdDialog.show(confirm).then(function() {
-                  $interval.cancel(inter);
-                  tweetsList = [];
-                  isTwitterAccountSet = false;
+                    $interval.cancel(inter);
+                    tweetsList = [];
+                    isTwitterAccountSet = false;
                 }, function() {
-                  $scope.status = 'You decided to keep your debt.';
+                    $scope.status = 'You decided to keep your debt.';
                 });
-              };
-
             };
 
-          };
+        };
+
+
+  };
