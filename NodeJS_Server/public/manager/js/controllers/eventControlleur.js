@@ -73,45 +73,6 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     }
     
-    $scope.addNewTweet = function() {
-
-        // Appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.prompt()
-        .textContent('Please enter the name of the twitter account from which you want to load tweets')
-        .placeholder('Twitter Account name')
-        .ariaLabel('accountName')
-        .initialValue("Your brand's Name")
-            //.targetEvent(ev)
-            .ok('Add Tweets!')
-            .cancel('cancel')
-        // You can specify either sting with query selector
-        .openFrom('left')
-        // or an element
-        .closeTo(angular.element(document.querySelector('#right')));
-
-        $mdDialog.show(confirm).then(function(result) {
-            //$scope.status = 'You decided to name your dog ' + result + '.';
-            var available_tweets=twitter.loadTweets(result, 10);
-            available_tweets.then(
-              function(payload) {
-                var i = 0, len = payload.length;
-                var updateTweet = function(){
-                  if (i>=len-1){
-                    i=0;
-                  }
-                  i+=1;
-                  var item = {"html": payload[i].html};
-                  $scope.EmbedTweet = $sce.trustAsHtml(item.html);
-
-                };
-                $interval(updateTweet, 5000);
-              });
-          }, function() {
-            $scope.status = 'You didn\'t name your dog.';
-          });
-
-      };
-
       $scope.remove = function(id_content){
         var confirm = $mdDialog.confirm()
         .textContent('Confirm delete this picture')
@@ -221,11 +182,17 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                   $interval.cancel(inter);
                   tweetsList = [];
                   isTwitterAccountSet = false;
+                $mdDialog.show(confirm).then(function() {
+                    $scope.EmbedTweet = "";
+                    $interval.cancel(inter);
+                    tweetsList = [];
+                    isTwitterAccountSet = false;
                 }, function() {
                   $scope.status = 'You decided to keep your debt.';
                 });
-              };
+              });
 
             };
 
           };
+}
