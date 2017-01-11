@@ -129,11 +129,16 @@ INSERT INTO `projetmajeure`.`content` (`type`, `index`, `param1`) VALUES
 ('1','1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
 ('4','2','adidasFR'),
 ('1','0','http://image.redbull.com/rbcom/010/2015-12-03/1331763162840_2/0100/0/2/red-bull-can-you-make-it-2016.png'),
-('4','1','redbull');
+('4','1','redbull'),
+('5', '2', '0AuH075tOZ4');
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
 ('4', '1'),
 ('4', '2'),
 ('4', '3'),
 ('3','4'),
-('3','5');
+('3','5'),
+('3','6'),
+('5','4'),
+('5','5'),
+('5','6');

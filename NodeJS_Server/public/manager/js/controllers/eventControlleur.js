@@ -1,12 +1,13 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter){
+function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils) {
 
+    var IsYoutubeSet = false;
 
-    $scope.deviceMap={};
-    $scope.deviceMap.payload="";
+    $scope.deviceMap = {};
+    $scope.deviceMap.payload = "";
 
     $scope.id_screen = 0;
     $scope.screen = {};
@@ -17,23 +18,23 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
-    var available_device=comm.loadDevicesList(id_manager);
+    var available_device = comm.loadDevicesList(id_manager);
     available_device.then(
-        function(payload) {
+        function (payload) {
             $scope.deviceMap.payload = payload;
-            $scope.deviceMap.array=factory.mapToArray(payload);
+            $scope.deviceMap.array = factory.mapToArray(payload);
         },
-        function(errorPayload) {
+        function (errorPayload) {
             $log.error('failure loading devices', errorPayload);
         });
 
 
-    $scope.selectCurrentDevice=function(deviceId){
-        $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
+    $scope.selectCurrentDevice = function (deviceId) {
+        $scope.currentDevice = $scope.deviceMap.array[deviceId - 1];
 
         var screen = comm.getScreen(id_manager, deviceId);
         screen.then(
-            function(payload){
+            function (payload) {
                 //log.info('screen ', payload);
                 $scope.currentDevice.template = payload[0].template;
                 $scope.id_screen = payload[0].id;
@@ -42,31 +43,43 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                 loadContent();
                 //}
             },
-            function(errorPayload){
+            function (errorPayload) {
                 $log.error('failure loading screen', errorPayload);
             });
 
-        var loadContent = function(){
+        var loadContent = function () {
             //if(!$scope.screen.empty){
-            var contents=comm.loadContent($scope.id_screen);
+            var contents = comm.loadContent($scope.id_screen);
             contents.then(
-                function(payload) {
+                function (payload) {
 
                     $scope.screen.contents = [];
                     $log.info("contents lentgh " + payload.length);
 
-                    for(var i=0; i< payload.length ; i++){
+                    for (var i = 0; i < payload.length; i++) {
                         var j = payload[i].index;
                         $scope.screen.contents[j] = payload[i];
-                    };
+                    }
+                    ;
 
-                    for(var i=0; i< $scope.screen.contents.length ; i++){
-                        if($scope.screen.contents[i].type == 4){ // twitter
+                    for (var i = 0; i < $scope.screen.contents.length; i++) {
+                        if ($scope.screen.contents[i].type == 4) { // twitter
                             loadTweets($scope.screen.contents[i].param1);
                         }
+                        if ($scope.screen.contents[i].type == 5) {
+                            $scope.$on('youtube.player.ready', function ($event, player) {
+                                // play it again
+                                player.playVideo();
+                            });
+                            $scope.$on('youtube.player.ended', function ($event, player) {
+                                // play it again
+                                player.playVideo();
+                            });
+                        }
                     }
+
                 },
-                function(errorPayload) {
+                function (errorPayload) {
                     $log.error('failure loading content', errorPayload);
                 });
             //}
@@ -74,29 +87,33 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     }
 
 
-    $scope.remove = function(id_content){
-        if($scope.screen.contents[id_content].type != 0){
+    $scope.remove = function (id_content) {
+        if ($scope.screen.contents[id_content].type != 0) {
             var confirm = $mdDialog.confirm()
                 .textContent('Confirm delete this content')
                 .ok('Delete')
                 .cancel('Cancel');
 
-            $mdDialog.show(confirm).then(function(result) {
+            $mdDialog.show(confirm).then(function (result) {
 
-                if($scope.screen.contents[id_content].type == 4 ){
+                if ($scope.screen.contents[id_content].type == 4) {
                     $interval.cancel(inter);
                     tweetsList = [];
                     $scope.EmbedTweet = "";
                 }
+                if ($scope.screen.contents[id_content].type == 5) {
+                    // TODO here add how to remove player from vue
+                    IsYoutubeSet = false;
+
+
+                }
                 $scope.screen.contents[id_content].type = 0;
-            }, function() {
+            }, null);
 
-            });
         }
-
     };
 
-    $scope.edit = function(id_content){
+    $scope.edit = function (id_content) {
         var confirm = $mdDialog.prompt()
             .textContent('Specify the picture url')
             .placeholder('url')
@@ -104,46 +121,46 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             .ok('Add Image')
             .cancel('cancel');
 
-        $mdDialog.show(confirm).then(function(result) {
+        $mdDialog.show(confirm).then(function (result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
             $scope.screen.contents[id_content].type = 1;
             $scope.screen.contents[id_content].param1 = result;
-        }, function() {
+        }, function () {
 
         });
     };
 
-    $scope.upload = function (id_content){
+    $scope.upload = function (id_content) {
         $scope.screen.contents[id_content].type = 2;
     };
 
-    $scope.save = function(){
+    $scope.save = function () {
 
         $log.info("$scope.screen.id " + $scope.id_screen);
-        $log.info(" $scope.screen.contents[0] " +  $scope.screen.contents[0]);
+        $log.info(" $scope.screen.contents[0] " + $scope.screen.contents[0]);
 
         var deleteContent = comm.deleteContent($scope.id_screen);
         deleteContent.then(
-            function(payload){
+            function (payload) {
                 //log.info('screen ', payload);
 
                 var save = comm.saveScreen($scope.id_screen, $scope.screen.contents);
                 save.then(
-                    function(payload){
+                    function (payload) {
                         //log.info('screen ', payload);
                         $log.info('success ');
                     },
-                    function(errorPayload){
+                    function (errorPayload) {
                         $log.error('failure saving screen', errorPayload);
                     });
             },
-            function(errorPayload){
+            function (errorPayload) {
                 $log.error('failure saving screen', errorPayload);
             });
 
     };
 
-    var loadTweets = function(twitter_account){
+    var loadTweets = function (twitter_account) {
         $scope.LoadingAnim = false;
 
         $interval.cancel(inter);
@@ -169,7 +186,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             });
     };
 
-    $scope.addNewTweet = function(id_content) {
+    $scope.addNewTweet = function (id_content) {
 
         $interval.cancel(inter);
         tweetsList = [];
@@ -198,4 +215,44 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     };
 
-};
+    $scope.addNewYoutube = function (id_content) {
+
+        if (IsYoutubeSet == false) {
+            IsYoutubeSet = true;
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.prompt()
+                .textContent('Please enter the youtube video link')
+                .placeholder('youtube video link')
+                .ok('Add video!')
+                .cancel('cancel')
+                // You can specify either sting with query selector
+                .openFrom('left')
+                // or an element
+                .closeTo(angular.element(document.querySelector('#right')));
+
+            $mdDialog.show(confirm).then(function (result) {
+                //$scope.LoadingAnim = false;
+                $log.info(youtubeEmbedUtils.getIdFromURL(result));
+
+                $scope.screen.contents[id_content].param1 = youtubeEmbedUtils.getIdFromURL(result);//'sMKoNBRZM1M';
+                $log.info($scope.screen.contents[id_content].param1 );
+                $scope.screen.contents[id_content].type = 5;
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+            }, function () {
+                $scope.status = 'You didn\'t add a video';
+            });
+
+            // TODO here add content from youtubeController addNewYoutube and set $scope.screen.content
+
+
+        };
+
+    };
+}

@@ -24,7 +24,6 @@ function youtubeCrtFnt($scope, $log, $window, youtubeEmbedUtils,$mdDialog) {
 
             $mdDialog.show(confirm).then(function (result) {
 
-                // TODO Here send result to db to add twitter account to screen DB
                 //$scope.LoadingAnim = false;
                 $scope.video = youtubeEmbedUtils.getIdFromURL(result);//'sMKoNBRZM1M';
                 $scope.$on('youtube.player.ready', function ($event, player) {
