@@ -40,9 +40,12 @@
       <!-- *************  END CANVAS  *************-->
       <!-- *************  BUTTON ZONE  *************-->
       <div class="row margin-top-1em">
-      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <button type="button" class="btn btn-primary btn-block" ng-click="save()">Save</button>
-      </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <button type="button" class="btn btn-primary btn-block" ng-click="deleteContents()">Delete</button>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <button type="button" class="btn btn-primary btn-block" ng-click="save()">Save</button>
+        </div>
       </div>
 
       <!-- *************  END BUTTON ZONE  *************-->
@@ -64,8 +67,6 @@
           <span id="currentDeviceLongueur">{{currentDevice.longueur}}</span>
           <label for="currentDeviceTemplate">Template: </label>
           <span id="currentDeviceTemplate">{{currentDevice.template}}</span>
-          <label for="screenEmpty">Empty: </label>
-          <span id="screenEmpty">{{screen.empty}}</span>
         </div>
         <div>
 
@@ -140,6 +141,7 @@
 <script src="js/controllers/eventControlleur.js"></script>
 <script src="js/controllers/youtubeController.js"></script>
 <script src="js/services/TwitterService.js"></script>
+
 
 </body>
 </html>
