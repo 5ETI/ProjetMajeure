@@ -71,6 +71,23 @@ var getDevice = function(id, DAO_Device_info){
 };
 module.exports.getDevice = getDevice;
 
+var getManagerofDevice = function(id, DAO_Device_info){
+	DAO.listManagerofDevice(id, function(err, manager){
+		if(err)
+		{
+			console.log(err);
+			return DAO_Device_info(err);
+		}
+		else{
+			//console.log(device);
+			return DAO_Device_info(null, manager);
+		}
+
+	});
+};
+module.exports.getManagerofDevice = getManagerofDevice;
+
+
 
 var addDevice = function(device, Dao_add_device){
 	
@@ -92,6 +109,14 @@ var addDevice = function(device, Dao_add_device){
 	 	}
 	 	if (device.longueur === "undefined"){
 	 		return new Error("device longueur cannot be undfined");
+	 		//return console.error("L'orientation d'un Device ne peut pas être nul");
+	 	}
+	 	if (device.ville === "undefined"){
+	 		return new Error("device ville cannot be undfined");
+	 		//return console.error("L'orientation d'un Device ne peut pas être nul");
+	 	}
+	 	if (device.type === "undefined"){
+	 		return new Error("device type cannot be undfined");
 	 		//return console.error("L'orientation d'un Device ne peut pas être nul");
 	 	}
 	 	DAO.addDevice(device, function(err, device){

@@ -102,3 +102,18 @@ router.route("/device/delete/:id")
 	});
 });
 
+router.route("/device/getManager/:id")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var id = params[3];
+	DeviceController.getManagerofDevice(id, function(err, device){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(device);
+		}
+
+	});
+});

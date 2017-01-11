@@ -1,12 +1,13 @@
 package projetmajeur.screenadministrator.entity.model;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 
 /**
  * Created by benad on 08/01/2017.
  */
 
-public class User {
+public class User implements Serializable{
 
     private int id;
     private  String email;

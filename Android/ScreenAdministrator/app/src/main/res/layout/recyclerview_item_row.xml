@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@drawable/linearborder"
-    android:layout_height="80pt"
+    android:layout_height="90pt"
     >
 
     <TextView
@@ -50,10 +50,17 @@
         android:layout_below="@+id/longitude"
         android:layout_height="10pt" />
 
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@+id/ville"
+        android:layout_height="10pt" />
+
     <CheckBox android:id="@+id/checkbox"
         android:layout_width="25pt"
         android:layout_height="10pt"
-        android:layout_alignRight="@+id/longitude"
+        android:layout_alignRight="@+id/ville"
         android:layout_marginBottom="15dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"

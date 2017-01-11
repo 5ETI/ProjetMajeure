@@ -1,6 +1,7 @@
 package projetmajeur.screenadministrator.tasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -34,64 +35,100 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
 
     @Override
     protected ArrayList<User> doInBackground(String... params) {
-
+        int param = Integer.parseInt(params[0]);
         URL url = null;
-        try {
-           // url = new URL("http://192.168.1.23:1337/managers/all");
-            url = new URL("http://10.170.1.100:1337/managers/all");
+        if (param == 0) {
+            try {
+                // url = new URL("http://192.168.1.23:1337/managers/all");
+                url = new URL("http://10.170.1.100:1337/managers/all");
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return getListManager(in);
         }
+        else{
+            try {
+                // url = new URL("http://192.168.1.23:1337/managers/all");
+                url = new URL("http://10.170.1.100:1337/device/getManager/" + param );
 
-        HttpURLConnection urlConnection = null;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+            HttpURLConnection urlConnection = null;
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return getListManager(in);
+
+
         }
-
-        InputStream in = null;
-        try {
-            in = new BufferedInputStream(urlConnection.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return getListManager(in);
     }
 
     public ArrayList<User> getListManager (InputStream in){
-        ArrayList<User> list = new ArrayList<User>();
-        String responseString = null;
-        try {
-            responseString = readInputStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONArray jObj = null;
-        try {
-            jObj = new JSONArray(responseString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < jObj.length(); i++) {
-            JSONObject jsonobject = null;
+            ArrayList<User> list = new ArrayList<User>();
+            String responseString = null;
             try {
-                jsonobject = jObj.getJSONObject(i);
+                responseString = readInputStream(in);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            JSONArray jObj = null;
+            try {
+                jObj = new JSONArray(responseString);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            User dev = gson.fromJson(String.valueOf(jsonobject),User.class);
-            list.add(dev);
-        }
+            for (int i = 0; i < jObj.length(); i++) {
+                JSONObject jsonobject = null;
+                try {
+                    jsonobject = jObj.getJSONObject(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                User dev = gson.fromJson(String.valueOf(jsonobject), User.class);
+                list.add(dev);
+            }
 
-        return list;
+            return list;
+
+
     }
     private boolean readStream(InputStream in) throws IOException, JSONException {
         String responseString = readInputStream(in);

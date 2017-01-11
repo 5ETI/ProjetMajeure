@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -56,7 +57,18 @@ public class ListeDeviceActivity extends AppCompatActivity {
             @Override
             public void onListDevice(ArrayList<Device> result) {
                 // specify an adapter
-                RecyclerAdapter mAdapter = new RecyclerAdapter(result);
+                stockage = result;
+                RecyclerAdapter mAdapter = new RecyclerAdapter(result, new RecyclerAdapter.OnItemClickListener() {
+                    @Override public void onItemClick(Device item) {
+
+                        Intent inte = new Intent(ListeDeviceActivity.this, ItemDeviceActivity.class);
+                        Log.i("test item : ", item.toString());
+                        inte.putExtra("ItemSelected", item);
+                        startActivity(inte);
+
+
+                    }
+                });
                 mRecyclerView.setAdapter(mAdapter);
             }
         };
@@ -76,6 +88,9 @@ public class ListeDeviceActivity extends AppCompatActivity {
     }
 
     public void onCheckboxClicked(View view) {
+        Log.i("test getId :",String.valueOf(view.getId()));
+        Log.i("test context :",String.valueOf(view.getContext()));
+
 
         }
     }

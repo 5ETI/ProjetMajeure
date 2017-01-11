@@ -70,7 +70,7 @@ module.exports.list = list;
 var listManagerDevice = function (id_manager, itemList)
 {
 	connect(function(conn){
-		var Query = "SELECT DISTINCT * FROM projetmajeure.device WHERE id IN ( SELECT id FROM projetmajeure.screen WHERE id_manager = " + id_manager +" );";
+		var Query = "SELECT DISTINCT * FROM projetmajeure.device WHERE id IN ( SELECT id_device FROM projetmajeure.screen WHERE id_manager = " + id_manager +" );";
 
 		// console.log(Query);
 		conn.query(Query, function(err, ItemList) {
@@ -89,6 +89,30 @@ var listManagerDevice = function (id_manager, itemList)
 	});
 }
 module.exports.listManagerDevice = listManagerDevice;
+
+
+var listManagerofDevice = function (id_device, itemList)
+{
+	connect(function(conn){
+		//var Query = "SELECT  * FROM projetmajeure.user WHERE id IN ( SELECT id_manager FROM projetmajeure.screen WHERE id_device = " + id_device +");";
+		  var Query = 	"SELECT  * FROM projetmajeure.user WHERE role = 1 AND id IN ( SELECT id_manager FROM projetmajeure.screen WHERE id_device = "  + id_device +");";
+		// console.log(Query);
+		conn.query(Query, function(err, ItemList) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return itemList(err);
+			}			
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			console.log('List of managers : ', ItemList);
+			return itemList(null, ItemList);
+			}
+		});
+		conn.end();
+	});
+}
+module.exports.listManagerofDevice = listManagerofDevice;
 
 // var getData = function (id, datatype, callback){
 // 	connect(function(conn){
@@ -113,8 +137,9 @@ module.exports.listManagerDevice = listManagerDevice;
 var addDevice = function (device, callback)
 {
 	connect(function(conn){
-		var Query = "INSERT INTO device (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`) VALUES('"  + device.orientation +"','" +device.longueur + "','" + device.hauteur + "','" + device.latitude + "','" + device.longitude + "')";
-		// console.log(Query);
+		var Query = "INSERT INTO device (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`,`ville`,`type`) VALUES ('"  + device.orientation +"','" +device.longueur + "','" + device.hauteur + "','" + device.latitude + "','" + device.longitude + "','" + device.ville + "','" + device.typet + "');";
+
+		 console.log("query :", Query);
 		conn.query(Query, function(err, Data) {
 			if (err){
 				console.log('Error while performing Query.  ' + err);

@@ -20,7 +20,9 @@ import projetmajeur.screenadministrator.entity.model.Device;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Device> dataset;
+    private final ArrayList<Device> dataset;
+    private final OnItemClickListener listener;
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewId;
@@ -30,6 +32,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public TextView textViewLatitude;
         public TextView textViewLongitude;
         public TextView textViewVille;
+        public TextView textViewType;
+
 
 
         public ViewHolder(View v) {
@@ -41,12 +45,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             textViewLatitude = (TextView) v.findViewById(R.id.latitude);
             textViewLongitude = (TextView) v.findViewById(R.id.longitude);
             textViewVille = (TextView) v.findViewById(R.id.ville);
+            textViewType = (TextView) v.findViewById(R.id.type);
 
         }
+
+        public void bind(final Device item, final OnItemClickListener listener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override public void onClick(View v) {
+
+                    listener.onItemClick(item);
+                }
+
+            });
+
+        }
+
     }
 
-    public RecyclerAdapter(ArrayList<Device> dataset) {
+    public RecyclerAdapter(ArrayList<Device> dataset,  OnItemClickListener listener) {
         this.dataset = dataset;
+        this.listener = listener;
     }
 
     @Override
@@ -55,8 +75,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return new ViewHolder(v);
     }
 
+
     @Override
-    public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
+    public int getItemCount() {
+        return dataset.size();
+    }
+
+    @Override public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
+
+        holder.bind(dataset.get(position), listener);
         holder.textViewId.setText("Id : " + String.valueOf(dataset.get(position).getId()));
         holder.textViewOrientation.setText("Orientation : " + String.valueOf(dataset.get(position).getOrientation()));
         holder.textViewLongueur.setText("Longueur : " + String.valueOf(dataset.get(position).getLongueur()));
@@ -64,11 +91,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.textViewLatitude.setText("Latitude : " + String.valueOf(dataset.get(position).getLatitude()));
         holder.textViewLongitude.setText("Longitude : " + String.valueOf(dataset.get(position).getLongitude()));
         holder.textViewVille.setText("Ville : " + String.valueOf(dataset.get(position).getVille()));
+        holder.textViewType.setText("Type : " + String.valueOf(dataset.get(position).getType()));
+
     }
 
-    @Override
-    public int getItemCount() {
-        return dataset.size();
+    public interface OnItemClickListener {
+        void onItemClick(Device item);
     }
 }
 

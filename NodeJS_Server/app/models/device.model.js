@@ -5,6 +5,8 @@ var utils = require("./../utils/utils.js")
 
 var DeviceModel=function(smodel){
 	console.log("smodel : ", smodel.orientation);
+	console.log("villke : ", smodel.ville);
+	console.log("type : ", smodel.type);
 	//smodel=check_attr(smodel);
 	this.id;
 	this.orientation = smodel.orientation;
@@ -12,6 +14,8 @@ var DeviceModel=function(smodel){
 	this.hauteur = smodel.hauteur;
 	this.latitude = smodel.latitude;
 	this.longitude = smodel.longitude;
+	this.ville = smodel.ville;
+	this.typet = smodel.typet;
 
 	// this.setParameters = function(orientation,longueur, hauteur, latitude, longitude){
 	// 	this.orientation = smodel.orientation;
@@ -24,7 +28,7 @@ var DeviceModel=function(smodel){
 	function check_attr(smodel){
 		if(typeof smodel === "undefined")
 		{
-			smodel={ id: null, orientation: null, longueur: null,hauteur: null, latitude: null, longitude: null};
+			smodel={ id: null, orientation: null, longueur: null,hauteur: null, latitude: null, longitude: null, ville: null, type: null};
 		}
 	// 	if (smodel.id === "undefined"){
 	// 		smodel.id=null;
