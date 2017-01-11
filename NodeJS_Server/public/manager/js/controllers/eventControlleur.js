@@ -142,7 +142,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           });
       };
 
-      $scope.upload = function (){
+      $scope.upload = function (id_content){
         $scope.screen.contents[id_content].type = 2;
       };
 
