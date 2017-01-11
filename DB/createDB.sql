@@ -103,7 +103,7 @@ INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `lati
 ('portrait','2023','1451','41.12457','54.12457','lyon', 'television' );
 
 
-INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES
+INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
 ('admin@admin.com', 'admin', 'Admin', '0'),
 ('manager@manager.com', 'manager', 'Manager', '1'),
 ('device@device.com', 'device', 'Device', '2'),
@@ -111,7 +111,7 @@ INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES
 ('john@doe.com', 'john', 'John Doe', '1'),
 ('tada@tada.com', 'tada', 'tada','0'),
 ('qiuh@.com', 'sqsq', 'kqjsb', '0');
-
+        
 INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, `empty`) VALUES
 ( '1' , '1', '1', '1'),
 ('1','2','2','1'),
@@ -122,7 +122,7 @@ INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, 
 -- -- type
 -- 1: image from url
 -- 2: image from server
--- 3:
+-- 3: 
 -- 4: twitter
 INSERT INTO `projetmajeure`.`content` (`type`, `index`, `param1`) VALUES
 ('1','0','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
