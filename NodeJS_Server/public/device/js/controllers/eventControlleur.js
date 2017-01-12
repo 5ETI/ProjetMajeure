@@ -1,15 +1,16 @@
 angular.module('deviceApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$timeout','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$timeout','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
 
-function eventCrtFnt($scope, $log, $window, $timeout, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
+function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
 
   $scope.windowHeight = { height: $window.innerHeight + 'px' };
   $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
-  console.log($scope.windowHeight);
 
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
+
+  $scope.currentContent = {};
 
   $scope.id_screen = 0;
   $scope.screen = {};
@@ -31,15 +32,22 @@ function eventCrtFnt($scope, $log, $window, $timeout, $sce, $interval, $mdDialog
     });
 
 
+  $scope.setNbContent = function (nb){
+    $scope.nbContent = nb;
+  };
+
+
   $scope.selectCurrentDevice=function(deviceId){
-    deviceId=3;
+    var deviceId = 4;
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
+
     var screen = comm.getScreen(id_manager, deviceId);
     screen.then(  
       function(payload){
           //log.info('screen ', payload);
           $scope.currentDevice.template = payload[0].template;
           $scope.id_screen = payload[0].id;
+
           //$scope.screen.empty = payload[0].empty;
           //if(!$scope.screen.empty){
             loadContent();
@@ -56,32 +64,34 @@ function eventCrtFnt($scope, $log, $window, $timeout, $sce, $interval, $mdDialog
           function(payload) { 
 
             $scope.screen.contents = [];
-            $log.info("contents lentgh " + payload.length);
+            $log.info("payload lentgh " + payload.length);
+            $log.info("nbcontent " + $scope.nbContent );
 
-            for(var i=0; i< payload.length ; i++){
-              var j = payload[i].index;
-              $scope.screen.contents[j] = payload[i];
-          }; 
+            for(var i=0; i < $scope.nbContent ; i++){
+              $scope.screen.contents[i] = {};
+              $scope.screen.contents[i].type = 0;
+              $scope.screen.contents[i].index = i;
+              $scope.screen.contents[i].param1 = "";
+
+              for(var j=0; j< payload.length ; j++){
+                if(payload[j] != null && payload[j].index == i ){
+                 $scope.screen.contents[i] = payload[j];
+                 $scope.currentContent[j] = payload[j];
+                };
+              };
+
+            };
 
             for(var i=0; i< $scope.screen.contents.length ; i++){
               if($scope.screen.contents[i].type == 4){ // twitter
-                loadTweets($scope.screen.contents[i].param1);
-              } 
-              if ($scope.screen.contents[i].type == 5) {
-                $scope.$on('youtube.player.ready', function ($event, player) {
-                    // play it again
-                    player.playVideo();
-                });
-                $scope.$on('youtube.player.ended', function ($event, player) {
-                    // play it again
-                    player.playVideo();
-                });
-              }
-            }
-          },
-          function(errorPayload) {
-            $log.error('failure loading content', errorPayload);
-          });
+              loadTweets($scope.screen.contents[i].param1);
+          } 
+        }
+      },
+      function(errorPayload) {
+        $log.error('failure loading content', errorPayload);
+      });
+      //}
     }
   }
 
@@ -114,5 +124,28 @@ function eventCrtFnt($scope, $log, $window, $timeout, $sce, $interval, $mdDialog
         inter = $interval(updateTweet, 5000);
       });
   };
-  $timeout($scope.selectCurrentDevice);
+
+  var checkContent = function(){
+    var myContents=comm.loadContent($scope.id_screen);
+        myContents.then(
+          function(payload) { 
+            for(var i = 0; i < $scope.nbContent ; i++){
+              $log.info(i + ">>>>>>>>>");
+              $log.info("Payload[i]:");
+              $log.info(payload[i]);
+              $log.info("currentContent[i]:");
+              $log.info($scope.currentContent[i]);
+              $log.info("<<<<<<<<<<<<");
+              if($scope.currentContent[i].type != payload[i].type || $scope.currentContent[i].index != payload[i].index || $scope.currentContent[i].param1 != payload[i].param1){
+                $log.info("RELOAD PAGE");
+                $timeout($scope.selectCurrentDevice);
+              }
+            }
+        },
+        function(errorPayload) {
+          $log.error('failure loading content', errorPayload);
+        });
+  };
+  $timeout($scope.selectCurrentDevice,1000);
+  $interval(checkContent,5000);
 };
