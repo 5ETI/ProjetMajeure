@@ -1,10 +1,11 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', `youtubeEmbedUtils`];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter){
+function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
 
 
+  var IsYoutubeSet = false;
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
 
@@ -216,5 +217,45 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
               };
 
-            };
+$scope.addNewYoutube = function (id_content) {
 
+        if (IsYoutubeSet == false) {
+            IsYoutubeSet = true;
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.prompt()
+                .textContent('Please enter the youtube video link')
+                .placeholder('youtube video link')
+                .ok('Add video!')
+                .cancel('cancel')
+                // You can specify either sting with query selector
+                .openFrom('left')
+                // or an element
+                .closeTo(angular.element(document.querySelector('#right')));
+
+            $mdDialog.show(confirm).then(function (result) {
+                //$scope.LoadingAnim = false;
+                $log.info(youtubeEmbedUtils.getIdFromURL(result));
+
+                $scope.screen.contents[id_content].param1 = youtubeEmbedUtils.getIdFromURL(result);//'sMKoNBRZM1M';
+                $log.info($scope.screen.contents[id_content].param1 );
+                $scope.screen.contents[id_content].type = 5;
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+            }, function () {
+                $scope.status = 'You didn\'t add a video';
+            });
+
+            // TODO here add content from youtubeController addNewYoutube and set $scope.screen.content
+
+
+        };
+
+    };
+
+};

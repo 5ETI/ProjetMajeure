@@ -4,11 +4,11 @@
 CREATE SCHEMA IF NOT EXISTS `projetmajeure` DEFAULT CHARACTER SET utf8 ;
 USE `projetmajeure` ;
 
-DROP TABLE IF EXISTS `ProjetMajeure`.`screen_content`;
-DROP TABLE IF EXISTS `ProjetMajeure`.`content`;
-DROP TABLE IF EXISTS `ProjetMajeure`.`screen`;
-DROP TABLE IF EXISTS `ProjetMajeure`.`device`;
-DROP TABLE IF EXISTS `ProjetMajeure`.`user`;
+DROP TABLE IF EXISTS `projetmajeure`.`screen_content`;
+DROP TABLE IF EXISTS `projetmajeure`.`content`;
+DROP TABLE IF EXISTS `projetmajeure`.`screen`;
+DROP TABLE IF EXISTS `projetmajeure`.`device`;
+DROP TABLE IF EXISTS `projetmajeure`.`user`;
 
 -- -----------------------------------------------------
 -- Table `projetmajeure`.`content`
@@ -95,14 +95,15 @@ CREATE TABLE IF NOT EXISTS `projetmajeure`.`screen_content` (
 
 
 
-INSERT INTO `ProjetMajeure`.`device` (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`,`ville`,`type`) VALUES
+INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`,`ville`,`type`) VALUES
 ('portrait', '1256','3256', '3.14957', '4.124569', 'lyon', 'smartphone'),
 ('paysage', '1256','3256', '9.145797','3.14957', 'lyon', 'television'),
 ('paysage', '1256' , '3256','3.14957','4.12457', 'paris', 'smartphone'),
-('portrait','2023','1451','41.12457','54.12457','paysage', 'tablet' );
+('portrait','2023','1451','41.12457','54.12457','paris', 'tablet' ),
+('portrait','2023','1451','41.12457','54.12457','lyon', 'television' );
 
 
-INSERT INTO `ProjetMajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
+INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
 ('admin@admin.com', 'admin', 'Admin', '0'),
 ('manager@manager.com', 'manager', 'Manager', '1'),
 ('device@device.com', 'device', 'Device', '2'),
@@ -111,27 +112,33 @@ INSERT INTO `ProjetMajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES
 ('tada@tada.com', 'tada', 'tada','0'),
 ('qiuh@.com', 'sqsq', 'kqjsb', '0');
         
-INSERT INTO `ProjetMajeure`.`screen` ( `id_manager` , `id_device` , `template`, `empty`) VALUES
+INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, `empty`) VALUES
 ( '1' , '1', '1', '1'),
 ('1','2','2','1'),
 ('1','3','3','1'),
-('1','4','4','0');
+('1','4','4','0'),
+('1','5','5','0');
 
 -- -- type
 -- 1: image from url
 -- 2: image from server
 -- 3: 
 -- 4: twitter
-INSERT INTO `ProjetMajeure`.`content` (`type`, `index`, `param1`) VALUES
+INSERT INTO `projetmajeure`.`content` (`type`, `index`, `param1`) VALUES
 ('1','0','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
 ('1','1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
 ('4','2','adidasFR'),
 ('1','0','http://image.redbull.com/rbcom/010/2015-12-03/1331763162840_2/0100/0/2/red-bull-can-you-make-it-2016.png'),
-('4','1','redbull');
+('4','1','redbull'),
+('5', '2', '0AuH075tOZ4');
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
 ('4', '1'),
 ('4', '2'),
 ('4', '3'),
 ('3','4'),
-('3','5');
+('3','5'),
+('3','6'),
+('5','4'),
+('5','5'),
+('5','6');
