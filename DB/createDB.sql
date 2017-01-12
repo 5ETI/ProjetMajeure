@@ -99,7 +99,8 @@ INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `lati
 ('portrait', '1256','3256', '3.14957', '4.124569', 'lyon', 'smartphone'),
 ('paysage', '1256','3256', '9.145797','3.14957', 'lyon', 'television'),
 ('paysage', '1256' , '3256','3.14957','4.12457', 'paris', 'smartphone'),
-('portrait','2023','1451','41.12457','54.12457','paysage', 'tablet' );
+('portrait','2023','1451','41.12457','54.12457','paris', 'tablet' ),
+('portrait','2023','1451','41.12457','54.12457','lyon', 'television' );
 
 
 INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
@@ -115,7 +116,8 @@ INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, 
 ( '1' , '1', '1', '1'),
 ('1','2','2','1'),
 ('1','3','3','1'),
-('1','4','4','0');
+('1','4','4','0'),
+('1','5','5','0');
 
 -- -- type
 -- 1: image from url
@@ -127,11 +129,16 @@ INSERT INTO `projetmajeure`.`content` (`type`, `index`, `param1`) VALUES
 ('1','1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
 ('4','2','adidasFR'),
 ('1','0','http://image.redbull.com/rbcom/010/2015-12-03/1331763162840_2/0100/0/2/red-bull-can-you-make-it-2016.png'),
-('4','1','redbull');
+('4','1','redbull'),
+('5', '2', '0AuH075tOZ4');
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
 ('4', '1'),
 ('4', '2'),
 ('4', '3'),
 ('3','4'),
-('3','5');
+('3','5'),
+('3','6'),
+('5','4'),
+('5','5'),
+('5','6');
