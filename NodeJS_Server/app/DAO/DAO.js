@@ -6,9 +6,8 @@ var connect = function(conn){
 	var connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'root',
-		password : 'admin',
-		database : 'projetmajeure',
-		port: 8889
+		password : '1234',
+		database : 'projetmajeure'
 	});
 
 	connection.connect();
@@ -114,6 +113,31 @@ var getScreen = function (id_manager, id_device, screen)
 
 }
 module.exports.getScreen = getScreen;
+
+
+var setTemplate = function (id_screen, id_template, ret)
+{
+	connect(function(conn){
+		var Query = "UPDATE ProjetMajeure.screen SET `template` = " + id_template + " WHERE id = " + id_screen;
+
+		// console.log(Query);
+		conn.query(Query, function(err, callback) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return ret(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			//console.log('List of devices : ', Screen);
+			return ret(null, callback);
+		}
+	});
+		conn.end();
+	});
+}
+module.exports.setTemplate = setTemplate;
+
 
 var getContent = function (id_screen, content)
 {

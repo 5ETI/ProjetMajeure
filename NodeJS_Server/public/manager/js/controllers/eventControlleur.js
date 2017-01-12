@@ -6,6 +6,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
 
   var IsYoutubeSet = false;
+  var templateChanged = false;
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
 
@@ -53,7 +54,9 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           $log.error('failure loading screen', errorPayload);
         });
 
-    var loadContent = function(){
+  };
+
+  var loadContent = function(){
       //if(!$scope.screen.empty){
         var contents=comm.loadContent($scope.id_screen);
         contents.then(
@@ -72,79 +75,89 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
               for(var j=0; j< payload.length ; j++){
                 if(payload[j] != null && payload[j].index == i ){
                  $scope.screen.contents[i] = payload[j];
-                };
-              };
+               };
+             };
 
-            };
+           };
 
-            for(var i=0; i< $scope.screen.contents.length ; i++){
+           for(var i=0; i< $scope.screen.contents.length ; i++){
               if($scope.screen.contents[i].type == 4){ // twitter
-              loadTweets($scope.screen.contents[i].param1);
-          } 
-        }
-      },
-      function(errorPayload) {
-        $log.error('failure loading content', errorPayload);
-      });
+                loadTweets($scope.screen.contents[i].param1);
+              } 
+            }
+          },
+          function(errorPayload) {
+            $log.error('failure loading content', errorPayload);
+          });
       //}
-    }
-  }
+    };
 
 
-  $scope.remove = function(id_content){
-    if($scope.screen.contents[id_content].type != 0){
-      var confirm = $mdDialog.confirm()
-    .textContent('Confirm delete this content')
-    .ok('Delete')
-    .cancel('Cancel');
 
-    $mdDialog.show(confirm).then(function(result) {
+    $scope.remove = function(id_content){
+      if($scope.screen.contents[id_content].type != 0){
+        var confirm = $mdDialog.confirm()
+        .textContent('Confirm delete this content')
+        .ok('Delete')
+        .cancel('Cancel');
 
-      if($scope.screen.contents[id_content].type == 4 ){
-        $interval.cancel(inter);
-        tweetsList = [];
-        $scope.EmbedTweet = "";
+        $mdDialog.show(confirm).then(function(result) {
+
+          if($scope.screen.contents[id_content].type == 4 ){
+            $interval.cancel(inter);
+            tweetsList = [];
+            $scope.EmbedTweet = "";
+          }
+          $scope.screen.contents[id_content].type = 0;
+          $scope.screen.contents[id_content].param1 = "";
+
+        }, function() {
+
+        });
       }
-      $scope.screen.contents[id_content].type = 0;
-      $scope.screen.contents[id_content].param1 = "";
 
-    }, function() {
+    };
 
-    });
-    }
-    
-  };
+    $scope.edit = function(id_content){
+      var confirm = $mdDialog.prompt()
+      .textContent('Specify the picture url')
+      .placeholder('url')
+      .ariaLabel('url')
+      .ok('Add Image')
+      .cancel('cancel');
 
-  $scope.edit = function(id_content){
-    var confirm = $mdDialog.prompt()
-    .textContent('Specify the picture url')
-    .placeholder('url')
-    .ariaLabel('url')
-    .ok('Add Image')
-    .cancel('cancel');
-
-    $mdDialog.show(confirm).then(function(result) {
+      $mdDialog.show(confirm).then(function(result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
             $scope.screen.contents[id_content].type = 1;
             $scope.screen.contents[id_content].param1 = result;
           }, function() {
 
           });
-  };
+    };
 
-  $scope.upload = function (id_content){
-    $scope.screen.contents[id_content].type = 2;
-  };
+    $scope.upload = function (id_content){
+      $scope.screen.contents[id_content].type = 2;
+    };
 
-  $scope.save = function(){
+    $scope.save = function(){
 
-    $scope.progressSave = false;
-    $log.info("$scope.screen.id " + $scope.id_screen);
-    $log.info(" $scope.screen.contents[0] " +  $scope.screen.contents[0]);
+      $scope.progressSave = false;
+      $log.info("$scope.screen.id " + $scope.id_screen);
 
-    var deleteContent = comm.deleteContent($scope.id_screen);
-    deleteContent.then(
-      function(payload){
+      if(templateChanged){
+        var saveTemplate = comm.setTemplate($scope.id_screen, $scope.currentDevice.template);
+        saveTemplate.then(
+          function(payload){
+            $log.info('set template');
+          },
+          function(errorPayload){
+            $log.info('error setting template');
+          });
+      };
+
+      var deleteContent = comm.deleteContent($scope.id_screen);
+      deleteContent.then(
+        function(payload){
           //log.info('screen ', payload);
           $log.info('delete success ');
 
@@ -159,40 +172,40 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         function(errorPayload){
           $log.error('failure saving screen', errorPayload);
         });
-      });
-  };
+        });
+    };
 
-  var loadTweets = function(twitter_account){
-    $scope.LoadingAnim = false;
+    var loadTweets = function(twitter_account){
+      $scope.LoadingAnim = false;
 
-    $interval.cancel(inter);
-    tweetsList = [];
-    $scope.EmbedTweet = "";
+      $interval.cancel(inter);
+      tweetsList = [];
+      $scope.EmbedTweet = "";
 
-    var available_tweets = twitter.loadTweets(twitter_account, 10);
-    available_tweets.then(
-      function (payload) {
-        tweetsList = payload;
-        var i = 0, len = tweetsList.length;
-        var updateTweet = function () {
-          if (i >= len - 1) {
-            i = 0;
-          }
-          i += 1;
-          var item = {"html": tweetsList[i].html};
-          $scope.EmbedTweet = $sce.trustAsHtml(item.html);
-          $scope.LoadingAnim = true;
+      var available_tweets = twitter.loadTweets(twitter_account, 10);
+      available_tweets.then(
+        function (payload) {
+          tweetsList = payload;
+          var i = 0, len = tweetsList.length;
+          var updateTweet = function () {
+            if (i >= len - 1) {
+              i = 0;
+            }
+            i += 1;
+            var item = {"html": tweetsList[i].html};
+            $scope.EmbedTweet = $sce.trustAsHtml(item.html);
+            $scope.LoadingAnim = true;
 
-        };
-        inter = $interval(updateTweet, 5000);
-      });
-  };
+          };
+          inter = $interval(updateTweet, 5000);
+        });
+    };
 
-  $scope.addNewTweet = function(id_content) {
+    $scope.addNewTweet = function(id_content) {
 
-   $interval.cancel(inter);
-   tweetsList = [];
-   $scope.EmbedTweet = "";
+     $interval.cancel(inter);
+     tweetsList = [];
+     $scope.EmbedTweet = "";
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
             .textContent('Please enter the name of the twitter account from which you want to load tweets')
@@ -217,21 +230,21 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
               };
 
-    $scope.addNewYoutube = function (id_content) {
-        if (IsYoutubeSet == false) {
-            IsYoutubeSet = true;
+              $scope.addNewYoutube = function (id_content) {
+                if (IsYoutubeSet == false) {
+                  IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-                .textContent('Please enter the youtube video link')
-                .placeholder('youtube video link')
-                .ok('Add video!')
-                .cancel('cancel')
+            .textContent('Please enter the youtube video link')
+            .placeholder('youtube video link')
+            .ok('Add video!')
+            .cancel('cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
                 .closeTo(angular.element(document.querySelector('#right')));
 
-            $mdDialog.show(confirm).then(function (result) {
+                $mdDialog.show(confirm).then(function (result) {
                 //$scope.LoadingAnim = false;
                 $log.info(youtubeEmbedUtils.getIdFromURL(result));
 
@@ -241,18 +254,49 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                 $scope.$on('youtube.player.ready', function ($event, player) {
                     // play it again
                     player.playVideo();
-                });
+                  });
                 $scope.$on('youtube.player.ended', function ($event, player) {
                     // play it again
                     player.playVideo();
-                });
-            }, function () {
+                  });
+              }, function () {
                 $scope.status = 'You didn\'t add a video';
-            });
+              });
 
             // TODO here add content from youtubeController addNewYoutube and set $scope.screen.content
 
+          }
+        };
+
+        $scope.changeTemplate = function(id_template){
+
+          var confirm = $mdDialog.confirm()
+          .textContent('Confirm change layout')
+          .ok('Change Layout')
+          .cancel('Cancel');
+
+          $mdDialog.show(confirm).then(function(result) {
+
+            $scope.currentDevice.template = id_template;
+            templateChanged = true;
+            clearContent();
+
+          }, function() {
+
+          });
         }
+
+    $scope.clearContents = function(){
+      clearContent();
+    }
+
+    var clearContent = function(){
+      for(var i=0; i< $scope.nbContent ; i++){
+              $scope.screen.contents[i] = {};
+              $scope.screen.contents[i].type = 0;
+              $scope.screen.contents[i].index = i;
+              $scope.screen.contents[i].param1 = "";
+            };
     };
 
 };

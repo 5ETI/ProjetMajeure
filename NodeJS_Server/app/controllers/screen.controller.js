@@ -39,6 +39,22 @@ var getScreen = function(id_manager, id_device, DAO_screen){
 };
 module.exports.getScreen = getScreen;
 
+var setTemplate = function(id_screen, id_template, DAO_screen){
+	DAO.setTemplate(id_screen, id_template, function(err, resp){
+		if(err)
+		{
+			console.log(err);
+			return DAO_screen(err);
+		}
+		else{
+			//console.log(screen);
+			return DAO_screen(null, resp);
+		}
+
+	});
+};
+module.exports.setTemplate = setTemplate;
+
 
 var getContent = function(id_screen, DAO_content){
 	DAO.getContent(id_screen, function(err, content){

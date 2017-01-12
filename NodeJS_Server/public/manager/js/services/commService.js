@@ -53,7 +53,8 @@ function commFnc($http, $q, factory){
             getScreen: getScreen,
             loadContent: loadContent,
             deleteContent: deleteContent,
-            saveScreen: saveScreen
+            saveScreen: saveScreen,
+            setTemplate: setTemplate
         };
 
        // FOR HTTP REQUEST
@@ -93,6 +94,17 @@ function commFnc($http, $q, factory){
     function deleteContent(id_screen){
         var deferred = $q.defer();
         $http.get('/content/delete/'+ id_screen)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    }
+
+    function setTemplate(id_screen, id_template){
+        var deferred = $q.defer();
+        $http.get('/screen/setTemplate/'+ id_screen + '/' + id_template)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
