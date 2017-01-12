@@ -251,12 +251,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
             // TODO here add content from youtubeController addNewYoutube and set $scope.screen.content
 
-<<<<<<< HEAD
             };
-=======
 
         };
 
-    };
-}
->>>>>>> 92c4e34c43eba79362b03188ad0ba851a2f7f27d
+    }
