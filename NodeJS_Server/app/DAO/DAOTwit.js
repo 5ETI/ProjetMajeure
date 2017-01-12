@@ -8,7 +8,7 @@ var DaoGetTwit = function(accountname, nbtwits, intemList){
 		consumer_secret: 'BnWvbCjAVl7gpGVHmNEIHGkD06kWDyR4G1SIGKdbnfq0nM0UUn',
 		application_only: true
 	});
-	var MAX_WIDTH = 305;
+	var MAX_WIDTH = 1000;
 	var URL_1 = '/statuses/user_timeline.json?screen_name=' + accountname + '&count=' + nbtwits;
 	console.log("URL_1 : ", URL_1);
 	var URL_2 = 'statuses/oembed';

@@ -1,4 +1,4 @@
-console.log("it works !!!");
+console.log("it works GREAT GUYS !!!");
 
 
 var http = require("http");
@@ -32,6 +32,7 @@ app.use("/twittertest", express.static(path.join(__dirname, "public/testTweet"))
 app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 app.use("/manager", express.static(path.join(__dirname, "public/manager")));
+app.use("/device", express.static(path.join(__dirname, "public/device")));
 //init server
 var server = http.createServer(app);
 server.listen(CONFIG.port);
