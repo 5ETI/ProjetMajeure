@@ -91,7 +91,6 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
       function(errorPayload) {
         $log.error('failure loading content', errorPayload);
       });
-      //}
     }
   }
 
@@ -130,14 +129,14 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
         myContents.then(
           function(payload) { 
             for(var i = 0; i < $scope.nbContent ; i++){
-              $log.info(i + ">>>>>>>>>");
+              /*$log.info(i + ">>>>>>>>>");
               $log.info("Payload[i]:");
               $log.info(payload[i]);
               $log.info("currentContent[i]:");
               $log.info($scope.currentContent[i]);
-              $log.info("<<<<<<<<<<<<");
+              $log.info("<<<<<<<<<<<<");*/
               if($scope.currentContent[i].type != payload[i].type || $scope.currentContent[i].index != payload[i].index || $scope.currentContent[i].param1 != payload[i].param1){
-                $log.info("RELOAD PAGE");
+                $log.info("RELOAD CONTENT");
                 $timeout($scope.selectCurrentDevice);
               }
             }
