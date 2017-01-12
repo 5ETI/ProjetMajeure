@@ -1,11 +1,11 @@
 angular.module('deviceApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter'];
+eventCrtFnt.$inject=['$scope','$log','$window','$timeout','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter){
+function eventCrtFnt($scope, $log, $window, $timeout, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
 
-  $scope.windowHeight = { height: $window.innerHeight+ 'px' };
-  $scope.windowHeightMiddle = { height: ($window.innerHeight/2) + 'px' };
+  $scope.windowHeight = { height: $window.innerHeight + 'px' };
+  $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
   console.log($scope.windowHeight);
 
   $scope.deviceMap={};
@@ -19,7 +19,6 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   $scope.LoadingAnim = true;
 
   var id_manager = 1; // TODO 1 is default manager id, get real manager id
-  //var deviceId = 3; // TODO 1 is default screen id, get real screen id
 
   var available_device=comm.loadDevicesList(id_manager);
   available_device.then(
@@ -33,8 +32,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
 
   $scope.selectCurrentDevice=function(deviceId){
+    deviceId=3;
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
-
     var screen = comm.getScreen(id_manager, deviceId);
     screen.then(  
       function(payload){
@@ -66,14 +65,23 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
             for(var i=0; i< $scope.screen.contents.length ; i++){
               if($scope.screen.contents[i].type == 4){ // twitter
-              loadTweets($scope.screen.contents[i].param1);
-          } 
-        }
-      },
-      function(errorPayload) {
-        $log.error('failure loading content', errorPayload);
-      });
-      //}
+                loadTweets($scope.screen.contents[i].param1);
+              } 
+              if ($scope.screen.contents[i].type == 5) {
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                });
+              }
+            }
+          },
+          function(errorPayload) {
+            $log.error('failure loading content', errorPayload);
+          });
     }
   }
 
@@ -106,34 +114,5 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         inter = $interval(updateTweet, 5000);
       });
   };
-
-  $scope.addNewTweet = function(id_content) {
-
-   $interval.cancel(inter);
-   tweetsList = [];
-   $scope.EmbedTweet = "";
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.prompt()
-            .textContent('Please enter the name of the twitter account from which you want to load tweets')
-            .placeholder('Twitter Account name')
-                //.targetEvent(ev)
-                .ok('Add Tweets!')
-                .cancel('cancel')
-                // You can specify either sting with query selector
-                .openFrom('left')
-                // or an element
-                .closeTo(angular.element(document.querySelector('#right')));
-
-                $mdDialog.show(confirm).then(function (result) {
-
-                  $log.info("addNewTweet " + result);
-                  $scope.screen.contents[id_content].type = 4;
-                  $scope.screen.contents[id_content].param1 = result;
-                  loadTweets(result);
-                }, function () {
-                  $scope.status = 'You didn\'t add a tweet';
-                });
-
-              };
-
-            };
+  $timeout($scope.selectCurrentDevice);
+};
