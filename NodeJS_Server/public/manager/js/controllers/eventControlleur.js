@@ -28,6 +28,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       $log.error('failure loading devices', errorPayload);
     });
 
+  $scope.setNbContent = function (nb){
+    $scope.nbContent = nb;
+  };
+
 
   $scope.selectCurrentDevice=function(deviceId){
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
@@ -38,6 +42,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           //log.info('screen ', payload);
           $scope.currentDevice.template = payload[0].template;
           $scope.id_screen = payload[0].id;
+
           //$scope.screen.empty = payload[0].empty;
           //if(!$scope.screen.empty){
             loadContent();
@@ -54,12 +59,22 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           function(payload) { 
 
             $scope.screen.contents = [];
-            $log.info("contents lentgh " + payload.length);
+            $log.info("payload lentgh " + payload.length);
+            $log.info("nbcontent " + $scope.nbContent );
 
-            for(var i=0; i< payload.length ; i++){
-              var j = payload[i].index;
-              $scope.screen.contents[j] = payload[i];
-          }; 
+            for(var i=0; i< $scope.nbContent ; i++){
+              $scope.screen.contents[i] = {};
+              $scope.screen.contents[i].type = 0;
+              $scope.screen.contents[i].index = i;
+              $scope.screen.contents[i].param1 = "";
+
+              for(var j=0; j< payload.length ; j++){
+                if(payload[j] != null && payload[j].index == i ){
+                 $scope.screen.contents[i] = payload[j];
+                };
+              };
+
+            };
 
             for(var i=0; i< $scope.screen.contents.length ; i++){
               if($scope.screen.contents[i].type == 4){ // twitter
@@ -90,6 +105,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         $scope.EmbedTweet = "";
       }
       $scope.screen.contents[id_content].type = 0;
+      $scope.screen.contents[id_content].param1 = "";
+
     }, function() {
 
     });
