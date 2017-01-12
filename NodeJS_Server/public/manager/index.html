@@ -23,11 +23,11 @@
       <!-- *************   CANVAS  *************-->
       <div class="canvas">
 
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div>
-        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'">  </div> 
-        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'">  </div> 
-        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'">  </div>
-        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'">  </div>
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'" ng-init="setNbContent(2)">  </div> 
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'" ng-init="setNbContent(2)">  </div> 
+        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'" ng-init="setNbContent(3)"> </div>
+        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'" ng-init="setNbContent(3)">  </div>
 
         <!--<div>
           <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
@@ -41,10 +41,16 @@
       <!-- *************  BUTTON ZONE  *************-->
       <div class="row margin-top-1em">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-          <button type="button" class="btn btn-primary btn-block" ng-click="deleteContents()">Delete</button>
+          <button type="button" class="btn btn-primary btn-block" ng-click="changeTemplate()">Change Layout</button>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <button type="button" class="btn btn-primary btn-block" ng-click="clearContents()">Clear</button>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <button type="button" class="btn btn-primary btn-block" ng-click="save()">Save</button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+          <md-progress-circular md-mode="indeterminate" ng-hide="progressSave" ng-disabled="progressSave" class="progressSave" md-diameter="20px"></md-progress-circular>
         </div>
       </div>
 
@@ -78,70 +84,67 @@
       </div>
       <!-- *************   END DEVICE PANEL  *************-->
     </div>
-    </div>
-    <!-- *************  END CENTER PANEL  *************-->
-    <!-- *************   RIGHT PANEL  *************-->
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <div class="rightPanel">
-        <div>
-         <h6 class="align-center">DEVICES LIST</h6>
-       </div>
-       <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
-       <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
-        <div>
-          <div ng-if="device.type == 'smartphone'">
-            <i class="floatright fa fa-mobile" aria-hidden="true"></i>
-          </div>
-          <div ng-if="device.type == 'tablet'">
-            <i class="floatright fa fa-tablet" aria-hidden="true"></i>
-          </div>
-          <div ng-if="device.type == 'desktop'">
-            <i class="floatright fa fa-desktop" aria-hidden="true"></i>
-          </div>
-          <div ng-if="device.type == 'television'">
-            <i class="floatright fa fa-television" aria-hidden="true"></i>
-          </div>
-          <div>Identifiant: {{device.id}}</div>
+  </div>
+  <!-- *************  END CENTER PANEL  *************-->
+  <!-- *************   RIGHT PANEL  *************-->
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div class="rightPanel">
+      <div>
+       <h6 class="align-center">DEVICES LIST</h6>
+     </div>
+     <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
+     <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
+      <div>
+        <div ng-if="device.type == 'smartphone'">
+          <i class="floatright fa fa-mobile" aria-hidden="true"></i>
         </div>
-        <div>                 
-          <span>Orientation: {{device.orientation}}</span>
+        <div ng-if="device.type == 'tablet'">
+          <i class="floatright fa fa-tablet" aria-hidden="true"></i>
         </div>
-        <div>
-          <span>Hauteur: {{device.hauteur}}</span>
+        <div ng-if="device.type == 'desktop'">
+          <i class="floatright fa fa-desktop" aria-hidden="true"></i>
         </div>
-        <div>
-          <span>Longueur: {{device.longueur}}</span>
+        <div ng-if="device.type == 'television'">
+          <i class="floatright fa fa-television" aria-hidden="true"></i>
         </div>
-        <div>
-          <span>Latitude: {{device.latitude}}</span>
-        </div>
-        <div> 
-          <span>Longitude: {{device.longitude}}</span>
-        </div>
+        <div>Identifiant: {{device.id}}</div>
+      </div>
+      <div>                 
+        <span>Orientation: {{device.orientation}}</span>
+      </div>
+      <div>
+        <span>Hauteur: {{device.hauteur}}</span>
+      </div>
+      <div>
+        <span>Longueur: {{device.longueur}}</span>
+      </div>
+      <div>
+        <span>Latitude: {{device.latitude}}</span>
+      </div>
+      <div> 
+        <span>Longitude: {{device.longitude}}</span>
       </div>
     </div>
   </div>
+</div>
+
 <!-- *************   END RIGHT PANEL  *************-->
 <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
 <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
 <script src="librairies/angular/angular.min.js"></script>
-
 <script src="librairies/angular-animate/angular-animate.min.js"></script>
 <script src="librairies/angular-material/angular-material.js"></script>
 <script src="librairies/angular-aria/angular-aria.js"></script>
 <script src="librairies/embed/embed.min.js"></script>
 <script src="librairies/ng-flow/ng-flow-standalone.min.js"></script>
 <script src="librairies/youtube_embed/angular-youtube-embed.min.js"></script>
-  <script src="https://www.youtube.com/iframe_api"></script>
-
+<script src="https://www.youtube.com/iframe_api"></script>
 <script src="js/services/factoryService.js"></script>
 <script src="js/services/commService.js"></script>   
 <script src="js/application/managerApp.js"></script>
 <script src="js/controllers/eventControlleur.js"></script>
 <script src="js/controllers/youtubeController.js"></script>
 <script src="js/services/TwitterService.js"></script>
-
-
 </body>
 </html>

@@ -69,8 +69,8 @@ var deleteContent = function(id_screen, DAO_delete){
 module.exports.deleteContent = deleteContent;
 
 
-var saveContent = function(id_screen, contents, DAO_save){
-	DAO.saveContent(id_screen, contents, function (err, resp){
+var saveContents = function(id_screen, contents, DAO_save){
+	DAO.saveContents(id_screen, contents, function (err, resp){
 		if(err){
 			console.log(err);
 			return DAO_save(err);
@@ -79,5 +79,5 @@ var saveContent = function(id_screen, contents, DAO_save){
 		}
 	});
 };
-module.exports.saveContent = saveContent;
+module.exports.saveContents = saveContents;
 

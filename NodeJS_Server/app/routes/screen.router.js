@@ -36,7 +36,7 @@ router.route("/content/:id_screen")
 		}
 		else{
 			console.log(content);
-			response.json(content);
+			return response.json(content);
 		}
 
 	});
@@ -55,7 +55,7 @@ router.route("/content/delete/:id_screen")
 		}
 		else{
 			console.log(resp);
-			response.json(resp);
+			return response.json(resp);
 		}
 	});
 
@@ -67,14 +67,14 @@ router.route("/content/save/:id_screen")
 	var id_screen = params[3];
 	var contents = request.body;
 
-	ScreenController.saveContent(id_screen, contents, function(err, resp){
+	ScreenController.saveContents(id_screen, contents, function(err, resp){
 		if(err){
 			console.error(response.status(500).end);
 			return response.status(500).end;
 		}
 		else{
 			console.log(resp);
-			//return response.json(resp);
+			return response.json(resp);
 		}
 	});
 
