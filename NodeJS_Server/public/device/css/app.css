@@ -2,7 +2,7 @@ html,body {
 	height:100%; 
 	padding-top:0px; 
 	overflow-x:hidden; 
-	overflow-y:auto;
+	overflow-y:hidden;
 }
 
 .zeroRef{
@@ -85,5 +85,5 @@ html,body {
 
 
 .loadingAnim{
-	margin: 8em;
+	padding: 8em;
 }

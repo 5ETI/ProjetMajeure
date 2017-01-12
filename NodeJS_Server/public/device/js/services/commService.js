@@ -98,16 +98,9 @@ function commFnc($http, $q, factory){
         device1.longitude = deviceLongitude;
         device1.latitude = deviceLatitude;
 
-        /*var presentation2 = {};
-        presentation2.id='2';
-        presentation2.title='title2';
-        presentation2.description='description2';
-        presentation2.slidArray=[];*/
-
         var deviceMap = {};
 
         deviceMap[device1.id] = device1;
-        //presMap[presentation1.title] = presentation2;
         var deferred = $q.defer();  
         deferred.resolve(deviceMap);
         return deferred.promise; 
