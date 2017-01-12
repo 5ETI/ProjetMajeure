@@ -11,8 +11,6 @@ angular.module('factoryService', []).factory('factory',factoryFnc);
 function factoryFnc(){
      var factory = {
         generateUUID:       generateUUID,
-        contentCreation:   contentCreation,
-        screenCreation:      screenCreation,
         deviceCreation: deviceCreation,
         mapToArray:        mapToArray
          
@@ -38,15 +36,6 @@ function factoryFnc(){
     //*********************************************//
     //************ FACTORY FUNCTIONS  *************//
     //*********************************************//
-     
-     function contentCreation(title,type,src){
-       /* var content={};
-        content.id=generateUUID();
-        content.title=title;
-        content.src=src; //'./img/no-image.jpg' //src
-        content.type=type;
-        return content;*/
-     };
     
     
      function deviceCreation(id,type,orientation,latitude,longitude,hauteur,longueur,template){
@@ -61,17 +50,6 @@ function factoryFnc(){
         device.template=template;
         return device;
      };
-    
-    
-     function screenCreation(title,description){
-        /*var presentation={};
-        presentation.id=generateUUID();
-        presentation.title=title;
-        presentation.description=description;
-        presentation.slidArray=[];
-        return presentation;*/
-     };
-   
     
     function mapToArray(map){
        contentArray=[];

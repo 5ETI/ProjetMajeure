@@ -15,11 +15,11 @@
     <!-- *************   CENTER PANEL  *************-->
       <!-- *************   CANVAS  *************-->
       <div class="canvas" ng-style="windowHeight">
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div> 
-        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'">  </div> 
-        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'">  </div> 
-        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'">  </div>
-        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'">  </div>
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template2.html'">  </div> 
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template3.html'">  </div> 
+        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template4.html'">  </div>
+        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template5.html'">  </div>
       </div>
 <!-- *************   END RIGHT PANEL  *************-->
   <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
