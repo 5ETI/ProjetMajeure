@@ -291,6 +291,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     }
 
     var clearContent = function(){
+      $log.info("clear, nbcontent " + $scope.nbContent );
       for(var i=0; i< $scope.nbContent ; i++){
               $scope.screen.contents[i] = {};
               $scope.screen.contents[i].type = 0;
