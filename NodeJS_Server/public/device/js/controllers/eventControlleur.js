@@ -38,7 +38,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
 
 
   $scope.selectCurrentDevice=function(deviceId){
-    var deviceId = 4;
+    var deviceId = 5;
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
     var screen = comm.getScreen(id_manager, deviceId);

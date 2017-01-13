@@ -10,6 +10,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   var templateChanged = false;
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
+  $scope.selectedIndex = null;
+
 
   $scope.id_screen = 0;
   $scope.screen = {};
@@ -31,8 +33,9 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       $log.error('failure loading devices', errorPayload);
     });
 
-  $scope.selectCurrentDevice=function(deviceId){
+  $scope.selectCurrentDevice=function(deviceId,$index){
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
+    $scope.selectedIndex=$index;
 
     var screen = comm.getScreen(id_manager, deviceId);
     screen.then(  

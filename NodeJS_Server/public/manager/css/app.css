@@ -5,6 +5,10 @@ html,body {
 	overflow-y:auto;
 }
 
+.deviceSelected{
+	background-color: #a5c7e4;
+}
+
 .zeroRef{
 	padding:0px;
 	margin:0px
@@ -42,7 +46,7 @@ html,body {
 }
 
 .align-center{
-	text-align:  center;
+	text-align: center;
 }
 
 .limitWidth{

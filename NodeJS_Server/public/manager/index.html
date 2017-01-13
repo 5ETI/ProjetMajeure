@@ -103,7 +103,7 @@
        <h6 class="align-center">DEVICES LIST</h6>
      </div>
      <!--ng-click="loadDevice(device.id,device.orientation,device.hauteur,device.longueur,device.longitude,device.latitude);"  -->
-     <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-click="selectCurrentDevice(device.id)">
+     <div ng-repeat="device in deviceMap.array" class="rightPanelDevice" ng-class="{ 'deviceSelected': $index == selectedIndex }" ng-click="selectCurrentDevice(device.id,$index)">
       <div>
         <div ng-if="device.type == 'smartphone'">
           <i class="floatright fa fa-mobile" aria-hidden="true"></i>

@@ -2,17 +2,19 @@
     <div class="$mdDialog" layout="column" layout-align="center center" style="width:100%"></div>
     <div id="leftZone" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
         <div class="image">
-            <div class="btn-group" style="opacity: 0.7; padding-top: 1em; padding-left: 1em;">
+            <div class="btn-group" style="float:left;opacity: 0.7; padding-top: 1em; padding-left: 1em;">
                 <button class="btn btn-danger" ng-click="remove(2)"><span class="glyphicon glyphicon-remove" ></span></button>
                 <button class="btn btn-info" ng-click="addNewYoutube(2)"><span class="glyphicon glyphicon-edit" ></span></button>
             </div>
             <div ng-switch="screen.contents[2].type">
-                <div ng-switch-when="0">
+                <div ng-switch-when="0" >
                     <br/> <br/>
                     <h3 class="align-center">NO YOUTUBE</h3>
                 </div>
-                <div class="row" ng-switch-when="5">
-                    <youtube-video class="col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
+                <div class="row" ng-switch-when="5" >
+                    <div>
+                        <youtube-video class="col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,20 +29,21 @@
                     <br/> <br/>
                     <h3 class="align-center">NO IMAGE</h3>
                 </div>
-            </div>
-            <div ng-switch-when="1">
-                <img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
-            </div>
-            <div ng-switch-when="2">
-                <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-                    <img class="image-temp1" flow-img="$flow.files[0]">
-                    <input style="visibility: hidden; position: absolute;" type="file"/>
+                <div ng-switch-when="1">
+                    <img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+                </div>
+                <div ng-switch-when="2">
+                    <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+                        <img class="image-temp1" flow-img="$flow.files[0]">
+                        <input style="visibility: hidden; position: absolute;" type="file"/>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
         <div class="image">
-            <div class="btn-group" style="opacity: 0.7; padding-top: 1em; padding-left: 1em;">
+            <div class="btn-group" style="float:left; opacity: 0.7; padding-top: 1em; padding-left: 1em;">
                 <button class="btn btn-danger" ng-click="remove(1)"><span class="glyphicon glyphicon-remove" ></span></button>
                 <button class="btn btn-info" ng-click="addNewTweet(1)"><span class="glyphicon glyphicon-edit" ></span></button>
             </div>
@@ -63,4 +66,3 @@
         </div>
     </div>
 </div>
-
