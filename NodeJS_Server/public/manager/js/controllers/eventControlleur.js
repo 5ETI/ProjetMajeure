@@ -4,6 +4,7 @@ eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','
 
 function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
 
+  $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
 
   var IsYoutubeSet = false;
   var templateChanged = false;

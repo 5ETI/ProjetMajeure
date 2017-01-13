@@ -15,7 +15,7 @@
             </div>
             <div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
                 <div ng-switch="screen.contents[0].type">
-                    <div ng-switch-when="0" class="image">
+                    <div ng-switch-when="0">
                         <br/> <br/>
                         <h3 class="align-center">NO IMAGE</h3>
                     </div>
@@ -29,7 +29,6 @@
                                 <input style="visibility: hidden; position: absolute;" type="file"/>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

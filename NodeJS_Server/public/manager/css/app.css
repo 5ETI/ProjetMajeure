@@ -10,6 +10,33 @@ html,body {
 	margin:0px
 }
 
+.image{
+	border:1px solid #9D9D9D;
+	background: #dfe0e4;
+}
+
+.video{
+	border:1px solid #9D9D9D;
+	padding:1em;
+	border-radius: 5px;
+	background: #dfe0e4;
+}
+
+.socialmedia{
+	border:1px solid #9D9D9D;
+	border-radius: 5px;
+	background: #dfe0e4;
+}
+
+.image-temp1{
+	background: transparent;
+	width:100%;
+}
+
+.sameHeight{
+	min-height:30em;
+}
+
 .fullScreenHeight{
 	height:100%;
 }
