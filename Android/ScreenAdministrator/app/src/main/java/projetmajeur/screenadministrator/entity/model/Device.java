@@ -20,6 +20,8 @@ public class Device implements Serializable {
     private String ville;
     private String type;
 
+    private boolean isSelected;
+
     public Device(int id,String orientation, int longueur, int hauteur, double latitude, double longitude, String ville, String type) {
         this.id = id;
         this.orientation = orientation;
@@ -117,5 +119,13 @@ public class Device implements Serializable {
                 ", ville='" + ville + '\'' +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

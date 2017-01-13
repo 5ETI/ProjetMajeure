@@ -97,15 +97,5 @@ public class AddDeviceActivity extends AppCompatActivity {
         addDevice.setAddDeviceListener(addDeviceListener);
         addDevice.execute(device);
 
-
-
-
-
-
-
-
-
-
-
     }
 }

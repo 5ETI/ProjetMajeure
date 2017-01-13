@@ -1,13 +1,10 @@
 package projetmajeur.screenadministrator.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.test.suitebuilder.TestMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,9 +17,8 @@ import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.User;
 import projetmajeur.screenadministrator.tasks.ManagerAdapter;
 import projetmajeur.screenadministrator.tasks.ManagerListTask;
-import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
 
-public class ItemDeviceActivity extends AppCompatActivity {
+public class ItemDeviceActivity extends AppCompatActivity  {
 
 
     TextView identifiant;
@@ -33,7 +29,7 @@ public class ItemDeviceActivity extends AppCompatActivity {
 
     //private RecyclerView mRecyclerView ;
     private LinearLayoutManager mLinearLayoutManager;
-
+     Device dene;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +42,11 @@ public class ItemDeviceActivity extends AppCompatActivity {
 
 
         Intent i = getIntent();
-        Device dene = (Device) i.getSerializableExtra("ItemSelected");
+         dene = (Device) i.getSerializableExtra("ItemSelected");
+        if(dene == null){
+
+            dene = (Device) i.getSerializableExtra("Device");
+        }
 
         identifiant.setText("Id : " + dene.getId());
         orientation.setText("Orientation : " + dene.getOrientation());
@@ -64,25 +64,33 @@ public class ItemDeviceActivity extends AppCompatActivity {
             @Override
             public void onManager(ArrayList<User> list) {
                 // specify an adapter
+                if(list != null){
+                    ManagerAdapter mAdapter = new ManagerAdapter("device",list, new ManagerAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(User item) {
 
-                ManagerAdapter mAdapter = new ManagerAdapter(list, new ManagerAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(User item) {
-                       
-                    }
+                        }
 
-                });
-                mRecyclerView.setAdapter(mAdapter);
+                    });
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Aucun manager disponible", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         };
 
         managerListTask.setManagerListListener(managerListListener);
-        managerListTask.execute(String.valueOf(dene.getId()));
+        managerListTask.execute("liste",String.valueOf(dene.getId()));
 
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ItemDeviceActivity.this, AddDeviceActivity.class);
+                Intent intent = new Intent(ItemDeviceActivity.this, AddManToDev.class);
+                intent.putExtra("Device", dene);
                 startActivity(intent);
 
             }
@@ -92,4 +100,7 @@ public class ItemDeviceActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }

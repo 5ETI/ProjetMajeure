@@ -15,6 +15,9 @@ public class User implements Serializable{
     private String name;
     private int role;
     private Timestamp time;
+    private boolean isSelected;
+
+
 
     public User(int id, String email, String name, int role, Timestamp time) {
         this.id = id;
@@ -22,6 +25,12 @@ public class User implements Serializable{
         this.name = name;
         this.role = role;
         this.time = time;
+    }
+
+    public User(String email, String passw, String name) {
+        this.email = email;
+        this.passw = passw;
+        this.name = name;
     }
 
     public int getId() {
@@ -70,5 +79,13 @@ public class User implements Serializable{
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

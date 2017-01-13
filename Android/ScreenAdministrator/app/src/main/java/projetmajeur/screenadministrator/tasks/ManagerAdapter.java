@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.activity.ManagerActivity;
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.SelectDevice;
+import projetmajeur.screenadministrator.entity.model.SelectManager;
 import projetmajeur.screenadministrator.entity.model.User;
 
 /**
@@ -22,6 +25,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
 
     private ArrayList<User> dataset;
     private final ManagerAdapter.OnItemClickListener listener;
+    private String type;
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -32,6 +36,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
         public TextView textViewRole;
         public TextView textViewTime;
 
+        public CheckBox chkSelected;
 
 
         public ViewHolder(View v) {
@@ -41,6 +46,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
             textViewName = (TextView) v.findViewById(R.id.name);
             textViewRole = (TextView) v.findViewById(R.id.role);
             textViewTime = (TextView) v.findViewById(R.id.time);
+            chkSelected = (CheckBox)  itemView.findViewById(R.id.checkbox);
              // bind the listener
 
 
@@ -58,8 +64,8 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
 
     }
 
-    public ManagerAdapter(ArrayList<User> dataset,  ManagerAdapter.OnItemClickListener listener) {
-
+    public ManagerAdapter(String type,ArrayList<User> dataset,  ManagerAdapter.OnItemClickListener listener) {
+        this.type = type;
         this.dataset = dataset;
         this.listener = listener;
     }
@@ -71,13 +77,48 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        final int pos = position;
         holder.bind(dataset.get(position), listener);
+        if(type.equals("device")){
+            holder.chkSelected.setVisibility(View.INVISIBLE);
+        }
+        if (type.equals("manager")){
+            holder.chkSelected.setVisibility(View.VISIBLE);
+
+        }
+
+
 
         holder.textViewId.setText("Id : " + String.valueOf(dataset.get(position).getId()));
         holder.textViewEmail.setText("Email :" + String.valueOf(dataset.get(position).getEmail()));
         holder.textViewName.setText("Name : " + String.valueOf(dataset.get(position).getName()));
         //holder.textViewRole.setText("Role : " + String.valueOf(dataset.get(position).getRole()));
         //holder.textViewTime.setText("Time : " + String.valueOf(dataset.get(position).getTime()));
+
+        holder.chkSelected.setChecked(dataset.get(position).isSelected());
+
+        holder.chkSelected.setTag(dataset.get(position));
+
+        holder.chkSelected.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                CheckBox cb = (CheckBox) v;
+                User user = (User) cb.getTag();
+
+                user.setSelected(cb.isChecked());
+                dataset.get(pos).setSelected(cb.isChecked());
+                if(cb.isChecked()){
+
+                    SelectManager.getInstance().AddManager(dataset.get(pos));
+                }
+                else{
+
+                    SelectManager.getInstance().DeleteManager(user);
+                }
+
+            }
+        });
     }
 
 

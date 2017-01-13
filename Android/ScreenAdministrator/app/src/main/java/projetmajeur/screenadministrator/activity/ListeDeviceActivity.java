@@ -20,6 +20,8 @@ import java.util.List;
 
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.SelectDevice;
+import projetmajeur.screenadministrator.tasks.DeleteDevice;
 import projetmajeur.screenadministrator.tasks.DeviceListTask;
 import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
 
@@ -28,14 +30,12 @@ public class ListeDeviceActivity extends AppCompatActivity {
     private Button button_add;
     private Button button_delete;
 
-
-
     //private RecyclerView mRecyclerView ;
     private LinearLayoutManager mLinearLayoutManager;
 
     ArrayList<Device> stockage = new ArrayList<Device>();
 
-    ArrayList<RecyclerView> selectedcheckBox = new ArrayList<RecyclerView>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +47,18 @@ public class ListeDeviceActivity extends AppCompatActivity {
 
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
-
+        SelectDevice.getInstance().clean();
         // use a linear layout manager
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        DeviceListTask deviceListTask = new DeviceListTask();
-        DeviceListTask.DeviceListListener deviceListListener = new DeviceListTask.DeviceListListener() {
+        final DeviceListTask deviceListTask = new DeviceListTask();
+        final DeviceListTask.DeviceListListener deviceListListener = new DeviceListTask.DeviceListListener() {
             @Override
             public void onListDevice(ArrayList<Device> result) {
                 // specify an adapter
                 stockage = result;
-                RecyclerAdapter mAdapter = new RecyclerAdapter(result, new RecyclerAdapter.OnItemClickListener() {
+                final RecyclerAdapter mAdapter = new RecyclerAdapter("device",result, new RecyclerAdapter.OnItemClickListener() {
                     @Override public void onItemClick(Device item) {
 
                         Intent inte = new Intent(ListeDeviceActivity.this, ItemDeviceActivity.class);
@@ -74,7 +74,9 @@ public class ListeDeviceActivity extends AppCompatActivity {
         };
 
         deviceListTask.setDeviceListListener(deviceListListener);
-        deviceListTask.execute();
+        deviceListTask.execute("listeall","0");
+
+
 
 
         button_add.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +87,43 @@ public class ListeDeviceActivity extends AppCompatActivity {
 
             }
         });
+
+        button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectDevice.getInstance().getStockage();
+                Log.i("test checkbox : ", String.valueOf(SelectDevice.getInstance().getStockage()));
+                DeleteDevice deleteDevice= new DeleteDevice();
+                DeleteDevice.DeleteDeviceListener deleteDeviceListener = new DeleteDevice.DeleteDeviceListener() {
+                    @Override
+                    public void onDeleteDevice(Boolean result) {
+                        if(result){
+                            Log.i("dans la boucle","ahahahahah");
+
+                            Intent intent = new Intent(getApplicationContext(), ListeDeviceActivity.class);
+                            startActivity(intent);
+                           // deviceListTask.setDeviceListListener(deviceListListener);
+                           // deviceListTask.execute("listeall","0");
+                            Toast.makeText(getApplicationContext(), "Devices delete", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+
+                };
+
+                deleteDevice.setDeleteDeviceListener(deleteDeviceListener);
+                deleteDevice.execute(SelectDevice.getInstance().getStockage());
+            }
+
+
+        });
+
+
     }
 
     public void onCheckboxClicked(View view) {
-        Log.i("test getId :",String.valueOf(view.getId()));
-        Log.i("test context :",String.valueOf(view.getContext()));
+
 
 
         }

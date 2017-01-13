@@ -15,8 +15,8 @@
     <string name="AddDevice">Add</string>
     <string name="DeleteDevice">Delete</string>
     <string name="cancel">Annuler</string>
-    <string name="ok">OK</string>
-
+    <string name="okk">OK</string>
+    <string name="choosemanager">Choisir un manager</string>
 
 
 </resources>

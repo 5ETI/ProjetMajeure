@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.squareup.okhttp.internal.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +33,14 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
     ManagerListTask.ManagerListListener managerListListener;
 
     Gson gson = new Gson();
+    ArrayList<User> stockage = new ArrayList<User>();
 
     @Override
     protected ArrayList<User> doInBackground(String... params) {
-        int param = Integer.parseInt(params[0]);
+        String param = params[0];
+        int param1 = Integer.parseInt(params[1]);
         URL url = null;
-        if (param == 0) {
+        if (param.equals("liste") && param1 == 0) {
             try {
                 // url = new URL("http://192.168.1.23:1337/managers/all");
                 url = new URL("http://10.170.1.100:1337/managers/all");
@@ -65,12 +68,13 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
             }
 
 
-            return getListManager(in);
+            return Utils.getListManager(in);
         }
-        else{
+        if(param.equals("liste"))
+        {
             try {
                 // url = new URL("http://192.168.1.23:1337/managers/all");
-                url = new URL("http://10.170.1.100:1337/device/getManager/" + param );
+                url = new URL("http://10.170.1.100:1337/device/getManager/" + param1 );
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -95,63 +99,41 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
             }
 
 
-            return getListManager(in);
+            return Utils.getListManager(in);
 
 
         }
-    }
+        if (param.equals("device")){
 
-    public ArrayList<User> getListManager (InputStream in){
-            ArrayList<User> list = new ArrayList<User>();
-            String responseString = null;
             try {
-                responseString = readInputStream(in);
+                // url = new URL("http://192.168.1.23:1337/managers/all");
+                url = new URL("http://10.170.1.100:1337/managers/otherManager/" + param1 );
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            JSONArray jObj = null;
+
+            InputStream in = null;
             try {
-                jObj = new JSONArray(responseString);
-            } catch (JSONException e) {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            for (int i = 0; i < jObj.length(); i++) {
-                JSONObject jsonobject = null;
-                try {
-                    jsonobject = jObj.getJSONObject(i);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                User dev = gson.fromJson(String.valueOf(jsonobject), User.class);
-                list.add(dev);
-            }
-
-            return list;
 
 
-    }
-    private boolean readStream(InputStream in) throws IOException, JSONException {
-        String responseString = readInputStream(in);
-        JSONObject jObj = new JSONObject(responseString);
-        if(jObj.getInt("status")==200)
-        {
-            return true;
+            return Utils.getListManager(in);
         }
-        return false;
-    }
-    private String readInputStream(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                inputStream, "UTF-8"));
-        String tmp;
-        StringBuilder sb = new StringBuilder();
-        while ((tmp = reader.readLine()) != null) {
-            sb.append(tmp).append("\n");
-        }
-        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '\n') {
-            sb.setLength(sb.length() - 1);
-        }
-        reader.close();
-        return sb.toString();
+        return stockage;
     }
 
     protected void onPostExecute(ArrayList<User> result) {
