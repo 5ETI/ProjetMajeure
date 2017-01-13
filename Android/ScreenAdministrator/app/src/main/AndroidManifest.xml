@@ -57,7 +57,12 @@
 
         <activity android:name=".activity.ListeDeviceActivity" />
         <activity android:name=".activity.AddDeviceActivity" />
-        <activity android:name=".activity.ListManagerActivity"></activity>
+        <activity android:name=".activity.ListManagerActivity" />
+        <activity android:name=".activity.ItemDeviceActivity" />
+        <activity android:name=".activity.ItemManagerActivity" />
+        <activity android:name=".activity.AddManToDev" />
+        <activity android:name=".activity.AddManagerActivity" />
+        <activity android:name=".activity.AddDevToMan"></activity>
     </application>
 
 </manifest>

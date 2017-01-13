@@ -126,30 +126,6 @@ public class LoginTask extends AsyncTask<String, Integer, Boolean> {
         this.loginListener=loginListener;
     }
 
-    private boolean readStream(InputStream in) throws IOException, JSONException {
-        String responseString = readInputStream(in);
-        JSONObject jObj = new JSONObject(responseString);
-        if(jObj.getInt("status")==200)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    private String readInputStream(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                inputStream, "UTF-8"));
-        String tmp;
-        StringBuilder sb = new StringBuilder();
-        while ((tmp = reader.readLine()) != null) {
-            sb.append(tmp).append("\n");
-        }
-        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '\n') {
-            sb.setLength(sb.length() - 1);
-        }
-        reader.close();
-        return sb.toString();
-    }
 
     public interface LoginListener {
         void onLogin(boolean result);

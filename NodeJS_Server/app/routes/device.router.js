@@ -70,6 +70,25 @@ router.route("/device/add")
 	});
 
 });
+
+router.route("/device/addToManager/:id_manager/:id_device")
+.post(function (request, response) {
+	var data = request.body;
+	console.log("DATA : " , data);
+	var params = request.url.split("/");
+	var id_manager = params[3];
+	var id_device = params[4];
+	DeviceController.addDeToMa(id_manager,id_device, function(err, data){
+		if (err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(data)
+		}
+	});
+
+});
 router.route("/device/parVille/:ville")
 .get(function(request, response) {
 	var params = request.url.split("/");
@@ -102,3 +121,33 @@ router.route("/device/delete/:id")
 	});
 });
 
+router.route("/device/getManager/:id")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var id = params[3];
+	DeviceController.getManagerofDevice(id, function(err, device){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(device);
+		}
+
+	});
+});
+router.route("/device/formanager/:id_manager")
+.get(function(request, response) {
+	var params = request.url.split("/");
+	var id = params[3];
+	DeviceController.listformanager(id, function(err, device){
+		if(err){
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
+		}
+		else{
+			response.json(device);
+		}
+
+	});
+});

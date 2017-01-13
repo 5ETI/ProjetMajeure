@@ -1,12 +1,13 @@
 package projetmajeur.screenadministrator.entity.model;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 
 /**
  * Created by benad on 08/01/2017.
  */
 
-public class User {
+public class User implements Serializable{
 
     private int id;
     private  String email;
@@ -14,6 +15,9 @@ public class User {
     private String name;
     private int role;
     private Timestamp time;
+    private boolean isSelected;
+
+
 
     public User(int id, String email, String name, int role, Timestamp time) {
         this.id = id;
@@ -21,6 +25,12 @@ public class User {
         this.name = name;
         this.role = role;
         this.time = time;
+    }
+
+    public User(String email, String passw, String name) {
+        this.email = email;
+        this.passw = passw;
+        this.name = name;
     }
 
     public int getId() {
@@ -69,5 +79,13 @@ public class User {
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

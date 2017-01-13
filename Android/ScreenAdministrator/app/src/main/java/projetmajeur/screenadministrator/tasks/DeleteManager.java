@@ -14,26 +14,27 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.User;
 
 /**
- * Created by benad on 05/01/2017.
+ * Created by benad on 12/01/2017.
  */
 
-public class DeleteDevice extends AsyncTask<ArrayList<Device>,Integer,Boolean> {
+public class DeleteManager extends AsyncTask<ArrayList<User>,Integer,Boolean>{
 
-    DeleteDevice.DeleteDeviceListener deleteDeviceListener;
+    DeleteManager.DeleteManagerListener deleteManagerListener;
 
 
     @Override
-    protected Boolean doInBackground(ArrayList<Device>... params) {
-        ArrayList<Device> stockage = params[0];
+    protected Boolean doInBackground(ArrayList<User>... params) {
+        ArrayList<User> stockage = params[0];
         int somme =0;
         URL url = null;
 
         for (int i = 0; i<stockage.size();i++) {
 
             try {
-                url = new URL("http://10.170.1.100:1337/device/delete/" + stockage.get(i).getId());
+                url = new URL("http://10.170.1.100:1337/managers/delete/" + stockage.get(i).getId());
                 //url = new URL("http://192.168.1.23:1337/device/all");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -85,11 +86,6 @@ public class DeleteDevice extends AsyncTask<ArrayList<Device>,Integer,Boolean> {
 
         return false;
     }
-
-    public DeleteDevice() {
-        super();
-    }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -98,15 +94,18 @@ public class DeleteDevice extends AsyncTask<ArrayList<Device>,Integer,Boolean> {
 
     @Override
     protected void onPostExecute(Boolean aBoolean) {
-       deleteDeviceListener.onDeleteDevice(aBoolean);
+        deleteManagerListener.onDeleteManager(aBoolean);
         super.onPostExecute(aBoolean);
     }
 
-    public void setDeleteDeviceListener(DeleteDevice.DeleteDeviceListener deleteDeviceListener) {
-        this.deleteDeviceListener=deleteDeviceListener;
+    public void setDeleteManagerListener(DeleteManager.DeleteManagerListener deleteManagerListener) {
+        this.deleteManagerListener=deleteManagerListener;
     }
 
-    public interface DeleteDeviceListener {
-        void  onDeleteDevice(Boolean result);
+    public interface DeleteManagerListener {
+        void  onDeleteManager(Boolean result);
     }
+
+
+
 }

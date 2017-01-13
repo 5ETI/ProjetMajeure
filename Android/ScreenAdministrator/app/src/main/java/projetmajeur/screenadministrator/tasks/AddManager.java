@@ -14,70 +14,48 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.User;
 
 import static android.content.ContentValues.TAG;
 
 /**
- * Created by benad on 05/01/2017.
+ * Created by benad on 11/01/2017.
  */
 
-public class AddDevice extends AsyncTask <Device,Integer,Boolean>{
+public class AddManager extends AsyncTask<User,Integer,Boolean> {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     Gson gson = new Gson();
 
-    AddDevice.AddDeviceListener addDeviceListener;
+    AddManager.AddManagerListener addManagerListener;
     @Override
-    protected Boolean doInBackground(Device... params) {
+    protected Boolean doInBackground(User... params) {
 
-        Device device = params[0];
+        User user = params[0];
 
         JSONObject obj = new JSONObject();
 
         try {
-            obj.put("orientation", String.valueOf(device.getOrientation()));
+            obj.put("email", String.valueOf(user.getEmail()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            obj.put("longueur", String.valueOf(device.getLongueur()));
+            obj.put("password", String.valueOf(user.getPassw()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            obj.put("hauteur",  String.valueOf(device.getHauteur()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            obj.put("latitude",  String.valueOf(device.getLatitude()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            obj.put("longitude",  String.valueOf(device.getLongitude()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            obj.put("ville",  String.valueOf(device.getVille()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            obj.put("type",  String.valueOf(device.getType()));
+            obj.put("name",  String.valueOf(user.getName()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         String json = gson.toJson(obj);
 
-        Log.i("jssoon : ",obj.toString());
-
-        String url = "http://10.170.1.100:1337/device/add";
+        String url = "http://10.170.1.100:1337/manager/add";
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(JSON, obj.toString());
@@ -99,18 +77,21 @@ public class AddDevice extends AsyncTask <Device,Integer,Boolean>{
 
         return false;
     }
-
     protected void onPostExecute(Boolean result) {
-        addDeviceListener.onAddDevice(result);
+        addManagerListener.onAddManager(result);
         this.cancel(true);
 
     }
-    public void setAddDeviceListener(AddDevice.AddDeviceListener addDeviceListener) {
-        this.addDeviceListener=addDeviceListener;
+    public void setAddManagerListener(AddManager.AddManagerListener addManagerListener) {
+        this.addManagerListener=addManagerListener;
     }
 
-    public interface AddDeviceListener {
-        void  onAddDevice(Boolean result);
+
+
+    public interface AddManagerListener {
+        void  onAddManager(Boolean result);
     }
+
+
 
 }
