@@ -31,11 +31,6 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       $log.error('failure loading devices', errorPayload);
     });
 
-  $scope.setNbContent = function (nb){
-    $scope.nbContent = nb;
-  };
-
-
   $scope.selectCurrentDevice=function(deviceId){
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
@@ -45,11 +40,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           //log.info('screen ', payload);
           $scope.currentDevice.template = payload[0].template;
           $scope.id_screen = payload[0].id;
+          $scope.nbContent = 3;
 
-          //$scope.screen.empty = payload[0].empty;
-          //if(!$scope.screen.empty){
             loadContent();
-          //}
+          
         },
         function(errorPayload){
           $log.error('failure loading screen', errorPayload);
@@ -58,7 +52,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   };
 
   var loadContent = function(){
-      //if(!$scope.screen.empty){
+
         var contents=comm.loadContent($scope.id_screen);
         contents.then(
           function(payload) { 
@@ -90,7 +84,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           function(errorPayload) {
             $log.error('failure loading content', errorPayload);
           });
-      //}
+     
     };
 
 
@@ -292,6 +286,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
     }
 
     var clearContent = function(){
+      $log.info("clear, nbcontent " + $scope.nbContent );
       for(var i=0; i< $scope.nbContent ; i++){
               $scope.screen.contents[i] = {};
               $scope.screen.contents[i].type = 0;

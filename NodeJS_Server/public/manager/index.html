@@ -12,21 +12,18 @@
 </head>
 <body>
   <div>
-    <h5 class="align-center">Manager Page</h5>
-  </div>
-  <div>
     <!-- *************   CENTER PANEL  *************-->
     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
       <!-- *************   CANVAS  *************-->
       <div class="$mdDialog" layout="column" layout-align="center center" style="width:100%"></div>
 
-      <div class="canvas">
+      <div class="canvas margin-top-1em">
 
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'" ng-init="setNbContent(3)">  </div> 
-        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'" ng-init="setNbContent(2)">  </div> 
-        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'" ng-init="setNbContent(2)">  </div> 
-        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'" ng-init="setNbContent(3)"> </div>
-        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'" ng-init="setNbContent(3)">  </div>
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'" >  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'" >  </div> 
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'" >  </div> 
+        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'" > </div>
+        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-include="'template/template5.html'" >  </div>
 
         <!--<div>
           <span flow-btn="">Select image<input style="visibility: hidden; position: absolute;" type="file"></span>
@@ -38,7 +35,7 @@
       </div>
       <!-- *************  END CANVAS  *************-->
       <!-- *************  BUTTON ZONE  *************-->
-      <div class="row margin-top-1em">
+      <div class="row margin-top-1em" ng-show="currentDevice">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -98,6 +95,9 @@
   <!-- *************  END CENTER PANEL  *************-->
   <!-- *************   RIGHT PANEL  *************-->
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div>
+    <h5 class="align-center">Manager</h5>
+  </div>
     <div class="rightPanel">
       <div>
        <h6 class="align-center">DEVICES LIST</h6>

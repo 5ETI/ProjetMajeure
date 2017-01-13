@@ -23,10 +23,6 @@ app.use(deviceRoute);
 app.use(managerRoute);
 app.use(twitRoute);
 
-app.use("/", express.static(path.join(__dirname, "public/login")));
-
-
-
 app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 app.use("/manager", express.static(path.join(__dirname, "public/manager")));
