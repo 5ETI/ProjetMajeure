@@ -13,11 +13,11 @@
 <body>
   <div>
     <!-- *************   CENTER PANEL  *************-->
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+    <div class="padding-bottom-1em col-xs-9 col-sm-9 col-md-9 col-lg-9">
       <!-- *************   CANVAS  *************-->
       <div class="$mdDialog" layout="column" layout-align="center center" style="width:100%"></div>
 
-      <div class="canvas margin-top-1em">
+      <div id="canvas" class="canvas margin-top-1em">
 
         <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'" >  </div> 
         <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'" >  </div> 
@@ -35,18 +35,35 @@
       </div>
       <!-- *************  END CANVAS  *************-->
       <!-- *************  BUTTON ZONE  *************-->
-      <div class="row margin-top-1em" ng-show="currentDevice">
+        <div class="margin-top-1em">
+          <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+              <a href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              Template <span class="caret"></span></a>
+              <ul style="width: 100%;" class="dropdown-menu" role="menu">
+                <li><a href="#" ng-click="changeTemplate(1)"> 1: Image </a></li>
+                <li><a href="#" ng-click="changeTemplate(2)"> 2: Youtube </a></li>
+                <li><a href="#" ng-click="changeTemplate(3)"> 3: Image / Twitter </a></li>
+                <li><a href="#" ng-click="changeTemplate(4)"> 4: Image / Image / Twitter </a></li>
+                <li><a href="#" ng-click="changeTemplate(5)"> 5: Youtube / Twitter / Image </a></li>
+              </ul>
+            </div>
+            <a href="#" class="btn btn-warning" ng-click="clearContents()">Clear</a>
+            <a href="#" class="btn btn-success" ng-click="save()">Save</a>
+          </div>
+        </div>
+      <!-- <div class="row margin-top-1em" ng-show="currentDevice">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
           <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Change Layout <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><div ng-click="changeTemplate(1)" > layout 1 </div></li>
-              <li><a ng-click="changeTemplate(2)" > layout 2 </a></li>
-              <li><a ng-click="changeTemplate(3)" > 3: Image / Twitter </a></li>
-              <li><a ng-click="changeTemplate(4)" > 4: Image / Image / Twitter </a></li>
-              <li><a ng-click="changeTemplate(5)" > 5: Youtube / Twitter / Image </a></li>
+              <li><a ng-click="changeTemplate(1)"> 1: Image </a></li>
+              <li><a ng-click="changeTemplate(2)"> 2: Youtube </a></li>
+              <li><a ng-click="changeTemplate(3)"> 3: Image / Twitter </a></li>
+              <li><a ng-click="changeTemplate(4)"> 4: Image / Image / Twitter </a></li>
+              <li><a ng-click="changeTemplate(5)"> 5: Youtube / Twitter / Image </a></li>
             </ul>
           </div>
         </div>
@@ -59,7 +76,7 @@
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
           <md-progress-circular md-mode="indeterminate" ng-hide="progressSave" ng-disabled="progressSave" class="progressSave" md-diameter="20px"></md-progress-circular>
         </div>
-      </div>
+      </div> -->
 
       <!-- *************  END BUTTON ZONE  *************-->
       <!-- *************   DEVICE PANEL  *************-->
@@ -154,6 +171,7 @@
   <script src="js/application/managerApp.js"></script>
   <script src="js/controllers/eventControlleur.js"></script>
   <script src="js/controllers/youtubeController.js"></script>
+  <!--<script src="js/controllers/toastController.js"></script>-->
   <script src="js/services/TwitterService.js"></script>
 </body>
 </html>

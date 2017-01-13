@@ -1,10 +1,64 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', `youtubeEmbedUtils`];
+//eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
+eventCrtFnt.$inject=['$scope','$timeout','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils','$mdToast'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
+function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, $mdToast){
 
-  $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
+  $scope.canvasHeight = angular.element('#canvas').innerHeight();
+  $scope.canvasHalfHeight = $scope.canvasHeight / 2;
+  //$log.info(angular.element('#canvas').height());
+  $scope.openToast = function($event) {
+    $mdToast.show(
+      $mdToast.simple()
+        .textContent('Screen Saved!')
+        //.hideDelay(3000)
+        .position('top right')
+    );
+    //$mdToast.showSimple('Screen Saved');
+  };
+  //TOAST CONTROLLEUR FUNCTIONS
+  /*var last = {
+        bottom: true,
+        top: false,
+        left: false,
+        right: true
+      };
+
+    $scope.toastPosition = angular.extend({},last);
+
+    $scope.getToastPosition = function() {
+      sanitizePosition();
+
+      return Object.keys($scope.toastPosition)
+        .filter(function(pos) { return $scope.toastPosition[pos]; })
+        .join(' ');
+    };
+
+    function sanitizePosition() {
+      var current = $scope.toastPosition;
+
+      if ( current.bottom && last.top ) current.top = false;
+      if ( current.top && last.bottom ) current.bottom = false;
+      if ( current.right && last.left ) current.left = false;
+      if ( current.left && last.right ) current.right = false;
+
+      last = angular.extend({},current);
+    }
+
+    $scope.showSimpleToast = function() {
+      var pinTo = $scope.getToastPosition();
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent('Screen Saved!')
+          .position(pinTo )
+          .hideDelay(3000)
+      );
+    };
+
+    $scope.closeToast = function() {
+      $mdToast.hide();
+    };*/
 
   var IsYoutubeSet = false;
   var templateChanged = false;
@@ -82,6 +136,16 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
               if($scope.screen.contents[i].type == 4){ // twitter
                 loadTweets($scope.screen.contents[i].param1);
               } 
+              if($scope.screen.contents[i].type == 5){ // twitter
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+              } 
             }
           },
           function(errorPayload) {
@@ -89,8 +153,6 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           });
      
     };
-
-
 
     $scope.remove = function(id_content){
       if($scope.screen.contents[id_content].type != 0){
@@ -165,6 +227,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           //log.info('screen ', payload);
 
           $log.info('save success ');
+          $timeout($scope.openToast);
           $scope.progressSave = true;
         },
         function(errorPayload){
@@ -233,10 +296,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                   IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter the youtube video link')
+            .textContent('Please enter your youtube link')
             .placeholder('youtube video link')
-            .ok('Add video!')
-            .cancel('cancel')
+            .ok('Add Video')
+            .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
@@ -297,5 +360,4 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
               $scope.screen.contents[i].param1 = "";
             };
     };
-
 };

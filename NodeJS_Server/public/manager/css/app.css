@@ -70,7 +70,6 @@ html,body {
 	border:1px solid #9D9D9D;
 	padding:1em;
 	border-radius: 5px;
-	min-height:42em;
 }
 
 .rightPanelDevice{
@@ -101,8 +100,8 @@ html,body {
 	border:0.2em solid #6770ad;
 	padding:0.2em;
 	border-radius: 5px;
-	min-height:30em;
 	background: #e8eaf8;
+	min-height:30em;
 }
 
 .margin-top-1em{
@@ -114,6 +113,9 @@ html,body {
 	margin:0 !important;
 }
 
+.padding-bottom-1em{
+	padding-bottom: 1em;
+}
 
 .loadingAnim{
 	margin: 8em;
