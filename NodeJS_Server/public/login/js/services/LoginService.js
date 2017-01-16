@@ -10,8 +10,8 @@ function authFnc($http, $q) {
 
 	function authAsk(login,pwd){
 		var deferred = $q.defer();
-		//TODO Here change route to nodeJSroute /auth
-		$http.post('http://localhost:8080/auth/rest/auth/', {'email':login,'password':pwd})
+
+		$http.post('/auth', {'email':login,'password':pwd})
    			.then(function successCallback(response) {
     				return deferred.resolve(response.data);
   				}, function errorCallback(response) {
@@ -21,4 +21,5 @@ function authFnc($http, $q) {
 		return deferred.promise;
     }
     return fncContainer;
+
 }

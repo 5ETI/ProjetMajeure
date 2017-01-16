@@ -1,20 +1,42 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','$sessionStorage','$cookies','$http','factory','comm', 'twitter', 'youtubeEmbedUtils'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils) {
+function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog,$sessionStorage, $cookies, $http, factory, comm, twitter, youtubeEmbedUtils) {
 
     var IsYoutubeSet = false;
+
+
+
 
     $scope.deviceMap = {};
     $scope.deviceMap.payload = "";
 
     $scope.id_screen = 0;
     $scope.screen = {};
+    $sessionStorage.sync;
 
+    $log.info ($sessionStorage.user);
+    $http.defaults.headers['x-access-token'] = $sessionStorage.user.token;
+    $log.info ($http.defaults.headers.common);
+
+    $log.info("SESSION    ============  ", $sessionStorage.user);
+
+    //angular.module('managerApp').config();
+    //$http.defaults.headers.common['token'] = $sessionStorage.user.token;
     var inter = null;
     var tweetsList = [];
     $scope.LoadingAnim = true;
+
+
+    //$log.info("all cookies before removing in eventCtrl     " , $cookies.getAll());
+    //$cookies.remove('token', {path:"../"});
+    //$cookies.remove('name', {path:"../"});
+
+    //$log.info("all cookies afterremoving in eventCtrl      " , $cookies.getAll());
+
+
+
 
     var id_manager = 1; // TODO 1 is default manager id, get real manager id
 
@@ -41,6 +63,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
                 //$scope.screen.empty = payload[0].empty;
                 //if(!$scope.screen.empty){
                 loadContent();
+                $log.info("all cookies      " , $cookies.getAll());
                 //}
             },
             function (errorPayload) {
