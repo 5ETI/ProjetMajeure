@@ -7,11 +7,16 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
 
   $scope.canvasHeight = angular.element('#canvas').innerHeight();
   $scope.canvasHalfHeight = $scope.canvasHeight / 2;
+  $scope.playerVars = {
+    controls: 0,
+    disablekb: 1,
+    showinfo: 0
+  };
   //$log.info(angular.element('#canvas').height());
   $scope.openToast = function($event) {
     $mdToast.show(
       $mdToast.simple()
-        .textContent('Screen Saved!')
+        .textContent('Your screen has been saved!')
         //.hideDelay(3000)
         .position('top right')
     );
@@ -157,7 +162,7 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
     $scope.remove = function(id_content){
       if($scope.screen.contents[id_content].type != 0){
         var confirm = $mdDialog.confirm()
-        .textContent('Confirm delete this content')
+        .title('Are you sure you want to delete this content ?')
         .ok('Delete')
         .cancel('Cancel');
 
@@ -180,11 +185,11 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
 
     $scope.edit = function(id_content){
       var confirm = $mdDialog.prompt()
-      .textContent('Specify the picture url')
+      .textContent('Please enter the picture URL')
       .placeholder('url')
       .ariaLabel('url')
       .ok('Add Image')
-      .cancel('cancel');
+      .cancel('Cancel');
 
       $mdDialog.show(confirm).then(function(result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
@@ -269,11 +274,11 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
      $scope.EmbedTweet = "";
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter the name of the twitter account from which you want to load tweets')
+            .title('Please enter the name of the twitter account from which you want to load tweets')
             .placeholder('Twitter Account name')
                 //.targetEvent(ev)
-                .ok('Add Tweets!')
-                .cancel('cancel')
+                .ok('Upload')
+                .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
@@ -291,14 +296,14 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
 
               };
 
-              $scope.addNewYoutube = function (id_content) {
+        $scope.addNewYoutube = function (id_content) {
                 if (IsYoutubeSet == false) {
                   IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter your youtube link')
-            .placeholder('youtube video link')
-            .ok('Add Video')
+            .title('Please enter your youtube link')
+            .placeholder('http://')
+            .ok('Upload')
             .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
@@ -332,9 +337,10 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
         $scope.changeTemplate = function(id_template){
 
           var confirm = $mdDialog.confirm()
-          .textContent('Confirm change layout')
-          .ok('Change Layout')
-          .cancel('Cancel');
+          .title('Are you sure you want to switch to template '+id_template+' ?')
+          .cancel('Cancel')
+          .ok('Change');
+
 
           $mdDialog.show(confirm).then(function(result) {
 

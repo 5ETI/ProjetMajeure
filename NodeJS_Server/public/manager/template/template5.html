@@ -13,7 +13,7 @@
                 </div>
                 <div class="row" ng-switch-when="5" >
                     <div>
-                        <youtube-video class="col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
+                        <youtube-video player-vars="playerVars" class="youtube-temp col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
                     </div>
                 </div>
             </div>
@@ -30,11 +30,11 @@
                     <h3 class="align-center">NO IMAGE</h3>
                 </div>
                 <div ng-switch-when="1">
-                    <img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+                    <img class="align-center image-temp5" ng-src="{{screen.contents[0].param1}}"/>
                 </div>
                 <div ng-switch-when="2">
                     <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-                        <img class="image-temp1" flow-img="$flow.files[0]">
+                        <img class="image-temp5" flow-img="$flow.files[0]">
                         <input style="visibility: hidden; position: absolute;" type="file"/>
                     </div>
                 </div>

@@ -7,6 +7,13 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
   $scope.windowHeight = { height: $window.innerHeight + 'px' };
   $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
 
+  //option for youtube player
+  $scope.playerVars = {
+    controls: 0,
+    disablekb: 1,
+    showinfo: 0
+  };
+
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
 
