@@ -23,8 +23,6 @@ function loginCrtFnt($scope, $log, $cookies, $http, login, $window, $sessionStor
 				$log.info("payload.role" + payload.role);
 				if(payload == '')
 					$scope.error = true ;
-				if(payload.role == 'ADMIN')
-					$window.location.href = '../admin/index.html';
 				if(payload.role == 'MANAGER') {
 					$log.info ('payload :    ', payload);
 					$cookies.put('token', payload.token, {path:"../"});
@@ -38,8 +36,9 @@ function loginCrtFnt($scope, $log, $cookies, $http, login, $window, $sessionStor
                     $log.info ($http.defaults.headers.common);
                     $log.info("after location Href" );
                 }
-				if(payload.role == 'DEVICE')
-					$window.location.href = '../device/index.html';
+				if(payload.role == 'DEVICE'){
+					$window.location.href = '/device';
+				}
 
             },
 			function(errorPayload){

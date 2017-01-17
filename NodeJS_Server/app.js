@@ -74,6 +74,7 @@ app.use(authRoute);
 app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 app.use("/manager",checkauth, express.static(path.join(__dirname, "public/manager")));
+app.use("/device", checkauth, express.static(path.join(__dirname, "public/device")));
 //init server
 var server = http.createServer(app);
 server.listen(CONFIG.port);
