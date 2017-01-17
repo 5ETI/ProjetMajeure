@@ -1,25 +1,19 @@
 <div class="row">
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">	
-		<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
-			<div ng-switch="screen.contents[0].type">
-				<div ng-switch-when="0" class="image">
-					<br/> <br/>
-					<h3 class="align-center">NO IMAGE</h3>
-				</div>
-				<div ng-switch-when="1">
-					<img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
-				</div>
-				<div ng-switch-when="2">
-					<div class="image-temp1">
-						<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-							<img flow-img="$flow.files[0]">
-							<input style="visibility: hidden; position: absolute;" type="file"/>
-						</div>
-					</div> 
-
-				</div>
+		
+		<div ng-switch="screen.contents[0].type">
+			<div ng-switch-when="0" class="image">
+				<br/> <br/>
+				<h3 class="align-center">NO IMAGE</h3>
+			</div>
+			<div ng-switch-when="1">
+				<img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+			</div>
+			<div ng-switch-when="2">
+			<img ng-show="!picFile0" ng-src="../../manager/uploads/{{screen.contents[0].param1}}" class="image-temp1"/>
 			</div>
 		</div>
+		
 		<div id="twitterZone" class="image">
 			<div ng-switch="screen.contents[2].type">
 				<div ng-switch-when="0" >
@@ -40,26 +34,21 @@
 		</div>	
 	</div>
 	<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-		<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
-			<div ng-switch="screen.contents[1].type">
-				<div ng-switch-when="0" class="image">
-					<br/> <br/>
-					<h3 class="align-center">NO IMAGE</h3>
-				</div>
-				<div ng-switch-when="1">
-					<img ng-style="windowHeight" class="align-center image-temp1" ng-src="{{screen.contents[1].param1}}"/>
-				</div>
-				<div ng-switch-when="2">
-					<div class="image-temp1">
-						<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-							<img flow-img="$flow.files[0]">
-							<input style="visibility: hidden; position: absolute;" type="file"/>
-						</div>
-					</div> 
 
-				</div>
+		<div ng-switch="screen.contents[1].type">
+			<div ng-switch-when="0" class="image">
+				<br/> <br/>
+				<h3 class="align-center">NO IMAGE</h3>
+			</div>
+			<div ng-switch-when="1">
+				<img ng-style="windowHeight" class="align-center image-temp1" ng-src="{{screen.contents[1].param1}}"/>
+			</div>
+			<div ng-switch-when="2">
+				<img ng-style="windowHeight" ng-show="!picFile0" ng-src="../../manager/uploads/{{screen.contents[1].param1}}" class="image-temp1"/>
+
 			</div>
 		</div>
+		
 	</div>
 </div>
 
