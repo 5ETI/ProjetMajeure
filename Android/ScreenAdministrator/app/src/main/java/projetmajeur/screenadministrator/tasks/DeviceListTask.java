@@ -1,31 +1,18 @@
 package projetmajeur.screenadministrator.tasks;
 
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.CheckBox;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.squareup.okhttp.internal.Util;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
+import projetmajeur.screenadministrator.Utils.Utils;
 import projetmajeur.screenadministrator.entity.model.Device;
 
 /**
@@ -51,8 +38,11 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
 
         if(param.equals("listeformanager")){
             try {
-                url = new URL("http://10.170.1.100:1337/device/formanager/" + id_manager);
-                //url = new URL("http://192.168.1.23:1337/device/all");
+                //url = new URL("http://192.168.1.23:1337/device/formanager/" + id_manager);
+                //url = new URL("http://10.170.0.102:1337/device/formanager/" + id_manager);
+                url = new URL("http://192.168.1.30:1337/device/formanager/" + id_manager);
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -79,8 +69,10 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
 
         if(param.equals("listeall")){
             try {
-                url = new URL("http://10.170.1.100:1337/device/all");
                 //url = new URL("http://192.168.1.23:1337/device/all");
+                //url = new URL("http://10.170.0.102:1337/device/all");
+                url = new URL("http://192.168.1.30:1337/device/all");
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -107,8 +99,11 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
 
         else
         {      try {
-            url = new URL("http://10.170.1.100:1337/device/manager/" + id_manager );
-            //url = new URL("http://192.168.1.23:1337/device/all");
+            //url = new URL("http://10.170.0.102:1337/device/manager/" + id_manager );
+            //url = new URL("http://192.168.1.23:1337/device/manager/" + id_manager );
+            url = new URL("http://192.168.1.30:1337/device/manager/" + id_manager );
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

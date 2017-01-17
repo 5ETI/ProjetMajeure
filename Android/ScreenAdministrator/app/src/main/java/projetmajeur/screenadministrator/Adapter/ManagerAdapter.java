@@ -1,6 +1,5 @@
-package projetmajeur.screenadministrator.tasks;
+package projetmajeur.screenadministrator.Adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.R;
-import projetmajeur.screenadministrator.activity.ManagerActivity;
-import projetmajeur.screenadministrator.entity.model.Device;
-import projetmajeur.screenadministrator.entity.model.SelectDevice;
 import projetmajeur.screenadministrator.entity.model.SelectManager;
 import projetmajeur.screenadministrator.entity.model.User;
 

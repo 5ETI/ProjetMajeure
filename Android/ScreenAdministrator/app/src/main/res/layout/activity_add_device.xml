@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/longueur"
-        android:hint="Longueur"
+        android:hint="Length"
         android:background="@drawable/border"
         android:layout_below="@+id/orientation"
         android:textSize="20dp"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/hauteur"
-        android:hint="hauteur"
+        android:hint="Height"
         android:background="@drawable/border"
         android:layout_below="@+id/longueur"
         android:textSize="20dp"
@@ -41,7 +41,7 @@
         />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:id="@+id/latitude"
         android:hint="Latitude"
@@ -52,7 +52,7 @@
      />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:id="@+id/longitude"
         android:hint="Longitude"
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/ville"
-        android:hint="Ville"
+        android:hint="City"
         android:background="@drawable/border"
         android:layout_below="@+id/longitude"
         android:textSize="20dp"
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/type"
-        android:hint="type"
+        android:hint="Type"
         android:background="@drawable/border"
         android:layout_below="@+id/ville"
         android:textSize="20dp"
@@ -94,6 +94,23 @@
         android:textSize="20sp"
         android:background="@drawable/button_bg_round"
         android:layout_width="40pt"
+        android:layout_weight="0.04" />
+
+    <Button
+        android:id="@+id/button_geo"
+
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15pt"
+        android:layout_marginTop="10pt"
+        android:layout_marginBottom="5pt"
+        android:layout_height="30pt"
+        android:layout_below="@id/hauteur"
+        android:layout_above="@id/ville"
+        android:text="GEO"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:background="@drawable/button_bg_round"
+        android:layout_width="30pt"
         android:layout_weight="0.04" />
 
 

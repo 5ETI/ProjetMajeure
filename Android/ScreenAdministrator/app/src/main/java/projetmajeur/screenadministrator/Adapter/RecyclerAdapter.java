@@ -1,18 +1,13 @@
-package projetmajeur.screenadministrator.tasks;
+package projetmajeur.screenadministrator.Adapter;
 
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
@@ -102,11 +97,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
         holder.textViewId.setText("Id : " + String.valueOf(dataset.get(position).getId()));
         holder.textViewOrientation.setText("Orientation : " + String.valueOf(dataset.get(position).getOrientation()));
-        holder.textViewLongueur.setText("Longueur : " + String.valueOf(dataset.get(position).getLongueur()));
-        holder.textViewHauteur.setText("Hauteur :" + String.valueOf(dataset.get(position).getHauteur()));
+        holder.textViewLongueur.setText("Length : " + String.valueOf(dataset.get(position).getLongueur()));
+        holder.textViewHauteur.setText("Heigth :" + String.valueOf(dataset.get(position).getHauteur()));
         holder.textViewLatitude.setText("Latitude : " + String.valueOf(dataset.get(position).getLatitude()));
         holder.textViewLongitude.setText("Longitude : " + String.valueOf(dataset.get(position).getLongitude()));
-        holder.textViewVille.setText("Ville : " + String.valueOf(dataset.get(position).getVille()));
+        holder.textViewVille.setText("City : " + String.valueOf(dataset.get(position).getVille()));
         holder.textViewType.setText("Type : " + String.valueOf(dataset.get(position).getType()));
 
         holder.chkSelected.setChecked(dataset.get(position).isSelected());

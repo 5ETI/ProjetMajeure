@@ -65,6 +65,8 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_device);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -89,6 +91,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
 
         mMap = googleMap;
 
+
         final TextView id = (TextView) findViewById(R.id.identifiant);
         final TextView orientation = (TextView) findViewById(R.id.orientation);
         final TextView longueur = (TextView) findViewById(R.id.longueur);
@@ -102,7 +105,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
         Marker marUser = null;
 
 
-        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("Par ville")) {
+        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("City")) {
 
             typeRecherche = 1.0;
             LatLng lyon = new LatLng(45.764043, 4.835);
@@ -126,7 +129,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
             mMap.moveCamera(CameraUpdateFactory.newLatLng(city));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 12));
         }
-        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("Par geolocalisation")) {
+        if (RechercheDevice.getInstance().getTyperecherche().toString().equals("Use geolocation")) {
             typeRecherche = 2.0;
             Log.i("dans la boucle ", "a");
             Bundle bundle = this.getIntent().getExtras();
@@ -166,23 +169,13 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
 
                 Device pl = (Device) arg0.getTag();
 
-                if(arg0.equals(markerUser)){
-                    id.setVisibility(View.INVISIBLE);
-                    orientation.setVisibility(View.INVISIBLE);
-                    longueur.setVisibility(View.INVISIBLE);
-                    hauteur.setVisibility(View.INVISIBLE);
-                    longitude.setVisibility(View.INVISIBLE);
-                    latitude.setVisibility(View.INVISIBLE);
-
-
-                }
-                else {
-                    id.setText("Id du screen : " + pl.getId());
-                    orientation.setText("Orientation du screen : " + pl.getOrientation());
-                    longueur.setText("Longueur du screen" + pl.getLongueur());
-                    hauteur.setText("Hauteur du screen : " + pl.getHauteur());
-                    longitude.setText("Longitude du screen" + pl.getLongitude());
-                    latitude.setText("Latitude du screen: " + pl.getLatitude());
+                if (!arg0.equals(markerUser)) {
+                    id.setText("Id : " + pl.getId());
+                    orientation.setText("Orientation : " + pl.getOrientation());
+                    longueur.setText("Length : " + pl.getLongueur());
+                    hauteur.setText("Height : " + pl.getHauteur());
+                    longitude.setText("Longitude :" + pl.getLongitude());
+                    latitude.setText("Latitude : " + pl.getLatitude());
                 }
                 return true;
 
@@ -213,6 +206,7 @@ public class MapsDeviceActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onStart() {
         super.onStart();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

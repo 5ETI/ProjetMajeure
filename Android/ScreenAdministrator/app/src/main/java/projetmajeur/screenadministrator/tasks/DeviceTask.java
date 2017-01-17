@@ -1,31 +1,24 @@
 package projetmajeur.screenadministrator.tasks;
 
-import android.bluetooth.BluetoothClass;
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import projetmajeur.screenadministrator.entity.enumeration.EnumVille;
+import projetmajeur.screenadministrator.Utils.Utils;
 import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.RechercheDevice;
 
 import com.google.gson.Gson;
 import com.google.maps.android.SphericalUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by benad on 04/01/2017.
@@ -79,9 +72,11 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
             String ville = String.valueOf(RechercheDevice.getInstance().getVillerecherche());
             URL url = null;
             try {
-                url = new URL("http://10.170.1.100:1337/device/parVille/"+ville);
-
+                //url = new URL("http://10.170.0.102:1337/device/parVille/"+ville);
                 //url = new URL("http://192.168.1.23:1337/device/parVille/"+ville);
+                url = new URL("http://192.168.1.30:1337/device/parVille/"+ville);
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -113,9 +108,10 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
 
             URL url = null;
             try {
-                url = new URL("http://10.170.1.100:1337/device/all");
-
+                //url = new URL("http://10.170.0.102:1337/device/all");
                 //url = new URL("http://192.168.1.23:1337/device/all");
+                url = new URL("http://192.168.1.30:1337/device/all");
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

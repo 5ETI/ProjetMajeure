@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.User;
-import projetmajeur.screenadministrator.tasks.ManagerAdapter;
+import projetmajeur.screenadministrator.Adapter.ManagerAdapter;
 import projetmajeur.screenadministrator.tasks.ManagerListTask;
 
 public class ItemDeviceActivity extends AppCompatActivity  {
@@ -34,6 +35,8 @@ public class ItemDeviceActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_device);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         identifiant = (TextView) findViewById(R.id.identifiant);
         orientation = (TextView) findViewById(R.id.orientation);
@@ -100,7 +103,19 @@ public class ItemDeviceActivity extends AppCompatActivity  {
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(ItemDeviceActivity.this, ListeDeviceActivity.class);
+                startActivity(intent);
 
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 }

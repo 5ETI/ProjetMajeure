@@ -1,4 +1,4 @@
-package projetmajeur.screenadministrator.tasks;
+package projetmajeur.screenadministrator.Utils;
 
 import com.google.gson.Gson;
 

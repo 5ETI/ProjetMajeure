@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,10 +14,11 @@ import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.entity.model.SelectDevice;
 import projetmajeur.screenadministrator.entity.model.SelectManager;
 import projetmajeur.screenadministrator.entity.model.User;
 import projetmajeur.screenadministrator.tasks.Assign;
-import projetmajeur.screenadministrator.tasks.ManagerAdapter;
+import projetmajeur.screenadministrator.Adapter.ManagerAdapter;
 import projetmajeur.screenadministrator.tasks.ManagerListTask;
 
 public class AddManToDev extends AppCompatActivity {
@@ -36,6 +37,10 @@ public class AddManToDev extends AppCompatActivity {
 
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewManToDevice);
         mRecyclerView.setHasFixedSize(true);
+        SelectManager.getInstance().clean();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent i = getIntent();
         dene = (Device) i.getSerializableExtra("Device");
@@ -96,6 +101,20 @@ public class AddManToDev extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(AddManToDev.this, ItemDeviceActivity.class);
+                intent.putExtra("Device",dene);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +17,7 @@ import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.User;
 import projetmajeur.screenadministrator.tasks.DeviceListTask;
-import projetmajeur.screenadministrator.tasks.ManagerAdapter;
-import projetmajeur.screenadministrator.tasks.ManagerListTask;
-import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
+import projetmajeur.screenadministrator.Adapter.RecyclerAdapter;
 
 public class ItemManagerActivity extends AppCompatActivity {
 
@@ -37,6 +35,8 @@ public class ItemManagerActivity extends AppCompatActivity {
 
         name = (TextView) findViewById(R.id.name);
         mail = (TextView) findViewById(R.id.mail);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         button_add = (Button) findViewById(R.id.button_add);
@@ -97,5 +97,18 @@ public class ItemManagerActivity extends AppCompatActivity {
             }
 
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(ItemManagerActivity.this, ListManagerActivity.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
