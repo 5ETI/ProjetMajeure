@@ -94,8 +94,6 @@ html,body {
 }
 
 .canvas{
-	border:0.2em solid #6770ad;
-	padding:0.2em;
 	border-radius: 5px;
 	min-height:30em;
 	background: #e8eaf8;

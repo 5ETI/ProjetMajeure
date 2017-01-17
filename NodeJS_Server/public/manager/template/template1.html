@@ -1,22 +1,27 @@
-<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
-  <div class="row" >
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-      <div flow-btn="" class="sameHeight image">
-        <div ng-show="!$flow.files.length">
-            <!--<img flow-btn="" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image">-->
-            <h3 class="align-center image-temp1">CLICK TO UPLOAD IMAGE</h3>
-            <input style="visibility: hidden; position: absolute;" type="file"/>
-        </div>
-        <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-          <img flow-btn="" flow-img="$flow.files[0]">
-          <input style="visibility: hidden; position: absolute;" type="file"/>
-        </div>
+<div class="row" >
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="image ng-scope">
+      <div class="btn-group" style="position: absolute; opacity: 0.7; padding-top: 1em; padding-left: 1em;">
+        <button class="btn btn-danger" ng-click="remove(0)"><span class="glyphicon glyphicon-remove" ></span></button>
+        <button class="btn btn-info" ng-click="edit(0)"><span class="glyphicon glyphicon-edit" ></span></button>
+        <button class="btn btn-warning" ng-click="upload(0)" flow-btn="" ><span class="glyphicon glyphicon-upload" ></span></button>
       </div>
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <div class="sameHeight socialmedia">
-        <h3 class="align-center">SOCIAL MEDIA</h3>
+      <div ng-switch="screen.contents[0].type">
+        <div ng-style="{height :canvasHeight+'px'}" ng-switch-when="0">
+          <br/> <br/>
+          <h3 class="align-center">NO IMAGE</h3>
+        </div>
+        <div ng-switch-when="1">
+          <img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+        </div>
+        <div ng-switch-when="2">
+          <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+            <img class="image-temp1" flow-img="$flow.files[0]">
+            <input style="visibility: hidden; position: absolute;" type="file"/>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
