@@ -6,17 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Device</title>
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/screen.css">
   <link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/embed.min.css">
-  <link rel="stylesheet" href="css/angular-material.min.css">
+  <link rel="stylesheet" href="librairies/embed/embed.min.css">
+  <link rel="stylesheet" href="librairies/angular-material/angular-material.min.css">
 </head>
 <body>
     <!-- *************   CENTER PANEL  *************-->
       <!-- *************   CANVAS  *************-->
       <div class="canvas" ng-style="windowHeight">
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template1.html'">  </div> 
-        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template2.html'">  </div> 
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-init="setNbContent(1)" ng-include="'template/template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-init="setNbContent(1)" ng-include="'template/template2.html'">  </div> 
         <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template3.html'">  </div> 
         <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template4.html'">  </div>
         <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template5.html'">  </div>

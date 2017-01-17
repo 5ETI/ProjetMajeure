@@ -9,27 +9,26 @@
                 </div>
                 <div ng-switch-when="5" >
                     <div>
-                        <youtube-video class="col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
+                        <youtube-video player-vars="playerVars" ng-style="windowHalfHeight" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" video-id="screen.contents[2].param1"></youtube-video>
                     </div>
                 </div>
             </div>
             <div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
                 <div ng-switch="screen.contents[0].type">
-                    <div ng-switch-when="0" class="image">
+                    <div ng-switch-when="0">
                         <br/> <br/>
                         <h3 class="align-center">NO IMAGE</h3>
                     </div>
                     <div ng-switch-when="1">
-                        <img class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-style="windowHalfHeight" class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+                        <img class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-style="windowHalfHeight" class="align-center" ng-src="{{screen.contents[0].param1}}"/>
                     </div>
                     <div ng-switch-when="2">
-                        <div class="image-temp1">
+                        <div>
                             <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
                                 <img flow-img="$flow.files[0]">
                                 <input style="visibility: hidden; position: absolute;" type="file"/>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

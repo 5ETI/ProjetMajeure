@@ -7,6 +7,13 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
   $scope.windowHeight = { height: $window.innerHeight + 'px' };
   $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
 
+  //option for youtube player
+  $scope.playerVars = {
+    controls: 0,
+    disablekb: 1,
+    showinfo: 0
+  };
+
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
 
@@ -38,7 +45,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
 
 
   $scope.selectCurrentDevice=function(deviceId){
-    var deviceId = 4;
+    var deviceId = 5;
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
     var screen = comm.getScreen(id_manager, deviceId);
@@ -84,15 +91,25 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
 
             for(var i=0; i< $scope.screen.contents.length ; i++){
               if($scope.screen.contents[i].type == 4){ // twitter
-              loadTweets($scope.screen.contents[i].param1);
-          } 
-        }
+                loadTweets($scope.screen.contents[i].param1);
+              }
+              if($scope.screen.contents[i].type == 5){ // youtube
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+              }  
+            }
       },
       function(errorPayload) {
         $log.error('failure loading content', errorPayload);
       });
     }
-  }
+  };
 
   $scope.upload = function (id_content){
     $scope.screen.contents[id_content].type = 2;
@@ -146,5 +163,5 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
         });
   };
   $timeout($scope.selectCurrentDevice,1000);
-  $interval(checkContent,5000);
+  $interval(checkContent,10000);
 };

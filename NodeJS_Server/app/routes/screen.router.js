@@ -167,20 +167,22 @@ router.route("/content/save/:id_screen")
 var removeUnreferencedImages = function(imagesId){
 
 	var path = "./public/manager/uploads";
-	fs.readdirSync(path).forEach(function (file, index) {
-		var toRemove = true;
-		var curPath = path + "/" + file;
+	var toRemove = [];
 
+	fs.readdirSync(path).forEach(function (file, index) {
+		toRemove.push(file);
 		for(var i = 0; i < imagesId.length ; i++){
 			//console.log("imagesId[i] : " + imagesId[i].param1 + " // file : " + file);
 			if(imagesId[i].param1 == file){
-				toRemove == false;	
+				toRemove.pop();	
 			}	
 		};
-		if(toRemove){
-			fs.unlinkSync(curPath);
-		}
 	});
+
+	for(var i = 0; i < toRemove.length ; i++){
+		var curPath = path + "/" + toRemove[i];
+		fs.unlinkSync(curPath);
+	};
 }
 
 
