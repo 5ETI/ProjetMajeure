@@ -1,2 +1,2 @@
 
-  angular.module('managerApp', ['ngCookies','ngStorage','factoryService','commService','flow', 'twitterService', 'ngMaterial', 'ngAria', 'ngAnimate','youtube-embed', 'ngFileUpload']);
+  angular.module('managerApp', ['ngCookies','ngStorage','factoryService','commService','flow', 'twitterService', 'ngMaterial', 'ngAria', 'ngAnimate','youtube-embed', 'ngFileUpload','angular.img']);

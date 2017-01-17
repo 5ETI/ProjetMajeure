@@ -1,8 +1,8 @@
 angular.module('deviceApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$timeout','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils', '$sessionStorage'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$timeout','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils', '$sessionStorage','$http'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, $sessionStorage){
+function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, $sessionStorage, $http){
 
   $scope.windowHeight = { height: $window.innerHeight + 'px' };
   $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
@@ -29,6 +29,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
   var id_manager = 1;
 
   $sessionStorage.sync;
+  $http.defaults.headers['token'] = $sessionStorage.user.token;
   //var id_device = $sessionStorage.user.id - 2;
 
   var available_device=comm.loadDevicesList(id_manager);

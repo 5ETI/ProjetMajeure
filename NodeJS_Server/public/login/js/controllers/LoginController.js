@@ -37,8 +37,13 @@ function loginCrtFnt($scope, $log, $cookies, $http, login, $window, $sessionStor
                     $log.info("after location Href" );
                 }
 				if(payload.role == 'DEVICE'){
+					$cookies.put('token', payload.token, {path:"../"});
+					$cookies.put('name', payload.name, {path:"../"});
 					$sessionStorage.user = payload;
 					$window.location.href = '/device';
+					$http.defaults.headers.common['x-access-token'] = $sessionStorage.user.token;
+                    $log.info ($http.defaults.headers.common);
+                    $log.info("after location Href" );
 				}
 
             },

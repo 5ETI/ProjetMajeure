@@ -18,7 +18,7 @@
 				</div>
 				<div ng-switch-when="2">
 					<img ng-show="picFile0" ngf-src="picFile0" class="image-temp1">
-					<img ng-show="!picFile0" ng-src="uploads/{{screen.contents[0].param1}}" class="image-temp1"/>
+					<img ng-show="!picFile0" http-src="uploads/{{screen.contents[0].param1}}" class="image-temp1"/>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			</div>
 			<div ng-switch-when="2">
 				<img ng-show="picFile1" ngf-src="picFile1" class="image-temp1">
-				<img ng-show="!picFile1" ng-src="uploads/{{screen.contents[1].param1}}" class="image-temp1"/>
+				<img ng-show="!picFile1" http-src="uploads/{{screen.contents[1].param1}}" class="image-temp1"/>
 			</div>
 		</div>
 		
