@@ -162,7 +162,8 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
     $scope.remove = function(id_content){
       if($scope.screen.contents[id_content].type != 0){
         var confirm = $mdDialog.confirm()
-        .title('Are you sure you want to delete this content ?')
+        .title('Delete Content')
+        .textContent('Are you sure you want to delete this content ?')
         .ok('Delete')
         .cancel('Cancel');
 
@@ -183,14 +184,50 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
 
     };
 
-    $scope.edit = function(id_content){
+    function dialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+      };
+
+      $scope.change = function() {
+        $scope.screen.contents[id_content].type = 1;
+        $scope.screen.contents[id_content].param1 = $scope.inputUrl;
+      };
+    };
+
+    /*var showDialogInput = function(url) {
+    $mdDialog.show({
+      controller: dialogController,
+      templateUrl: url+'.html',
+      parent: angular.element(document.body),
+      clickOutsideToClose:false,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+    .then(function(result) {
+      $scope.screen.contents[id_content].type = 1;
+      $scope.screen.contents[id_content].param1 = result;
+      }, function() {
+
+      });
+  };*/
+
+  $scope.edit = function(id_content){
       var confirm = $mdDialog.prompt()
-      .textContent('Please enter the picture URL')
-      .placeholder('url')
+      .title('Upload Image Url')
+      .textContent('Please enter your image url')
+      .placeholder('http://')
       .ariaLabel('url')
       .ok('Add Image')
       .cancel('Cancel');
-
+      
       $mdDialog.show(confirm).then(function(result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
             $scope.screen.contents[id_content].type = 1;
@@ -198,7 +235,7 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
           }, function() {
 
           });
-    };
+  };
 
     $scope.upload = function (id_content){
       $scope.screen.contents[id_content].type = 2;
@@ -274,7 +311,8 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
      $scope.EmbedTweet = "";
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .title('Please enter the name of the twitter account from which you want to load tweets')
+            .title('Upload Tweets')
+            .textContent('Please enter the name of the twitter account from which you want to load tweets')
             .placeholder('Twitter Account name')
                 //.targetEvent(ev)
                 .ok('Upload')
@@ -301,7 +339,8 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
                   IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .title('Please enter your youtube link')
+            .title('Upload Youtube Video')
+            .textContent('Please enter your youtube link')
             .placeholder('http://')
             .ok('Upload')
             .cancel('Cancel')
@@ -337,7 +376,8 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
         $scope.changeTemplate = function(id_template){
 
           var confirm = $mdDialog.confirm()
-          .title('Are you sure you want to switch to template '+id_template+' ?')
+          .title('Change Template')
+          .textContent('Are you sure you want to switch to template '+id_template+' ?')
           .cancel('Cancel')
           .ok('Change');
 
@@ -354,8 +394,19 @@ function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog,
         }
 
     $scope.clearContents = function(){
-      clearContent();
-    }
+      var confirm = $mdDialog.confirm()
+          .title('Clear Screen')
+          .textContent('Are you sure you want to clear your screen ?')
+          .cancel('Cancel')
+          .ok('Clear');
+
+
+          $mdDialog.show(confirm).then(function(result) {
+            clearContent();
+          }, function() {
+
+          });
+    };
 
     var clearContent = function(){
       $log.info("clear, nbcontent " + $scope.nbContent );
