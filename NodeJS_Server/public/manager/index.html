@@ -19,8 +19,8 @@
 
       <div id="canvas" class="canvas margin-top-1em">
           <div class="btn-group" ng-hide = "true" style="opacity: 0.7; padding-top: 1em; padding-left: 1em;">
-              <!--<button class="btn btn-danger" ng-click="remove(0)"><span class="glyphicon glyphicon-remove" ></span></button>
-          --></div>
+              <button class="btn btn-danger" ng-click="remove(0)"><span class="glyphicon glyphicon-remove" ></span></button>
+          </div>
 
         <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'" >  </div>
         <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'" >  </div>
@@ -145,9 +145,12 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="librairies/ngStorage/ngStorage.js"></script>
   <script src="librairies/ngCookies/angular-cookies.min.js"></script>
+  <script src="librairies/ng-file-upload/ng-file-upload.min.js"></script>
+
 
 
   <script src="js/services/factoryService.js"></script>
+
 <script src="js/services/commService.js"></script>   
 <script src="js/application/managerApp.js"></script>
 <script src="js/controllers/eventControlleur.js"></script>

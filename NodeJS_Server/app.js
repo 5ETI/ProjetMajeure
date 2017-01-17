@@ -6,6 +6,7 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 
+
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
 var path = require("path");
@@ -44,7 +45,7 @@ var checkauth = function(req, res, next) {
         // Or we check from header
         //console.log("NAME FROM TOKEN", jwt.verify(req.headers['token'], 'adPanelKey')['name']);
         try  {
-            utils.checkUser(jwt.verify(req.headers['token'], 'adPanelKey')['name'], req.headers['token'])
+            utils.checkUser(jwt.verify(req.headers['token'], 'adPanelKey')['name'], req.headers['token']);
             console.log("ok thxs to header");
             next();
         } catch(e) {
