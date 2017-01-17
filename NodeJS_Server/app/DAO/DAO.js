@@ -8,6 +8,7 @@ var connect = function(conn){
 		user     : 'root',
 		password : '1234',
 		database : 'projetmajeure'
+
 	});
 
 	connection.connect();

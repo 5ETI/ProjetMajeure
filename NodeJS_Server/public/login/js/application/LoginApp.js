@@ -1,2 +1,2 @@
 //Creation of an application not needed to bind it to a global variable
-angular.module('loginApp', ['loginService']);
+angular.module('loginApp', ['loginService', 'ngStorage', 'ngCookies']);

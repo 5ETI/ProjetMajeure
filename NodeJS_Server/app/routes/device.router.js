@@ -2,6 +2,8 @@
 
 
 var DeviceModel=require("./../models/device.model.js");
+var cookieParser = require('cookie-parser');
+
 var  express  =  require("express");
 var  router  =  express.Router();
 module.exports  =  router;
@@ -31,7 +33,9 @@ router.route("/device/manager/:id_manager")
 			return response.status(500).end;
 		}
 		else{
-			response.json(deviceList);
+			response.clearCookie("token");
+            response.clearCookie("name");
+            response.json(deviceList);
 		}
 
 	});
@@ -92,8 +96,8 @@ router.route("/device/delete/:id")
 	var id = params[3];
 	DeviceController.delDevice(id, function(err, device){
 		if(err){
-			console.error(response.status(500).end);
-			return response.status(500).end;
+			console.error(response.statut(500).end);
+			return response.statut(500).end;
 		}
 		else{
 			response.json(device);

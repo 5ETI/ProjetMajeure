@@ -1,51 +1,9 @@
 angular.module('commService', []).factory('comm',commFnc);
-commFnc.$inject=['$http','$q', 'factory'];
+commFnc.$inject=['$http','$q', 'factory', '$log', '$sessionStorage'];
 
-function commFnc($http, $q, factory){
+function commFnc($http, $q, factory,$log, $sessionStorage){
 
-        var devices = [
-        {
-            "id": 0,
-            "type": "desktop",
-            "orientation": "paysage",
-            "longueur": 1256,
-            "hauteur": 3256,
-            "latitude": 3.14957,
-            "longitude": 4.12457,
-            "template": 1
-        },
-        {
-            "id": 1,
-            "type": "television",
-            "orientation": "paysage",
-            "longueur": 2023,
-            "hauteur": 1451,
-            "latitude": 43.5353,
-            "longitude": 41.12457,
-            "template": 2
-        },
-        {
-            "id": 2,
-            "type": "smartphone",
-            "orientation": "portrait",
-            "longueur": 345,
-            "hauteur": 555,
-            "latitude": 9.1458,
-            "longitude": 3.14957,
-            "template": 3
-        },
-        {
-            "id": 3,
-            "type": "tablet",
-            "orientation": "portrait",
-            "longueur": 1522,
-            "hauteur": 887,
-            "latitude": 192.1458,
-            "longitude": 178.14957,
-            "template": 4
-        }
-        ];
-
+    //delete $http.defaults.headers.common['X-Requested-With'];
         var comm = {
             loadDevicesList: loadDevicesList, 
             loadDevice: loadDevice,
@@ -57,10 +15,30 @@ function commFnc($http, $q, factory){
             setTemplate: setTemplate
         };
 
+
+  /*  $http({
+        method: 'GET',
+        url: '/device/manager/'+ id_manager,
+        headers: {'Authorization': $sessionStorage.token}
+    }).success(function(data){
+        // With the data succesfully returned, call our callback
+        callbackFunc(data);
+    }).error(function(){
+        alert("error");
+    });*/
        // FOR HTTP REQUEST
     function loadDevicesList(id_manager){
         var deferred = $q.defer();
-        $http.get('/device/manager/'+ id_manager)
+        //$log.info ($sessionStorage.user.token);
+        //delete $http.defaults.headers.common['X-Requested-With'];
+        //$http.defaults.headers.common['name'] = $sessionStorage.user.name;
+        $http.defaults.headers.common['token'] = $sessionStorage.user.token;
+
+        $log.info ($http.defaults.headers.common);
+        $http({
+            method: 'GET',
+            url: '/device/manager/'+ id_manager
+        })
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
@@ -71,7 +49,12 @@ function commFnc($http, $q, factory){
 
     function getScreen(id_manager,id_device){
         var deferred = $q.defer();
-        $http.get('/screen/'+ id_manager + '/'+id_device)
+        $http({
+            method: 'GET',
+            url: '/screen/'+ id_manager + '/'+id_device
+            //headers: {'Authorization': $sessionStorage.token}
+        })
+        //$http.get('/screen/'+ id_manager + '/'+id_device, config)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
@@ -81,8 +64,15 @@ function commFnc($http, $q, factory){
     };
 
    function loadContent(id_screen){
-        var deferred = $q.defer();
-        $http.get('/content/'+ id_screen)
+       $http.defaults.headers.common['token'] = $sessionStorage.user.token;
+
+       var deferred = $q.defer();
+       $http({
+           method: 'GET',
+           url: '/content/'+ id_screen
+           //headers: {'Authorization': $sessionStorage.token}
+       })
+        //$http.get('/content/'+ id_screen, config)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
