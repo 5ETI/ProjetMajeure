@@ -17,7 +17,8 @@
     "jsonwebtoken": "^7.2.1",
     "ng-file-upload": "^12.2.13",
     "ngtweet": "^0.6.1",
-    "oauth": "^0.9.14"
+    "oauth": "^0.9.14",
+    "request": "^2.79.0"
   },
   "devDependencies": {},
   "scripts": {

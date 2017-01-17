@@ -133,7 +133,7 @@ var templateChanged = false;
   $scope.LoadingAnim = true;
   $scope.progressSave = true;
 
-  var id_manager = 1; // TODO 1 is default manager id, get real manager id
+  var id_manager = $sessionStorage.user.id; // TODO 1 is default manager id, get real manager id
 
   var available_device=comm.loadDevicesList(id_manager);
   available_device.then(
@@ -239,13 +239,13 @@ var templateChanged = false;
           function(errorPayload) {
             $log.error('failure loading content', errorPayload);
           });
-
-}
+    };
 
     $scope.remove = function(id_content){
         if($scope.screen.contents[id_content].type != 0){
             var confirm = $mdDialog.confirm()
-                .title('Are you sure you want to delete this content ?')
+                .title('Delete Content')
+                .textContent('Are you sure you want to delete this content ?')
                 .ok('Delete')
                 .cancel('Cancel');
 
@@ -265,25 +265,22 @@ var templateChanged = false;
             });
         }
 
-    }
-
-
+    };
 
     $scope.edit = function(id_content){
-        var confirm = $mdDialog.prompt()
-            .textContent('Please enter the picture URL')
-            .placeholder('url')
-            .ariaLabel('url')
-            .ok('Add Image')
-            .cancel('Cancel');
-
-        $mdDialog.show(confirm).then(function(result) {
-            //$scope.status = 'You decided to name your dog ' + result + '.';
+      var confirm = $mdDialog.prompt()
+      .title('Upload Image Url')
+      .textContent('Please enter your image url')
+      .placeholder('http://')
+      .ariaLabel('url')
+      .ok('Add Image')
+      .cancel('Cancel');
+      
+      $mdDialog.show(confirm).then(function(result) {
             $scope.screen.contents[id_content].type = 1;
             $scope.screen.contents[id_content].param1 = result;
         }, function() {
-
-        });
+            });
     };
 
     $scope.upload = function (id_content){
@@ -369,7 +366,8 @@ var templateChanged = false;
    $scope.EmbedTweet = "";
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .title('Please enter the name of the twitter account from which you want to load tweets')
+            .title('Upload Tweets')
+            .textContent('Please enter the name of the twitter account from which you want to load tweets')
             .placeholder('Twitter Account name')
             //.targetEvent(ev)
             .ok('Upload')
@@ -396,10 +394,11 @@ $scope.addNewYoutube = function (id_content) {
             IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-                .title('Please enter your youtube link')
-                .placeholder('http://')
-                .ok('Upload')
-                .cancel('Cancel')
+              .title('Upload Youtube Video')
+              .textContent('Please enter your youtube link')
+              .placeholder('http://')
+              .ok('Upload')
+              .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
@@ -430,12 +429,11 @@ $scope.addNewYoutube = function (id_content) {
     };
 
     $scope.changeTemplate = function(id_template){
-
-        var confirm = $mdDialog.confirm()
-            .title('Are you sure you want to switch to template '+id_template+' ?')
+          var confirm = $mdDialog.confirm()
+            .title('Change Template')
+            .textContent('Are you sure you want to switch to template '+id_template+' ?')
             .cancel('Cancel')
             .ok('Change');
-
 
         $mdDialog.show(confirm).then(function(result) {
 
@@ -448,12 +446,8 @@ $scope.addNewYoutube = function (id_content) {
 
         });
     }
-
-
-        $scope.clearContents = function(){
-          clearContent();
-        }
-        var clearContent = function(){
+    
+    var clearContent = function(){
           $log.info("clear, nbcontent " + $scope.nbContent );
           for(var i=0; i< $scope.nbContent ; i++){
             $scope.screen.contents[i] = {};
@@ -463,6 +457,20 @@ $scope.addNewYoutube = function (id_content) {
           }
         };
 
+    $scope.clearContents = function(){
+      var confirm = $mdDialog.confirm()
+          .title('Clear Screen')
+          .textContent('Are you sure you want to clear your screen ?')
+          .cancel('Cancel')
+          .ok('Clear');
+
+
+          $mdDialog.show(confirm).then(function(result) {
+            clearContent();
+          }, function() {
+
+          });
+    };
 
         $scope.uploadImage = function(id_content, file, errFiles) {
 
@@ -500,6 +508,4 @@ $scope.addNewYoutube = function (id_content) {
         }
       }
     };
-
-
 }

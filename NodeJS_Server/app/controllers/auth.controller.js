@@ -29,7 +29,8 @@ var authentificate = function(userJson, response){
                 "email": resp.email,
                 "name": resp.name,
                 "role":resp.role,
-                "token":token
+                "token":token,
+                "id": resp.id
             };
 
             //var decoded = jwt.verify(token, 'secrettttttttttt');

@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+           
                 <div ng-switch="screen.contents[0].type">
                     <div ng-switch-when="0">
                         <br/> <br/>
@@ -23,15 +23,10 @@
                         <img class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-style="windowHalfHeight" class="align-center" ng-src="{{screen.contents[0].param1}}"/>
                     </div>
                     <div ng-switch-when="2">
-                        <div>
-                            <div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-                                <img flow-img="$flow.files[0]">
-                                <input style="visibility: hidden; position: absolute;" type="file"/>
-                            </div>
-                        </div>
+                        <img ng-show="!picFile0" ng-src="../../manager/uploads/{{screen.contents[0].param1}}" class="image-temp1"/>
                     </div>
                 </div>
-            </div>
+            
         </div>
     </div>
     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
@@ -46,7 +41,7 @@
                         <div render-iframely ng-bind-html="EmbedTweet"></div>
                         <div >
                             <div class="align-center">
-                                <md-progress-circular md-mode="indeterminate" ng-hide="LoadingAnim" ng-disabled="LoadingAnim" class="loadingAnim" md-diameter="50px"></md-progress-circular>
+                                <md-progress-circular md-mode="indeterminate" ng-hide="LoadingAnim" ng-disabled="LoadingAnim" class="loadingAnim" md-diameter="200px"></md-progress-circular>
                             </div>
                         </div>
                     </div>

@@ -20,6 +20,7 @@ function loginCrtFnt($scope, $log, $cookies, $http, login, $window, $sessionStor
 		var futurContent=login.authAsk($scope.user.login,$scope.user.pwd);
 		futurContent.then(
 			function(payload){
+				$log.info("payload.role" + payload.role);
 				if(payload == '')
 					$scope.error = true ;
 				if(payload.role == 'ADMIN')

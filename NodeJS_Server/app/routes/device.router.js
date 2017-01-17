@@ -29,7 +29,7 @@ router.route("/device/manager/:id_manager")
 	var id_manager = params[3];
 	DeviceController.getManagerDevices(id_manager, function(err, deviceList){
 		if(err){
-			console.error(response.statut(500).end);
+			console.error(response.status(500).end);
 			return response.status(500).end;
 		}
 		else{

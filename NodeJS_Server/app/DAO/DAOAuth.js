@@ -3,10 +3,11 @@
  */
 'use strict';
 
+var request = require('request');
 //var DAO_Connection = require ("./DAO_Connection.js");
 
 var users = [{
-    "id": 2,
+    "id": 1,
     "email": "manager@manager.com",
     "password": "manager",
     "name": "Manager",
@@ -35,16 +36,28 @@ var authentificate = function(JsonUser, resp){
     var JSONresp ={};
     var email = JsonUser.email;
     var password = JsonUser.password;
+
+    request.post(
+        'http://localhost:8080/auth/rest/auth/',
+        { json:  {email: JsonUser.email, password: JsonUser.password} },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body);
+                return resp(null,body);
+            }
+        }
+    );
+
     //TODO here post request to JEE Server to check auth (param json avec login et mdp) (instead of for loop below)
-    for (var i = 0 ; i<users.length-1; i++){
+    /*for (var i = 0 ; i<users.length-1; i++){
         if (email == users[i].email && password == users[i].password) {
             console.log("email et mdp ok");
             var JSONresp = users[i];
             return resp(null, JSONresp);
         }
 
-    }
-    return resp("not in DB");
+    }*/
+    //return resp("not in DB");
 
 
 };
