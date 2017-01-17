@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import projetmajeur.screenadministrator.Utils.Utils;
 import projetmajeur.screenadministrator.entity.model.Device;
 
 /**
@@ -33,8 +34,13 @@ public class DeleteDevice extends AsyncTask<ArrayList<Device>,Integer,Boolean> {
         for (int i = 0; i<stockage.size();i++) {
 
             try {
-                url = new URL("http://10.170.1.100:1337/device/delete/" + stockage.get(i).getId());
-                //url = new URL("http://192.168.1.23:1337/device/all");
+                //url = new URL("http://10.170.0.102:1337/device/delete/" + stockage.get(i).getId());
+                //url = new URL("http://192.168.1.23:1337/device/delete/" + stockage.get(i).getId());
+                //url = new URL("http://192.168.1.30:1337/device/delete/" + stockage.get(i).getId());
+                url = new URL("http://192.168.1.25:1337/device/delete/" + stockage.get(i).getId());
+
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

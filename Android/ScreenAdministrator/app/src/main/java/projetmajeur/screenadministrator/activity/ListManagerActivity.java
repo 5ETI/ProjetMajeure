@@ -3,10 +3,10 @@ package projetmajeur.screenadministrator.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,19 +14,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import projetmajeur.screenadministrator.R;
-import projetmajeur.screenadministrator.entity.model.Device;
-import projetmajeur.screenadministrator.entity.model.SelectDevice;
 import projetmajeur.screenadministrator.entity.model.SelectManager;
 import projetmajeur.screenadministrator.entity.model.User;
-import projetmajeur.screenadministrator.tasks.DeleteDevice;
 import projetmajeur.screenadministrator.tasks.DeleteManager;
-import projetmajeur.screenadministrator.tasks.DeviceListTask;
-import projetmajeur.screenadministrator.tasks.ManagerAdapter;
+import projetmajeur.screenadministrator.Adapter.ManagerAdapter;
 import projetmajeur.screenadministrator.tasks.ManagerListTask;
-import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
-
-import static projetmajeur.screenadministrator.R.id.button_add;
-import static projetmajeur.screenadministrator.R.id.button_delete;
 
 public class ListManagerActivity extends AppCompatActivity  {
 
@@ -44,6 +36,9 @@ public class ListManagerActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_list_manager);
         button_add = (Button) findViewById(R.id.button_add);
         button_delete = (Button) findViewById(R.id.button_delete);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewManager);
         mRecyclerView.setHasFixedSize(true);
@@ -130,5 +125,18 @@ public class ListManagerActivity extends AppCompatActivity  {
 
     public void onCheckboxClicked(View view) {
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(ListManagerActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

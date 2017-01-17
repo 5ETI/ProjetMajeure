@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,14 +18,17 @@ import projetmajeur.screenadministrator.entity.model.SelectDevice;
 import projetmajeur.screenadministrator.entity.model.User;
 import projetmajeur.screenadministrator.tasks.Assign;
 import projetmajeur.screenadministrator.tasks.DeviceListTask;
-import projetmajeur.screenadministrator.tasks.ManagerAdapter;
-import projetmajeur.screenadministrator.tasks.ManagerListTask;
-import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
+import projetmajeur.screenadministrator.Adapter.RecyclerAdapter;
 
 public class AddDevToMan extends AppCompatActivity {
 
     private Button button_add;
     private LinearLayoutManager mLinearLayoutManager;
+
+
+    User user;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class AddDevToMan extends AppCompatActivity {
         button_add = (Button) findViewById(R.id.button_add);
 
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDeviceToMan);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         SelectDevice.getInstance().clean();
@@ -60,7 +66,7 @@ public class AddDevToMan extends AppCompatActivity {
             }
         };
         Intent i = getIntent();
-        final User user = (User) i.getSerializableExtra("Manager");
+        user = (User) i.getSerializableExtra("Manager");
         deviceListTask.setDeviceListListener(deviceListListener);
         deviceListTask.execute("listeformanager",String.valueOf(user.getId()));
 
@@ -102,6 +108,21 @@ public class AddDevToMan extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(AddDevToMan.this, ItemManagerActivity.class);
+                intent.putExtra("Manager",user);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

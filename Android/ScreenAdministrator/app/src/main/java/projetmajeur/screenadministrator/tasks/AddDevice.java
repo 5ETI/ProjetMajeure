@@ -77,7 +77,12 @@ public class AddDevice extends AsyncTask <Device,Integer,Boolean>{
 
         Log.i("jssoon : ",obj.toString());
 
-        String url = "http://10.170.1.100:1337/device/add";
+       //String url = "http://10.170.0.102:1337/device/add";
+        //String url = "http://192.168.1.23:1337/device/add";
+        //String url = "http://192.168.1.30:1337/device/add";
+        String url = "http://192.168.1.25:1337/device/add";
+
+
         OkHttpClient client = new OkHttpClient();
 
         RequestBody body = RequestBody.create(JSON, obj.toString());

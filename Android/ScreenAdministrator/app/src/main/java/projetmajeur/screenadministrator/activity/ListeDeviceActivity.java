@@ -6,24 +6,19 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import projetmajeur.screenadministrator.R;
 import projetmajeur.screenadministrator.entity.model.Device;
 import projetmajeur.screenadministrator.entity.model.SelectDevice;
 import projetmajeur.screenadministrator.tasks.DeleteDevice;
 import projetmajeur.screenadministrator.tasks.DeviceListTask;
-import projetmajeur.screenadministrator.tasks.RecyclerAdapter;
+import projetmajeur.screenadministrator.Adapter.RecyclerAdapter;
 
 public class ListeDeviceActivity extends AppCompatActivity {
 
@@ -44,6 +39,9 @@ public class ListeDeviceActivity extends AppCompatActivity {
 
         button_add = (Button) findViewById(R.id.button_add);
         button_delete = (Button) findViewById(R.id.button_delete);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -120,6 +118,19 @@ public class ListeDeviceActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(ListeDeviceActivity.this, DeviceActivity.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onCheckboxClicked(View view) {

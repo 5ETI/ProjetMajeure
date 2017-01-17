@@ -416,7 +416,6 @@ module.exports.saveContents = saveContents;
 
 
 
-
 var addDeviceToMana = function (id_manager,id_device, callback)
 {
 	connect(function(conn){

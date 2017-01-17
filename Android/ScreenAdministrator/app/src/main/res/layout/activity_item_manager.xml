@@ -40,7 +40,7 @@
         android:layout_margin="10dp"
         android:layout_below="@id/mail"
         android:textSize="20sp"
-        android:text="Liste des Devices"
+        android:text="List of Devices"
         />
 
     <android.support.v7.widget.RecyclerView
