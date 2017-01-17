@@ -3,7 +3,7 @@ console.log("it works GREAT GUYS !!!");
 
 var http = require("http");
 var express = require("express");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);

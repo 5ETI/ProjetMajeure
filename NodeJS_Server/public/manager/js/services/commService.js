@@ -124,6 +124,7 @@ function commFnc($http, $q, factory){
         return deferred.promise;
     }
 
+
     function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
         var device1 = {};
         device1.id = deviceId;

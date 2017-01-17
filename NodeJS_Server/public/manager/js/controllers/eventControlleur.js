@@ -1,8 +1,8 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', `youtubeEmbedUtils`];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', `youtubeEmbedUtils`, 'Upload', '$timeout'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
+function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, Upload, $timeout){
 
 
   var IsYoutubeSet = false;
@@ -10,6 +10,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
   var contentsChanged = false;
   $scope.deviceMap={};
   $scope.deviceMap.payload="";
+  var imagesToUpload = [] ;
 
   $scope.id_screen = 0;
   $scope.screen = {};
@@ -91,6 +92,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         $log.info("payload lentgh " + payload.length);
         $log.info("nbcontent " + $scope.nbContent );
 
+        $log.info("payload " + JSON.stringify( payload) );
+
         for(var i=0; i< $scope.nbContent ; i++){
           $scope.screen.contents[i] = {};
           $scope.screen.contents[i].type = 0;
@@ -162,9 +165,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           });
   };
 
-  $scope.upload = function (id_content){
+  /*$scope.upload = function (id_content, flow){
     $scope.screen.contents[id_content].type = 2;
-  };
+    $log.info("flow: " + flow);
+  };*/
 
   $scope.save = function(){
 
@@ -187,6 +191,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
       function(payload){
           //log.info('screen ', payload);
           $log.info('delete success ');
+
+          uploadImages();
 
           var save = comm.saveScreen($scope.id_screen, $scope.screen.contents);
           save.then(
@@ -329,5 +335,44 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
             $scope.screen.contents[i].param1 = "";
           };
         };
+
+
+        $scope.uploadImage = function(id_content, file, errFiles) {
+
+          $scope.screen.contents[id_content].type = 2;
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+
+        imagesToUpload[id_content] = {};
+        if (file) {
+          imagesToUpload[id_content] = file;
+        }
+        
+    }
+
+    var uploadImages = function(){
+      for(var i=0; i< $scope.nbContent ; i++){
+        if($scope.screen.contents[i].type == 2){
+          if(imagesToUpload[i] != null){
+
+            var file = imagesToUpload[i];
+            file.upload = Upload.upload({
+                url: '/upload',
+                data: {image: file, id_content: i, id_screen: $scope.id_screen}
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            });
+          }
+        }
+      }
+    }
+
 
       };
