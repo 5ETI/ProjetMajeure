@@ -26,8 +26,8 @@ var checkauth = function(req, res, next) {
     try {
         console.log("req cookie===========      ", req.headers.cookie);// -> va direct au catch (error si non définit))
         var cook = req.headers.cookie.split(";");
-        var token = cook[2].split("=")[1];
-        var name =  cook[3].split("=")[1];
+        var token = cook[0].split("=")[1];
+        var name =  cook[1].split("=")[1];
         console.log("token", token);
         console.log("name", name);
         //console.log(token);
