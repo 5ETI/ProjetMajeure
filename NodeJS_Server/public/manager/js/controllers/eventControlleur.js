@@ -1,10 +1,69 @@
 angular.module('managerApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', `youtubeEmbedUtils`];
+//eventCrtFnt.$inject=['$scope','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
+eventCrtFnt.$inject=['$scope','$timeout','$log','$window','$sce','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils','$mdToast'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
+function eventCrtFnt($scope, $timeout,$log, $window, $sce, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, $mdToast){
 
-  $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
+  $scope.canvasHeight = angular.element('#canvas').innerHeight();
+  $scope.canvasHalfHeight = $scope.canvasHeight / 2;
+  $scope.playerVars = {
+    controls: 0,
+    disablekb: 1,
+    showinfo: 0
+  };
+  //$log.info(angular.element('#canvas').height());
+  $scope.openToast = function($event) {
+    $mdToast.show(
+      $mdToast.simple()
+        .textContent('Your screen has been saved!')
+        //.hideDelay(3000)
+        .position('top right')
+    );
+    //$mdToast.showSimple('Screen Saved');
+  };
+  //TOAST CONTROLLEUR FUNCTIONS
+  /*var last = {
+        bottom: true,
+        top: false,
+        left: false,
+        right: true
+      };
+
+    $scope.toastPosition = angular.extend({},last);
+
+    $scope.getToastPosition = function() {
+      sanitizePosition();
+
+      return Object.keys($scope.toastPosition)
+        .filter(function(pos) { return $scope.toastPosition[pos]; })
+        .join(' ');
+    };
+
+    function sanitizePosition() {
+      var current = $scope.toastPosition;
+
+      if ( current.bottom && last.top ) current.top = false;
+      if ( current.top && last.bottom ) current.bottom = false;
+      if ( current.right && last.left ) current.left = false;
+      if ( current.left && last.right ) current.right = false;
+
+      last = angular.extend({},current);
+    }
+
+    $scope.showSimpleToast = function() {
+      var pinTo = $scope.getToastPosition();
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent('Screen Saved!')
+          .position(pinTo )
+          .hideDelay(3000)
+      );
+    };
+
+    $scope.closeToast = function() {
+      $mdToast.hide();
+    };*/
 
   var IsYoutubeSet = false;
   var templateChanged = false;
@@ -82,6 +141,16 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
               if($scope.screen.contents[i].type == 4){ // twitter
                 loadTweets($scope.screen.contents[i].param1);
               } 
+              if($scope.screen.contents[i].type == 5){ // twitter
+                $scope.$on('youtube.player.ready', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+                $scope.$on('youtube.player.ended', function ($event, player) {
+                    // play it again
+                    player.playVideo();
+                  });
+              } 
             }
           },
           function(errorPayload) {
@@ -90,12 +159,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
      
     };
 
-
-
     $scope.remove = function(id_content){
       if($scope.screen.contents[id_content].type != 0){
         var confirm = $mdDialog.confirm()
-        .textContent('Confirm delete this content')
+        .title('Are you sure you want to delete this content ?')
         .ok('Delete')
         .cancel('Cancel');
 
@@ -118,11 +185,11 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
     $scope.edit = function(id_content){
       var confirm = $mdDialog.prompt()
-      .textContent('Specify the picture url')
+      .textContent('Please enter the picture URL')
       .placeholder('url')
       .ariaLabel('url')
       .ok('Add Image')
-      .cancel('cancel');
+      .cancel('Cancel');
 
       $mdDialog.show(confirm).then(function(result) {
             //$scope.status = 'You decided to name your dog ' + result + '.';
@@ -165,6 +232,7 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
           //log.info('screen ', payload);
 
           $log.info('save success ');
+          $timeout($scope.openToast);
           $scope.progressSave = true;
         },
         function(errorPayload){
@@ -206,11 +274,11 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
      $scope.EmbedTweet = "";
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter the name of the twitter account from which you want to load tweets')
+            .title('Please enter the name of the twitter account from which you want to load tweets')
             .placeholder('Twitter Account name')
                 //.targetEvent(ev)
-                .ok('Add Tweets!')
-                .cancel('cancel')
+                .ok('Upload')
+                .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
@@ -228,15 +296,15 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
 
               };
 
-              $scope.addNewYoutube = function (id_content) {
+        $scope.addNewYoutube = function (id_content) {
                 if (IsYoutubeSet == false) {
                   IsYoutubeSet = true;
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
-            .textContent('Please enter the youtube video link')
-            .placeholder('youtube video link')
-            .ok('Add video!')
-            .cancel('cancel')
+            .title('Please enter your youtube link')
+            .placeholder('http://')
+            .ok('Upload')
+            .cancel('Cancel')
                 // You can specify either sting with query selector
                 .openFrom('left')
                 // or an element
@@ -269,9 +337,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
         $scope.changeTemplate = function(id_template){
 
           var confirm = $mdDialog.confirm()
-          .textContent('Confirm change layout')
-          .ok('Change Layout')
-          .cancel('Cancel');
+          .title('Are you sure you want to switch to template '+id_template+' ?')
+          .cancel('Cancel')
+          .ok('Change');
+
 
           $mdDialog.show(confirm).then(function(result) {
 
@@ -297,5 +366,4 @@ function eventCrtFnt($scope, $log, $window, $sce, $interval, $mdDialog, factory,
               $scope.screen.contents[i].param1 = "";
             };
     };
-
 };
