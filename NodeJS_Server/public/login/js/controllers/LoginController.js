@@ -37,6 +37,7 @@ function loginCrtFnt($scope, $log, $cookies, $http, login, $window, $sessionStor
                     $log.info("after location Href" );
                 }
 				if(payload.role == 'DEVICE'){
+					$sessionStorage.user = payload;
 					$window.location.href = '/device';
 				}
 

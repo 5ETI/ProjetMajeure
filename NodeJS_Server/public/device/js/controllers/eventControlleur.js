@@ -1,8 +1,8 @@
 angular.module('deviceApp').controller('eventCtrl',eventCrtFnt);
 
-eventCrtFnt.$inject=['$scope','$log','$window','$sce','$timeout','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils'];
+eventCrtFnt.$inject=['$scope','$log','$window','$sce','$timeout','$interval', '$mdDialog','factory','comm', 'twitter', 'youtubeEmbedUtils', '$sessionStorage'];
 
-function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils){
+function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog, factory, comm, twitter, youtubeEmbedUtils, $sessionStorage){
 
   $scope.windowHeight = { height: $window.innerHeight + 'px' };
   $scope.windowHalfHeight = { height: $window.innerHeight/2 + 'px' };
@@ -26,7 +26,10 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
   var tweetsList = [];
   $scope.LoadingAnim = true;
 
-  var id_manager = 1; // TODO 1 is default manager id, get real manager id
+  var id_manager = 1;
+
+  $sessionStorage.sync;
+  //var id_device = $sessionStorage.user.id - 2;
 
   var available_device=comm.loadDevicesList(id_manager);
   available_device.then(
@@ -44,8 +47,8 @@ function eventCrtFnt($scope, $log, $window, $sce, $timeout, $interval, $mdDialog
   };
 
 
-  $scope.selectCurrentDevice=function(deviceId){
-    var deviceId = 5;
+  $scope.selectCurrentDevice=function(){
+    var deviceId = $sessionStorage.user.id - 2 ; //index db user
     $scope.currentDevice=$scope.deviceMap.array[deviceId-1];
 
     var screen = comm.getScreen(id_manager, deviceId);

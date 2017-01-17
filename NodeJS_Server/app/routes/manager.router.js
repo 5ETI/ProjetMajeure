@@ -44,8 +44,8 @@ router.route("/managers/all")
 		var id_manager = params[3];
     	ManagerController.delManager(id_manager, function(err, device){
 		if(err){
-			console.error(response.statut(500).end);
-			return response.statut(500).end;
+			console.error(response.status(500).end);
+			return response.status(500).end;
 		}
 		else{
 			response.json(device);
@@ -62,8 +62,8 @@ router.route("/managers/all")
 	console.log("manager : ",managerToAdd);
 	ManagerController.addManager(managerToAdd, function(err, manager){
 		if (err){
-			console.error(response.statut(500).end);
-			return response.statut(500).end;
+			console.error(response.status(500).end);
+			return response.status(500).end;
 		}
 		else{
 			response.json(manager)

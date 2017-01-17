@@ -10,7 +10,7 @@ function loadTweets($http, $q) {
 
 	function loadTweets(twitterAccount,nbTweets) {
         var deferred = $q.defer();
-        var URL = "http://192.168.1.30:1337/twit/" + twitterAccount + "/" + nbTweets;
+        var URL = "/twit/" + twitterAccount + "/" + nbTweets;
 
         $http.get(URL)
             .then(function successCallback(response) {

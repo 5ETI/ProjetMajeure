@@ -5,7 +5,7 @@ var http = require("http");
 var express = require("express");
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
-
+var cors = require('cors');
 
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
@@ -64,6 +64,7 @@ app.use(cookieParser());
 app.use(deviceRoute);
 app.use(managerRoute);
 app.use(twitRoute);
+app.use(cors());
 
 //app.use("/", express.static(path.join(__dirname, "public/login")));
 
@@ -74,7 +75,7 @@ app.use(authRoute);
 app.use(screenRoute);
 app.use("/", express.static(path.join(__dirname, "public/login")));
 app.use("/manager",checkauth, express.static(path.join(__dirname, "public/manager")));
-app.use("/device", checkauth, express.static(path.join(__dirname, "public/device")));
+app.use("/device", express.static(path.join(__dirname, "public/device")));
 //init server
 var server = http.createServer(app);
 server.listen(CONFIG.port);
