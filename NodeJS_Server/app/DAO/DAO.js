@@ -8,7 +8,7 @@ var connect = function(conn){
 		user     : 'root',
 		password : 'admin',
 		database : 'projetmajeure'
-		
+		port     : 3306
 	});
 
 	connection.connect();
@@ -363,46 +363,50 @@ var saveContents = function (id_screen, contents, ret){
 	
 	for (var i=0; i< contents.length; i++){
 
-		(function(i){
-			var query = "INSERT INTO content (`type`, `index`, `param1`) VALUES";
-			query += "('" + contents[i].type + "','" + contents[i].index + "','" + contents[i].param1 + "');";
+		if( contents[i].param1 != '' || ( contents[i].param1 == '' && contents[i].type == 0 )){
 
-			console.log(query);
+			(function(i){
+				var query = "INSERT INTO content (`type`, `index`, `param1`) VALUES";
+				query += "('" + contents[i].type + "','" + contents[i].index + "','" + contents[i].param1 + "');";
 
-			connect(function(conn){
-				conn.query(query, function(err, sqlInfo) {
-					if (err){
-						console.log('Error while performing query.  ' + err);
-						return ret(err);
-					}
-					else{
-						console.log('sqlInfo.insertId  ' + sqlInfo.insertId);
-						console.log('id_screen  ' + id_screen);
+				console.log(query);
 
-						console.log(query);
+				connect(function(conn){
+					conn.query(query, function(err, sqlInfo) {
+						if (err){
+							console.log('Error while performing query.  ' + err);
+							return ret(err);
+						}
+						else{
+							console.log('sqlInfo.insertId  ' + sqlInfo.insertId);
+							console.log('id_screen  ' + id_screen);
 
-						query = "INSERT INTO screen_content (`id_screen`, `id_content`) VALUES";
-						query += "('" + id_screen + "', '" + sqlInfo.insertId +"' );";
-						connect(function(conn){
-							conn.query(query, function(err, sqlInfo) {
-								if (err){
-									console.log('Error while performing query.  ' + err);
-									return ret(err);
-								}
-								else{	
-									// return ret(null, sqlInfo);
-								}
+							console.log(query);
+
+							query = "INSERT INTO screen_content (`id_screen`, `id_content`) VALUES";
+							query += "('" + id_screen + "', '" + sqlInfo.insertId +"' );";
+							connect(function(conn){
+								conn.query(query, function(err, sqlInfo) {
+									if (err){
+										console.log('Error while performing query.  ' + err);
+										return ret(err);
+									}
+									else{	
+										// return ret(null, sqlInfo);
+									}
+								});
+								conn.end();
 							});
-							conn.end();
-						});
 
-						//return ret(null, sqlInfo);
+							//return ret(null, sqlInfo);
 
-					}
+						}
+					});
+					conn.end();
 				});
-				conn.end();
-			});
-		})(i);
+			})(i);
+		
+		}
 		
 	}
 
@@ -411,6 +415,7 @@ var saveContents = function (id_screen, contents, ret){
 };
 module.exports.saveContents = saveContents;
 
+<<<<<<< HEAD
 
 
 var addDeviceToMana = function (id_manager,id_device, callback)
@@ -431,11 +436,12 @@ var addDeviceToMana = function (id_manager,id_device, callback)
 			if (err){
 				console.log('Error while performing Query.  ' + err);
 				return callback(err);
-			}
-			else
+
+				}
+					else
 			{
-			//console.log('type of : ', typeof(DeviceList));
-			//console.log(datatype + " of id : " + id +" : \n" , Data);
+
+//console.log(datatype + " of id : " + id +" : \n" , Data);
 			return callback(null, Data);
 			}
 		});
@@ -443,3 +449,26 @@ var addDeviceToMana = function (id_manager,id_device, callback)
 	});
 }
 module.exports.addDeviceToMana = addDeviceToMana;
+
+
+
+var getImagesId = function (ret){
+
+	connect(function(conn){
+		var Query = "SELECT * FROM projetmajeure.content WHERE type = 2;";
+
+		// console.log(Query);
+		conn.query(Query, function(err, imagesId) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return ret(err);
+			console.log('List of images id : ', imagesId);
+			return ret(null, imagesId);
+		}
+	});
+		conn.end();
+	});
+
+};
+module.exports.getImagesId = getImagesId;
+

@@ -4,6 +4,9 @@ var fs = require("fs");
 var path = require("path");
 var CONFIG = JSON.parse(process.env.CONFIG);
 
+
+var tokenMap = {};
+
 module.exports = this;
 
 this.generateUUID = function() {
@@ -26,7 +29,7 @@ this.fileExists = function(path, callback) {
 			}
 		}
 	});
-}
+};
 
 this.readFileIfExists = function(path, callback) {
 	this.fileExists(path, function(err) {
@@ -36,19 +39,19 @@ this.readFileIfExists = function(path, callback) {
 			fs.readFile(path, callback);
 		}
 	});
-}
+};
 
 this.getMetaFilePath = function(id) {
 	return path.join(CONFIG.contentDirectory, id + ".meta.json");
-}
+};
 
 this.getDataFilePath = function(fileName) {
 	return path.join(CONFIG.contentDirectory, fileName);
-}
+};
 
 this.getNewFileName = function(id, originalFileName) {
 	return id + '.' + originalFileName.split('.').pop();
-}
+};
 
 this.getFileType = function(fileType) {
 	if (fileType.match("image/*")) {
@@ -56,4 +59,26 @@ this.getFileType = function(fileType) {
 	} else if (fileType.search("video")) {
 		return "VIDEO_CUSTOM";
 	}
+};
+
+
+this.addToken = function(name, token){
+	tokenMap[name] = token;
+	console.log("token added   " , tokenMap);
+
+};
+this.checkUser = function(name, token){
+	console.log("TOKENMAP     ======     ", tokenMap);
+	console.log(name in tokenMap);
+	console.log(name);
+	if (name in tokenMap){
+		if (token == tokenMap[name]){
+			console.log ("Ok, token valid");
+			return true;
+		}
+		console.log("name in tokenMap but false token");
+	}
+	console.log("name not in tokenMap");
+	return false;
+
 };

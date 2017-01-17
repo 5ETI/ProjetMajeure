@@ -3,9 +3,62 @@
 
 //var DeviceModel=require("./../models/device.model.js");
 var  express  =  require("express");
+var app = express();
+var bodyParser = require('body-parser');
 var  router  =  express.Router();
 module.exports  =  router;
 var ScreenController = require("./../controllers/screen.controller.js");
+var utils = require("../utils/utils.js");
+var multer  = require('multer');
+var path = require("path");
+var fs = require('fs');
+
+var storage = multer.diskStorage({
+	  destination: function (req, file, cb) {
+		  cb(null, 'public/manager/uploads/');
+	  },
+	  filename: function (req, file, cb) {
+		  console.log("file: " + JSON.stringify(file));
+		  cb(null, utils.generateUUID()+ path.extname(file.originalname));
+	  }
+});
+
+var upload = multer({ storage: storage });
+
+
+router.route('/upload')
+.post( upload.single('image'), uploadImage);
+
+function uploadImage(req, res) {
+
+	var image = req.file;
+
+	var originalname = image.originalname;
+	var filename = image.filename;
+	var path = image.path;
+	var destination = image.destination;
+	var size = image.size;
+	var mimetype = image.mimetype;
+
+	console.log("id_content : " + req.body.id_content);
+
+	var contents = [];
+	contents[0] = {};
+	contents[0].type = 2;
+	contents[0].index = req.body.id_content;
+	contents[0].param1 = filename;
+
+	ScreenController.saveContents(req.body.id_screen, contents, function(err, resp){
+		if(err){
+			console.error(response.status(500).end);
+			return res.status(500).end;
+		}
+		else{
+			console.log(resp);
+			return res.json(resp);
+		}
+	});
+}
 
 router.route("/screen/:id_manager/:id_device")
 .get(function(request, response) {
@@ -67,6 +120,18 @@ router.route("/content/delete/:id_screen")
 	var params = request.url.split("/");
 	var id_screen = params[3];
 
+	ScreenController.getImagesId(function(err, resp){
+		if(err){
+			console.error(response.status(500).end);
+			return response.status(500).end;
+		}
+		else{
+			// delete other images
+			console.log(resp);
+			removeUnreferencedImages(resp);
+		}
+	});
+
 	ScreenController.deleteContent(id_screen, function(err, resp){
 		if(err){
 			console.error(response.status(500).end);
@@ -98,6 +163,27 @@ router.route("/content/save/:id_screen")
 	});
 
 });
+
+var removeUnreferencedImages = function(imagesId){
+
+	var path = "./public/manager/uploads";
+	var toRemove = [];
+
+	fs.readdirSync(path).forEach(function (file, index) {
+		toRemove.push(file);
+		for(var i = 0; i < imagesId.length ; i++){
+			//console.log("imagesId[i] : " + imagesId[i].param1 + " // file : " + file);
+			if(imagesId[i].param1 == file){
+				toRemove.pop();	
+			}	
+		};
+	});
+
+	for(var i = 0; i < toRemove.length ; i++){
+		var curPath = path + "/" + toRemove[i];
+		fs.unlinkSync(curPath);
+	};
+}
 
 
 /*router.route("/screen/:id")
