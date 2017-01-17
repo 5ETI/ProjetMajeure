@@ -74,7 +74,8 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
             try {
                 //url = new URL("http://10.170.0.102:1337/device/parVille/"+ville);
                 //url = new URL("http://192.168.1.23:1337/device/parVille/"+ville);
-                url = new URL("http://192.168.1.30:1337/device/parVille/"+ville);
+                //url = new URL("http://192.168.1.30:1337/device/parVille/"+ville);
+                url = new URL("http://192.168.1.25:1337/device/parVille/"+ville);
 
 
             } catch (MalformedURLException e) {
@@ -110,7 +111,9 @@ public class DeviceTask extends AsyncTask<Double, Integer, ArrayList<Device>> {
             try {
                 //url = new URL("http://10.170.0.102:1337/device/all");
                 //url = new URL("http://192.168.1.23:1337/device/all");
-                url = new URL("http://192.168.1.30:1337/device/all");
+                //url = new URL("http://192.168.1.30:1337/device/all");
+                url = new URL("http://192.168.1.25:1337/device/all");
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();

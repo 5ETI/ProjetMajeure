@@ -40,7 +40,8 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
             try {
                 //url = new URL("http://192.168.1.23:1337/device/formanager/" + id_manager);
                 //url = new URL("http://10.170.0.102:1337/device/formanager/" + id_manager);
-                url = new URL("http://192.168.1.30:1337/device/formanager/" + id_manager);
+                //url = new URL("http://192.168.1.30:1337/device/formanager/" + id_manager);
+                url = new URL("http://192.168.1.25:1337/device/formanager/" + id_manager);
 
 
             } catch (MalformedURLException e) {
@@ -71,7 +72,8 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
             try {
                 //url = new URL("http://192.168.1.23:1337/device/all");
                 //url = new URL("http://10.170.0.102:1337/device/all");
-                url = new URL("http://192.168.1.30:1337/device/all");
+                //url = new URL("http://192.168.1.30:1337/device/all");
+                url = new URL("http://192.168.1.25:1337/device/all");
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -101,7 +103,8 @@ public class DeviceListTask extends AsyncTask<String, Integer, ArrayList<Device>
         {      try {
             //url = new URL("http://10.170.0.102:1337/device/manager/" + id_manager );
             //url = new URL("http://192.168.1.23:1337/device/manager/" + id_manager );
-            url = new URL("http://192.168.1.30:1337/device/manager/" + id_manager );
+            //url = new URL("http://192.168.1.30:1337/device/manager/" + id_manager );
+            url = new URL("http://192.168.1.25:1337/device/manager/" + id_manager );
 
 
         } catch (MalformedURLException e) {

@@ -79,7 +79,9 @@ public class AddDevice extends AsyncTask <Device,Integer,Boolean>{
 
        //String url = "http://10.170.0.102:1337/device/add";
         //String url = "http://192.168.1.23:1337/device/add";
-        String url = "http://192.168.1.30:1337/device/add";
+        //String url = "http://192.168.1.30:1337/device/add";
+        String url = "http://192.168.1.25:1337/device/add";
+
 
         OkHttpClient client = new OkHttpClient();
 

@@ -34,7 +34,8 @@ public class Assign extends AsyncTask< ArrayList<Integer>,Integer,Boolean > {
                 try {
                     //url = new URL("http://10.170.0.102:1337/device/addToManager/"+id_manager+"/"+stock.get(i));
                     //url = new URL("http://192.168.1.23:1337/device/addToManager/"+id_manager+"/"+stock.get(i));
-                    url = new URL("http://192.168.1.30:1337/device/addToManager/"+id_manager+"/"+stock.get(i));
+                    //url = new URL("http://192.168.1.30:1337/device/addToManager/"+id_manager+"/"+stock.get(i));
+                    url = new URL("http://192.168.1.25:1337/device/addToManager/"+id_manager+"/"+stock.get(i));
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -96,7 +97,8 @@ public class Assign extends AsyncTask< ArrayList<Integer>,Integer,Boolean > {
 
                     //url = new URL("http://10.170.0.102:1337/device/addToManager/"+stock.get(i)+"/"+id_device);
                     //url = new URL("http://192.168.1.23:1337/device/addToManager/"+stock.get(i)+"/"+id_device);
-                    url = new URL("http://192.168.1.30:1337/device/addToManager/"+stock.get(i)+"/"+id_device);
+                    //url = new URL("http://192.168.1.30:1337/device/addToManager/"+stock.get(i)+"/"+id_device);
+                    url = new URL("http://192.168.1.25:1337/device/addToManager/"+stock.get(i)+"/"+id_device);
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

@@ -36,7 +36,8 @@ public class DeleteDevice extends AsyncTask<ArrayList<Device>,Integer,Boolean> {
             try {
                 //url = new URL("http://10.170.0.102:1337/device/delete/" + stockage.get(i).getId());
                 //url = new URL("http://192.168.1.23:1337/device/delete/" + stockage.get(i).getId());
-                url = new URL("http://192.168.1.30:1337/device/delete/" + stockage.get(i).getId());
+                //url = new URL("http://192.168.1.30:1337/device/delete/" + stockage.get(i).getId());
+                url = new URL("http://192.168.1.25:1337/device/delete/" + stockage.get(i).getId());
 
 
 

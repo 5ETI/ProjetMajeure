@@ -35,7 +35,9 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
             try {
                  //url = new URL("http://192.168.1.23:1337/managers/all");
                 //url = new URL("http://10.170.0.102:1337/managers/all");
-                url = new URL("http://192.168.1.30:1337/managers/all");
+                //url = new URL("http://192.168.1.30:1337/managers/all");
+                url = new URL("http://192.168.1.25:1337/managers/all");
+
 
 
             } catch (MalformedURLException e) {
@@ -68,7 +70,9 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
             try {
                 //url = new URL("http://192.168.1.23:1337/device/getManager/" + param1 );
                 //url = new URL("http://10.170.0.102:1337/device/getManager/" + param1 );
-                url = new URL("http://192.168.1.30:1337/device/getManager/" + param1 );
+                //url = new URL("http://192.168.1.30:1337/device/getManager/" + param1 );
+                url = new URL("http://192.168.1.25:1337/device/getManager/" + param1 );
+
 
 
 
@@ -104,7 +108,9 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
             try {
                 //url = new URL("http:/10.170.0.102:1337/managers/otherManager/" + param1 );
                 //url = new URL("http://192.168.1.23:1337/managers/otherManager/" + param1 );
-                url = new URL("http://192.168.1.30:1337/managers/otherManager/" + param1 );
+                //url = new URL("http://192.168.1.30:1337/managers/otherManager/" + param1 );
+                url = new URL("http://192.168.1.25:1337/managers/otherManager/" + param1 );
+
 
 
             } catch (MalformedURLException e) {
