@@ -8,7 +8,6 @@ var connect = function(conn){
 		user     : 'root',
 		password : 'admin',
 		database : 'projetmajeure'
-		port     : 3306
 	});
 
 	connection.connect();
@@ -414,8 +413,6 @@ var saveContents = function (id_screen, contents, ret){
 
 };
 module.exports.saveContents = saveContents;
-
-<<<<<<< HEAD
 
 
 var addDeviceToMana = function (id_manager,id_device, callback)
