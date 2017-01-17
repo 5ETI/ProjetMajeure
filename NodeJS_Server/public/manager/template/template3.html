@@ -1,48 +1,43 @@
-<div class="row">
-	<div class="$mdDialog" layout="column" layout-align="center center" style="width:100%"></div>
+<div class="row" >
 	<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-		<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="ng-scope">
+		<div flow-init="{singleFile:true}" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]" class="image ng-scope">
 			<div class="btn-group" style="position: absolute; opacity: 0.7; padding-top: 1em; padding-left: 1em;">
 				<button class="btn btn-danger" ng-click="remove(0)"><span class="glyphicon glyphicon-remove" ></span></button>
 				<button class="btn btn-info" ng-click="edit(0)"><span class="glyphicon glyphicon-edit" ></span></button>
 				<button class="btn btn-warning" ng-click="upload(0)" flow-btn="" ><span class="glyphicon glyphicon-upload" ></span></button>
 			</div>
 			<div ng-switch="screen.contents[0].type">
-				<div ng-switch-when="0" class="image">
+				<div ng-style="{height :canvasHeight+'px'}" ng-switch-when="0">
 					<br/> <br/>
 					<h3 class="align-center">NO IMAGE</h3>
 				</div>
 				<div ng-switch-when="1">
-					<img class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
+					<img  class="align-center image-temp1" ng-src="{{screen.contents[0].param1}}"/>
 				</div>
 				<div ng-switch-when="2">
-					<div class="image-temp1">
-						<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
-							<img flow-img="$flow.files[0]">
-							<input style="visibility: hidden; position: absolute;" type="file"/>
-						</div>
-					</div> 
-
+					<div class="thumbnail nomargin-padding ng-hide" ng-show="$flow.files.length">
+						<img class="image-temp1" flow-img="$flow.files[0]">
+						<input style="visibility: hidden; position: absolute;" type="file"/>
+					</div>
 				</div>
 			</div>
 		</div>
-		
 	</div>
 	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 		<div class="image">
-			<div class="btn-group" style=" opacity: 0.7; padding-top: 1em; padding-left: 1em;">
+			<div class="btn-group" style="opacity: 0.7; padding-top: 1em; padding-left: 1em;">
 				<button class="btn btn-danger" ng-click="remove(1)"><span class="glyphicon glyphicon-remove" ></span></button>
 				<button class="btn btn-info" ng-click="addNewTweet(1)"><span class="glyphicon glyphicon-edit" ></span></button>
 			</div>
 			<div ng-switch="screen.contents[1].type">
-				<div ng-switch-when="0" >
+				<div ng-style="{height :canvasHeight+'px'}" ng-switch-when="0" >
 					<br/> <br/>
-					<h3 class="align-center">NO TWITTER</h3>
+					<h3  class="align-center">NO TWITTER</h3>
 				</div>
-				<div ng-switch-when="4" >
+				<div ng-switch-when="4">
 					<div >
 						<div render-iframely ng-bind-html="EmbedTweet"></div>
-						<div >
+						<div>
 							<div class="align-center">
 								<md-progress-circular md-mode="indeterminate" ng-hide="LoadingAnim" ng-disabled="LoadingAnim" class="loadingAnim" md-diameter="50px"></md-progress-circular>
 							</div>
@@ -50,7 +45,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

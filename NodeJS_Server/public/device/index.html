@@ -6,38 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Device</title>
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/screen.css">
   <link rel="stylesheet" href="librairies/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/embed.min.css">
-  <link rel="stylesheet" href="css/angular-material.min.css">
-
-
+  <link rel="stylesheet" href="librairies/embed/embed.min.css">
+  <link rel="stylesheet" href="librairies/angular-material/angular-material.min.css">
 </head>
 <body>
-  <div>
     <!-- *************   CENTER PANEL  *************-->
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <!-- *************   CANVAS  *************-->
-      <div class="canvas" ng-style="{height :windowHeight}">
-        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-include="'template/template1.html'">  </div> 
-        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-include="'template/template2.html'">  </div> 
-        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-include="'template/template3.html'">  </div> 
-        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-include="'template/template4.html'">  </div>
+      <div class="canvas" ng-style="windowHeight">
+        <div ng-if="currentDevice.template == 1 && currentDevice != null" ng-init="setNbContent(1)" ng-include="'template/template1.html'">  </div> 
+        <div ng-if="currentDevice.template == 2 && currentDevice != null" ng-init="setNbContent(1)" ng-include="'template/template2.html'">  </div> 
+        <div ng-if="currentDevice.template == 3 && currentDevice != null" ng-init="setNbContent(2)" ng-include="'template/template3.html'">  </div> 
+        <div ng-if="currentDevice.template == 4 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template4.html'">  </div>
+        <div ng-if="currentDevice.template == 5 && currentDevice != null" ng-init="setNbContent(3)" ng-include="'template/template5.html'">  </div>
       </div>
-      <!-- *************  END CANVAS  *************-->
-    </div>
-  </div>
-    <!-- *************  END CENTER PANEL  *************-->
+<!-- *************   END RIGHT PANEL  *************-->
   <script src="librairies/jquery/jquery-3.1.1.min.js"></script>
   <script src="https://use.fontawesome.com/bb57c833c9.js"></script>
   <script src="librairies/bootstrap/js/bootstrap.min.js"></script>
   <script src="librairies/angular/angular.min.js"></script>
-
   <script src="librairies/angular-animate/angular-animate.min.js"></script>
   <script src="librairies/angular-material/angular-material.js"></script>
   <script src="librairies/angular-aria/angular-aria.js"></script>
   <script src="librairies/embed/embed.min.js"></script>
   <script src="librairies/ng-flow/ng-flow-standalone.min.js"></script>
+  <script src="librairies/youtube_embed/angular-youtube-embed.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="js/services/factoryService.js"></script>
   <script src="js/services/commService.js"></script>   
   <script src="js/application/deviceApp.js"></script>

@@ -2,12 +2,39 @@ html,body {
 	height:100%; 
 	padding-top:0px; 
 	overflow-x:hidden; 
-	overflow-y:auto;
+	overflow-y:hidden;
 }
 
 .zeroRef{
 	padding:0px;
 	margin:0px
+}
+
+.image{
+	border:none;
+	background: transparent;
+}
+
+.video{
+	border:1px solid #9D9D9D;
+	padding:1em;
+	border-radius: 5px;
+	background: #dfe0e4;
+}
+
+.socialmedia{
+	border:1px solid #9D9D9D;
+	border-radius: 5px;
+	background: #dfe0e4;
+}
+
+.image-temp1{
+	background: #dfe0e4;
+	width:100%;
+}
+
+.sameHeight{
+	min-height:30em;
 }
 
 .fullScreenHeight{
@@ -67,8 +94,6 @@ html,body {
 }
 
 .canvas{
-	border:0.2em solid #6770ad;
-	padding:0.2em;
 	border-radius: 5px;
 	min-height:30em;
 	background: #e8eaf8;
@@ -85,5 +110,5 @@ html,body {
 
 
 .loadingAnim{
-	margin: 8em;
+	padding: 8em;
 }

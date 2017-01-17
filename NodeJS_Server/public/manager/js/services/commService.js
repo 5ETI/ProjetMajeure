@@ -11,7 +11,8 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
             getScreen: getScreen,
             loadContent: loadContent,
             deleteContent: deleteContent,
-            saveScreen: saveScreen
+            saveScreen: saveScreen,
+            setTemplate: setTemplate
         };
 
 
@@ -29,13 +30,14 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
     function loadDevicesList(id_manager){
         var deferred = $q.defer();
         //$log.info ($sessionStorage.user.token);
-        $http.defaults.headers.common['token'] = $sessionStorage.user.token;
+        //delete $http.defaults.headers.common['X-Requested-With'];
         //$http.defaults.headers.common['name'] = $sessionStorage.user.name;
+        $http.defaults.headers.common['token'] = $sessionStorage.user.token;
 
-        //$log.info ($http.defaults.headers.common);
+        $log.info ($http.defaults.headers.common);
         $http({
             method: 'GET',
-            url: '/device/manager/'+ id_manager,
+            url: '/device/manager/'+ id_manager
         })
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
@@ -49,8 +51,8 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: '/screen/'+ id_manager + '/'+id_device,
-            headers: {'Authorization': $sessionStorage.token}
+            url: '/screen/'+ id_manager + '/'+id_device
+            //headers: {'Authorization': $sessionStorage.token}
         })
         //$http.get('/screen/'+ id_manager + '/'+id_device, config)
         .then(function successCallback(response) {
@@ -62,11 +64,13 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
     };
 
    function loadContent(id_screen){
-        var deferred = $q.defer();
+       $http.defaults.headers.common['token'] = $sessionStorage.user.token;
+
+       var deferred = $q.defer();
        $http({
            method: 'GET',
-           url: '/content/'+ id_screen,
-           headers: {'Authorization': $sessionStorage.token}
+           url: '/content/'+ id_screen
+           //headers: {'Authorization': $sessionStorage.token}
        })
         //$http.get('/content/'+ id_screen, config)
         .then(function successCallback(response) {
@@ -79,7 +83,18 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
 
     function deleteContent(id_screen){
         var deferred = $q.defer();
-        $http.get('/content/delete/'+ id_screen, config)
+        $http.get('/content/delete/'+ id_screen)
+        .then(function successCallback(response) {
+            return deferred.resolve(response.data);
+        }, function errorCallback(response) {
+            return deferred.reject(response.status);
+        });
+        return deferred.promise;
+    }
+
+    function setTemplate(id_screen, id_template){
+        var deferred = $q.defer();
+        $http.get('/screen/setTemplate/'+ id_screen + '/' + id_template)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {
@@ -90,7 +105,7 @@ function commFnc($http, $q, factory,$log, $sessionStorage){
 
     function saveScreen(id_screen, contents){
         var deferred = $q.defer();
-        $http.post('/content/save/'+ id_screen, contents, config)
+        $http.post('/content/save/'+ id_screen, contents)
         .then(function successCallback(response) {
             return deferred.resolve(response.data);
         }, function errorCallback(response) {

@@ -7,7 +7,8 @@ var connect = function(conn){
 		host     : 'localhost',
 		user     : 'root',
 		password : 'root',
-		database : 'projetmajeure'
+		database : 'projetmajeure',
+		port     : 3306
 	});
 
 	connection.connect();
@@ -113,6 +114,31 @@ var getScreen = function (id_manager, id_device, screen)
 
 }
 module.exports.getScreen = getScreen;
+
+
+var setTemplate = function (id_screen, id_template, ret)
+{
+	connect(function(conn){
+		var Query = "UPDATE ProjetMajeure.screen SET `template` = " + id_template + " WHERE id = " + id_screen;
+
+		// console.log(Query);
+		conn.query(Query, function(err, callback) {
+			if (err){
+				console.log('Error while performing Query.  ' + err);
+				return ret(err);
+			}
+			else
+			{
+			//console.log('type of : ', typeof(DeviceList));
+			//console.log('List of devices : ', Screen);
+			return ret(null, callback);
+		}
+	});
+		conn.end();
+	});
+}
+module.exports.setTemplate = setTemplate;
+
 
 var getContent = function (id_screen, content)
 {
@@ -230,51 +256,58 @@ var deleteContent = function (id_screen, ret){
 };
 module.exports.deleteContent = deleteContent;
 
-var saveContent = function (id_screen, contents, ret){
+var saveContents = function (id_screen, contents, ret){
 
 	console.log("contents.length " + contents.length);
 	console.log('id_screen  ' + id_screen);
-
 	console.log('contents :   ' + contents);
 	
 	for (var i=0; i< contents.length; i++){
-		
-		var query = "INSERT INTO content (`type`, `index`, `param1`) VALUES";
-		query += "('" + contents[i].type + "','" + contents[i].index + "','" + contents[i].param1 + "');";
 
-		console.log(query);
+		(function(i){
+			var query = "INSERT INTO content (`type`, `index`, `param1`) VALUES";
+			query += "('" + contents[i].type + "','" + contents[i].index + "','" + contents[i].param1 + "');";
 
-		connect(function(conn){
-			conn.query(query, function(err, sqlInfo) {
-				if (err){
-					console.log('Error while performing query.  ' + err);
-					return callback(err);
-				}
-				else{
-					console.log('sqlInfo.insertId  ' + sqlInfo.insertId);
-					console.log('id_screen  ' + id_screen);
+			console.log(query);
 
-					query = "INSERT INTO screen_content (`id_screen`, `id_content`) VALUES";
-					query += "('" + id_screen + "', '" + sqlInfo.insertId +"' );";
-					connect(function(conn){
-						conn.query(query, function(err, sqlInfo) {
-							if (err){
-								console.log('Error while performing query.  ' + err);
-								return callback(err);
-							}
-							else{	
-								ret(null, sqlInfo);
-							}
+			connect(function(conn){
+				conn.query(query, function(err, sqlInfo) {
+					if (err){
+						console.log('Error while performing query.  ' + err);
+						return ret(err);
+					}
+					else{
+						console.log('sqlInfo.insertId  ' + sqlInfo.insertId);
+						console.log('id_screen  ' + id_screen);
+
+						console.log(query);
+
+						query = "INSERT INTO screen_content (`id_screen`, `id_content`) VALUES";
+						query += "('" + id_screen + "', '" + sqlInfo.insertId +"' );";
+						connect(function(conn){
+							conn.query(query, function(err, sqlInfo) {
+								if (err){
+									console.log('Error while performing query.  ' + err);
+									return ret(err);
+								}
+								else{	
+									// return ret(null, sqlInfo);
+								}
+							});
+							conn.end();
 						});
-						conn.end();
-					});
 
-				}
+						//return ret(null, sqlInfo);
+
+					}
+				});
+				conn.end();
 			});
-			conn.end();
-		});
+		})(i);
 		
 	}
 
+	ret(null,"ok");
+
 };
-module.exports.saveContent = saveContent;
+module.exports.saveContents = saveContents;
