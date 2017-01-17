@@ -63,8 +63,7 @@
     <Spinner
         android:id="@+id/paramRecherche"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-       />
+        android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/paramReVille"
@@ -78,14 +77,17 @@
         android:visibility="invisible"
         android:layout_height="wrap_content" />
 
-    <Button
+    <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/button_save"
-        android:background="#0055A9"
-        android:layout_width="match_parent"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
         android:text="@string/Save"
-        android:layout_margin="10dp"
-        android:textSize="15sp"/>
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorNormal="@color/blue_normal"/>
 
 
 </LinearLayout>

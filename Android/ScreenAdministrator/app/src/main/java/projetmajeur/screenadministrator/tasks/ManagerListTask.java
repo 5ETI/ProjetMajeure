@@ -4,22 +4,15 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import projetmajeur.screenadministrator.activity.ManagerActivity;
-import projetmajeur.screenadministrator.entity.model.Device;
+import projetmajeur.screenadministrator.Utils.Utils;
 import projetmajeur.screenadministrator.entity.model.User;
 
 /**
@@ -31,90 +24,121 @@ public class ManagerListTask extends AsyncTask<String, Integer, ArrayList<User>>
     ManagerListTask.ManagerListListener managerListListener;
 
     Gson gson = new Gson();
+    ArrayList<User> stockage = new ArrayList<User>();
 
     @Override
     protected ArrayList<User> doInBackground(String... params) {
-
+        String param = params[0];
+        int param1 = Integer.parseInt(params[1]);
         URL url = null;
-        try {
-           // url = new URL("http://192.168.1.23:1337/managers/all");
-            url = new URL("http://10.170.1.100:1337/managers/all");
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        HttpURLConnection urlConnection = null;
-
-        try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream in = null;
-        try {
-            in = new BufferedInputStream(urlConnection.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return getListManager(in);
-    }
-
-    public ArrayList<User> getListManager (InputStream in){
-        ArrayList<User> list = new ArrayList<User>();
-        String responseString = null;
-        try {
-            responseString = readInputStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JSONArray jObj = null;
-        try {
-            jObj = new JSONArray(responseString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < jObj.length(); i++) {
-            JSONObject jsonobject = null;
+        if (param.equals("liste") && param1 == 0) {
             try {
-                jsonobject = jObj.getJSONObject(i);
-            } catch (JSONException e) {
+                 //url = new URL("http://192.168.1.23:1337/managers/all");
+                //url = new URL("http://10.170.0.102:1337/managers/all");
+                //url = new URL("http://192.168.1.30:1337/managers/all");
+                url = new URL("http://192.168.1.25:1337/managers/all");
+
+
+
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            User dev = gson.fromJson(String.valueOf(jsonobject),User.class);
-            list.add(dev);
-        }
 
-        return list;
-    }
-    private boolean readStream(InputStream in) throws IOException, JSONException {
-        String responseString = readInputStream(in);
-        JSONObject jObj = new JSONObject(responseString);
-        if(jObj.getInt("status")==200)
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return Utils.getListManager(in);
+        }
+        if(param.equals("liste") && param1 != 0 )
         {
-            return true;
+            try {
+                //url = new URL("http://192.168.1.23:1337/device/getManager/" + param1 );
+                //url = new URL("http://10.170.0.102:1337/device/getManager/" + param1 );
+                //url = new URL("http://192.168.1.30:1337/device/getManager/" + param1 );
+                url = new URL("http://192.168.1.25:1337/device/getManager/" + param1 );
+
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return Utils.getListManager(in);
+
+
         }
-        return false;
-    }
-    private String readInputStream(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                inputStream, "UTF-8"));
-        String tmp;
-        StringBuilder sb = new StringBuilder();
-        while ((tmp = reader.readLine()) != null) {
-            sb.append(tmp).append("\n");
+        if (param.equals("device")){
+
+            try {
+                //url = new URL("http:/10.170.0.102:1337/managers/otherManager/" + param1 );
+                //url = new URL("http://192.168.1.23:1337/managers/otherManager/" + param1 );
+                //url = new URL("http://192.168.1.30:1337/managers/otherManager/" + param1 );
+                url = new URL("http://192.168.1.25:1337/managers/otherManager/" + param1 );
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            HttpURLConnection urlConnection = null;
+
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return Utils.getListManager(in);
         }
-        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '\n') {
-            sb.setLength(sb.length() - 1);
-        }
-        reader.close();
-        return sb.toString();
+        return stockage;
     }
 
     protected void onPostExecute(ArrayList<User> result) {

@@ -6,9 +6,9 @@ package projetmajeur.screenadministrator.entity.enumeration;
 
 public enum EnumRecherche {
 
-    RECHERCHE_TYPE("Selectionner un type de recherche",0),
-    RECHERCHE_PAR_VILLE("Par ville",1),
-    RECHERCHE_PAR_GEOLOCALISATION("Par geolocalisation",2);
+    RECHERCHE_TYPE("Type of research",0),
+    RECHERCHE_PAR_VILLE("City",1),
+    RECHERCHE_PAR_GEOLOCALISATION("Use geolocation",2);
 
     private String stringValue;
     private int intValue;

@@ -48,6 +48,9 @@ public class DeviceActivity extends GoogleLocationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         button_liste =(Button) findViewById(R.id.button_liste);
         button_maps = (Button) findViewById(R.id.button_maps);
         button_save = (Button) findViewById(R.id.button_save);
@@ -66,14 +69,14 @@ public class DeviceActivity extends GoogleLocationActivity {
         spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (spinner_type.getSelectedItem().toString().equals("Par ville")) {
+                if (spinner_type.getSelectedItem().toString().equals("City")) {
                     RechercheDevice.getInstance().setTyperecherche(EnumRecherche.RECHERCHE_PAR_VILLE);
                     spinner_ville.setVisibility(parentView.VISIBLE);
                     spinner_rayon.setVisibility(parentView.INVISIBLE);
 
 
                 }
-                if (spinner_type.getSelectedItem().toString().equals("Par geolocalisation")) {
+                if (spinner_type.getSelectedItem().toString().equals("Use geolocation")) {
                     RechercheDevice.getInstance().setTyperecherche(EnumRecherche.RECHERCHE_PAR_GEOLOCALISATION);
                     spinner_rayon.setVisibility(parentView.VISIBLE);
                     spinner_ville.setVisibility(parentView.INVISIBLE);
@@ -94,7 +97,7 @@ public class DeviceActivity extends GoogleLocationActivity {
 
                 RechercheDevice.getInstance().setVillerecherche(EnumVille.fromString(ville));
                 RechercheDevice.getInstance().setDistancerecherche(EnumDistanceCherche.fromString(rayon));
-                Toast.makeText(getApplicationContext(), "Parametre sauvegarder", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Settings saved", Toast.LENGTH_SHORT).show();
 
 
                 /*
@@ -137,6 +140,20 @@ public class DeviceActivity extends GoogleLocationActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                Intent intent = new Intent(DeviceActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

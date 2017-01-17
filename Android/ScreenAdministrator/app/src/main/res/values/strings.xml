@@ -6,13 +6,17 @@
     <string name="password">Password</string>
     <string name="Devices">Devices</string>
     <string name="Managers">Managers</string>
-    <string name="Liste">Afficher une liste des devices</string>
-    <string name="Maps">Afficher une map des devices</string>
-    <string name="ParamRecherche">Parametres de recherches</string>
-    <string name="Save">Sauvegarder les parametres</string>
-    <string name="TypeRecherche">Selectionner le type de recherche</string>
+    <string name="Liste">Display a list of devices</string>
+    <string name="Maps">Show devices on a map</string>
+    <string name="ParamRecherche">Settings</string>
+    <string name="Save">Save settings</string>
+    <string name="TypeRecherche">Type of research</string>
     <string name="title_activity_maps_device">Map</string>
     <string name="AddDevice">Add</string>
     <string name="DeleteDevice">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="okk">OK</string>
+    <string name="choosemanager">Choose a manager</string>
+
 
 </resources>
