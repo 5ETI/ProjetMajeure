@@ -77,26 +77,14 @@ html,body {
 	border-radius: 5px;
 }
 
-.rightPanelDevice:hover{
-	background: #e8eaf8;
-}
-
 .floatright{
 	float:right;
 }
 
-.infoDevice{
-	border:1px solid #9D9D9D;
-	padding:1em;
-	border-radius: 5px;
-	height:auto;
-	margin-top:1em;
-}
-
 .canvas{
 	border-radius: 5px;
-	min-height:30em;
-	background: #e8eaf8;
+	/*background: #e8eaf8;*/
+	background: black;
 }
 
 .margin-top-1em{
@@ -108,7 +96,6 @@ html,body {
 	margin:0 !important;
 }
 
-
 .loadingAnim{
-	padding: 8em;
+	margin: 8em;
 }
