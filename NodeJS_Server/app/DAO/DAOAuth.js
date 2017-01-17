@@ -1,0 +1,52 @@
+/**
+ * Created by maxime on 12/01/17.
+ */
+'use strict';
+
+//var DAO_Connection = require ("./DAO_Connection.js");
+
+var users = [{
+    "id": 2,
+    "email": "manager@manager.com",
+    "password": "manager",
+    "name": "Manager",
+    "role": "MANAGER",
+    "timestamp": 1484214822000
+},
+    {
+        "id": 1,
+        "email": "admin@admin.com",
+        "password": "admin",
+        "name": "Admin",
+        "role": "ADMIN",
+        "timestamp": 1484214822000
+    },
+    {
+        "id": 3,
+        "email": "screen@screen.com",
+        "password": "screen",
+        "name": "Screen",
+        "role": "SCREEN",
+        "timestamp": 1484214822000
+    }];
+
+
+var authentificate = function(JsonUser, resp){
+    var JSONresp ={};
+    var email = JsonUser.email;
+    var password = JsonUser.password;
+    //TODO here post request to JEE Server to check auth (param json avec login et mdp) (instead of for loop below)
+    for (var i = 0 ; i<users.length-1; i++){
+        if (email == users[i].email && password == users[i].password) {
+            console.log("email et mdp ok");
+            var JSONresp = users[i];
+            return resp(null, JSONresp);
+        }
+
+    }
+    return resp("not in DB");
+
+
+};
+module.exports.authentificate = authentificate;
+

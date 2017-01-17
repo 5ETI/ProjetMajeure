@@ -97,3 +97,14 @@ var saveContents = function(id_screen, contents, DAO_save){
 };
 module.exports.saveContents = saveContents;
 
+var getImagesId = function(DAO_imagesId){
+	DAO.getImagesId( function (err, resp){
+		if(err){
+			console.log(err);
+			return DAO_imagesId(err);
+		}else{
+			return DAO_imagesId(null, resp);
+		}
+	});
+};
+module.exports.getImagesId = getImagesId;
