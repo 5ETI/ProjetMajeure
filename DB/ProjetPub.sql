@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `projetmajeure`.`screen` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `id_manager` INT(11) NOT NULL,
   `id_device` INT(11) NOT NULL,
-  `template` INT(11) NOT NULL,
+  `template` INT(11) NULL DEFAULT '1',
   `empty` INT(11) NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   INDEX `fk_manager` (`id_manager` ASC),
@@ -104,9 +104,13 @@ INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `lati
 
 
 INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
-('admin@admin.com', 'admin', 'Admin', '0'),
 ('manager@manager.com', 'manager', 'Manager', '1'),
-('device@device.com', 'device', 'Device', '2'),
+('admin@admin.com', 'admin', 'Admin', '0'),
+('device1@device.com', 'device', 'Device', '2'),
+('device2@device.com', 'device', 'Device', '2'),
+('device3@device.com', 'device', 'Device', '2'),
+('device4@device.com', 'device', 'Device', '2'),
+('device5@device.com', 'device', 'Device', '2'),
 ('blop@blop.com', 'blop', 'bloppy', '1'),
 ('john@doe.com', 'john', 'John Doe', '1'),
 ('tada@tada.com', 'tada', 'tada','0'),
