@@ -390,8 +390,7 @@ var templateChanged = false;
   });
   };
 $scope.addNewYoutube = function (id_content) {
-        if (IsYoutubeSet == false) {
-            IsYoutubeSet = true;
+        
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
               .title('Upload Youtube Video')
@@ -424,8 +423,6 @@ $scope.addNewYoutube = function (id_content) {
             });
 
             // TODO here add content from youtubeController addNewYoutube and set $scope.screen.content
-
-        }
     };
 
     $scope.changeTemplate = function(id_template){
