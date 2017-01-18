@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `projetmajeure`.`screen` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `id_manager` INT(11) NOT NULL,
   `id_device` INT(11) NOT NULL,
-  `template` INT(11) NOT NULL,
+  `template` INT(11) NULL DEFAULT '1',
   `empty` INT(11) NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   INDEX `fk_manager` (`id_manager` ASC),
@@ -104,9 +104,13 @@ INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `lati
 
 
 INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
-('admin@admin.com', 'admin', 'Admin', '0'),
 ('manager@manager.com', 'manager', 'Manager', '1'),
-('device@device.com', 'device', 'Device', '2'),
+('admin@admin.com', 'admin', 'Admin', '0'),
+('device1@device.com', 'device', 'Device', '2'),
+('device2@device.com', 'device', 'Device', '2'),
+('device3@device.com', 'device', 'Device', '2'),
+('device4@device.com', 'device', 'Device', '2'),
+('device5@device.com', 'device', 'Device', '2'),
 ('blop@blop.com', 'blop', 'bloppy', '1'),
 ('john@doe.com', 'john', 'John Doe', '1'),
 ('tada@tada.com', 'tada', 'tada','0'),
@@ -124,21 +128,47 @@ INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, 
 -- 2: image from server
 -- 3: 
 -- 4: twitter
+-- 5: youtube
+
 INSERT INTO `projetmajeure`.`content` (`type`, `index`, `param1`) VALUES
-('1','0','https://2.bp.blogspot.com/-1uomnDoZnL4/VvxZ8b48FQI/AAAAAAAAAA4/enA1I3kI0EI7ksBUUKKY9JAv-s63av3Og/s1600/adidas-trefoil-logo.png'),
-('1','1','https://s-media-cache-ak0.pinimg.com/originals/21/30/92/213092bb095740f64911a9d1cae408c9.jpg'),
-('4','2','adidasFR'),
-('1','0','http://image.redbull.com/rbcom/010/2015-12-03/1331763162840_2/0100/0/2/red-bull-can-you-make-it-2016.png'),
-('4','1','redbull'),
-('5', '2', '0AuH075tOZ4');
+('1','0','https://media.giphy.com/media/ydqa5IEFvZNT2/giphy.gif'),
+('5', '0', 'CkTd-7myyEw'),
+('1','0','https://s-media-cache-ak0.pinimg.com/originals/85/9c/8c/859c8c7d9393442fc83ae50107ef161b.gif'),
+('4','1','ray_ban'),
+('1','0','https://media.giphy.com/media/2H3HUJCJWVMcw/giphy.gif'),
+('1','1','http://sneakerb0b.de/releases/wp-content/uploads/2015/02/xeno-zx-flux.gif'),
+('4','2','adidas'),
+('1','0','https://68.media.tumblr.com/0001fbc97153d5279b29e1f33827f332/tumblr_no2cpbqKzI1qlwl18o1_500.gif'),
+('4','1','Nike'),
+('5', '2', 'AK2U977acCE');
+
 
 INSERT INTO `projetmajeure`.`screen_content` (`id_screen`, `id_content`) VALUES
-('4', '1'),
-('4', '2'),
-('4', '3'),
+('1','1'),
+('2','2'),
+('3','3'),
 ('3','4'),
-('3','5'),
-('3','6'),
-('5','4'),
-('5','5'),
-('5','6');
+('4', '5'),
+('4', '6'),
+('4', '7'),
+('5','8'),
+('5','9'),
+('5','10');
+
+INSERT INTO `projetmajeure`.`device` (`orientation`, `longueur`,`hauteur`, `latitude`, `longitude`,`ville`,`type`) VALUES
+('portrait', '1256','3256', '45.7607', '4.8354', 'lyon', 'smartphone'),
+('paysage', '1256','3256', '45.749','4.8417', 'lyon', 'television'),
+('paysage', '1256' , '3256','45.782','4.8773', 'lyon', 'smartphone'),
+('paysage', '1256' , '3256','48.8594','2.3416', 'paris', 'smartphone');
+
+
+INSERT INTO `projetmajeure`.`user` ( `email`, `password`, `name`, `role`) VALUES 
+('manager1@manager.com', 'manager1', 'Manager1', '1'),
+('manager2@manager.com', 'manager2', 'Manager1', '1'),
+('manager3@manager.com', 'manager3', 'Manager1', '1');
+
+
+INSERT INTO `projetmajeure`.`screen` ( `id_manager` , `id_device` , `template`, `empty`) VALUES
+( '1' , '1', '1', '1'),
+('1','2','2','1'),
+('1','3','3','1');
