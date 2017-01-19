@@ -7,7 +7,6 @@ function commFnc($http, $q, factory, $sessionStorage){
     
         var comm = {
             loadDevicesList: loadDevicesList, 
-            loadDevice: loadDevice,
             //loadTemplate: loadTemplate,
             getScreen: getScreen,
             loadContent: loadContent
@@ -46,24 +45,6 @@ function commFnc($http, $q, factory, $sessionStorage){
             return deferred.reject(response.status);
         });
         return deferred.promise;
-    };
-
-    function loadDevice(deviceId,deviceType,deviceOrientation,deviceHauteur,deviceLongueur,deviceLongitude,deviceLatitude){
-        var device1 = {};
-        device1.id = deviceId;
-        device1.type = deviceType;
-        device1.orientation = deviceOrientation;
-        device1.hauteur = deviceHauteur;
-        device1.longueur = deviceLongueur;
-        device1.longitude = deviceLongitude;
-        device1.latitude = deviceLatitude;
-
-        var deviceMap = {};
-
-        deviceMap[device1.id] = device1;
-        var deferred = $q.defer();  
-        deferred.resolve(deviceMap);
-        return deferred.promise; 
     };
 
     return comm;

@@ -1,4 +1,4 @@
-'use strict';
+('use strict');
 
 //var DeviceModel = require("./../models/device.model.js");
 var CONFIG = require("./../../config.json");

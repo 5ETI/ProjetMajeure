@@ -11,7 +11,6 @@ angular.module('factoryService', []).factory('factory',factoryFnc);
 function factoryFnc(){
      var factory = {
         generateUUID:       generateUUID,
-        deviceCreation: deviceCreation,
         mapToArray:        mapToArray
          
      };
@@ -36,20 +35,6 @@ function factoryFnc(){
     //*********************************************//
     //************ FACTORY FUNCTIONS  *************//
     //*********************************************//
-    
-    
-     function deviceCreation(id,type,orientation,latitude,longitude,hauteur,longueur,template){
-        var device={};
-        device.id=id;
-        device.type=type;
-        device.orientation=orientation;
-        device.latitude=latitude;
-        device.longitude=longitude;
-        device.hauteur=hauteur;
-        device.longueur=longueur;
-        device.template=template;
-        return device;
-     };
     
     function mapToArray(map){
        contentArray=[];
