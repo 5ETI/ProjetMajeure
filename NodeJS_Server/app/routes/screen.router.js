@@ -184,21 +184,3 @@ var removeUnreferencedImages = function(imagesId){
 		fs.unlinkSync(curPath);
 	};
 }
-
-
-/*router.route("/screen/:id")
-.get(function(request, response) {
-	var params = request.url.split("/");
-	var id = params[2];
-	ScreenController.getScreen(id, function(err, screen){
-		if(err){
-			console.error(response.statut(500).end);
-			return response.statut(500).end;
-		}
-		else{
-			console.log(screen);
-			response.json(screen);
-		}
-
-	});
-});*/

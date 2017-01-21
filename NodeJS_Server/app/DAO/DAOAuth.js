@@ -48,7 +48,7 @@ var authentificate = function(JsonUser, resp){
         }
     );
 
-    //TODO here post request to JEE Server to check auth (param json avec login et mdp) (instead of for loop below)
+    // If no wildfly use local users
     /*for (var i = 0 ; i<users.length-1; i++){
         if (email == users[i].email && password == users[i].password) {
             console.log("email et mdp ok");
